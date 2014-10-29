@@ -12,8 +12,7 @@
 @interface BigDetailPanel : ILTranslucentView<GMSMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
-@property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (strong, nonatomic) IBOutlet UILabel *bigAddressLabel;
 @property (strong, nonatomic) IBOutlet UITextView *description;
 @property (assign, nonatomic) NSNumber *tableRowIndex;
 @property (strong, nonatomic) IBOutlet GMSMapView *smallMap;
