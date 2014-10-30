@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B13D1701A022C2600E158E2 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13D16F1A022C2600E158E2 /* ILTranslucentView.m */; };
+		7B13D1731A022C3300E158E2 /* SmallDetaiPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13D1721A022C3300E158E2 /* SmallDetaiPanel.m */; };
+		7B13D1761A022C4500E158E2 /* BigDetailPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13D1751A022C4500E158E2 /* BigDetailPanel.m */; };
 		7B5E48E319F7E358008C50B2 /* DetailInfoClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E48DE19F7E358008C50B2 /* DetailInfoClass.m */; };
 		7B5E48E519F7E358008C50B2 /* RequestsClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E48E219F7E358008C50B2 /* RequestsClass.m */; };
 		7B5E48E919F7E546008C50B2 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5E48E719F7E546008C50B2 /* Bolts.framework */; };
@@ -31,9 +34,6 @@
 		8E832E931A0103EC0062DF44 /* MapSingletone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E832E921A0103EC0062DF44 /* MapSingletone.m */; };
 		8E832E971A0113AF0062DF44 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E832E961A0113AF0062DF44 /* back.png */; };
 		8E832E991A0114EB0062DF44 /* Default@2x-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E832E981A0114EB0062DF44 /* Default@2x-568h@2x.png */; };
-		8E832EA11A01341C0062DF44 /* BigDetailPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E832E9C1A01341C0062DF44 /* BigDetailPanel.m */; };
-		8E832EA21A01341C0062DF44 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E832E9E1A01341C0062DF44 /* ILTranslucentView.m */; };
-		8E832EA31A01341C0062DF44 /* SmallDetaiPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E832EA01A01341C0062DF44 /* SmallDetaiPanel.m */; };
 		8EB8A5F119FE38E60090589C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB8A5F019FE38E60090589C /* Social.framework */; };
 		8EB8A5F719FE815E0090589C /* launch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB8A5F619FE815E0090589C /* launch2.png */; };
 		8EB8A5F919FE81BB0090589C /* smallLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB8A5F819FE81BB0090589C /* smallLaunch.png */; };
@@ -93,6 +93,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B13D16E1A022C2600E158E2 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
+		7B13D16F1A022C2600E158E2 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
+		7B13D1711A022C3300E158E2 /* SmallDetaiPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallDetaiPanel.h; sourceTree = "<group>"; };
+		7B13D1721A022C3300E158E2 /* SmallDetaiPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallDetaiPanel.m; sourceTree = "<group>"; };
+		7B13D1741A022C4500E158E2 /* BigDetailPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigDetailPanel.h; sourceTree = "<group>"; };
+		7B13D1751A022C4500E158E2 /* BigDetailPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigDetailPanel.m; sourceTree = "<group>"; };
 		7B5E48DD19F7E358008C50B2 /* DetailInfoClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoClass.h; sourceTree = "<group>"; };
 		7B5E48DE19F7E358008C50B2 /* DetailInfoClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoClass.m; sourceTree = "<group>"; };
 		7B5E48E119F7E358008C50B2 /* RequestsClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsClass.h; sourceTree = "<group>"; };
@@ -139,12 +145,6 @@
 		8E832E921A0103EC0062DF44 /* MapSingletone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapSingletone.m; sourceTree = "<group>"; };
 		8E832E961A0113AF0062DF44 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		8E832E981A0114EB0062DF44 /* Default@2x-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x-568h@2x.png"; sourceTree = "<group>"; };
-		8E832E9B1A01341C0062DF44 /* BigDetailPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BigDetailPanel.h; path = ../LvivBicycleGuide11111111/BigDetailPanel.h; sourceTree = "<group>"; };
-		8E832E9C1A01341C0062DF44 /* BigDetailPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BigDetailPanel.m; path = ../LvivBicycleGuide11111111/BigDetailPanel.m; sourceTree = "<group>"; };
-		8E832E9D1A01341C0062DF44 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILTranslucentView.h; path = ../LvivBicycleGuide11111111/ILTranslucentView.h; sourceTree = "<group>"; };
-		8E832E9E1A01341C0062DF44 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILTranslucentView.m; path = ../LvivBicycleGuide11111111/ILTranslucentView.m; sourceTree = "<group>"; };
-		8E832E9F1A01341C0062DF44 /* SmallDetaiPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SmallDetaiPanel.h; path = ../LvivBicycleGuide11111111/SmallDetaiPanel.h; sourceTree = "<group>"; };
-		8E832EA01A01341C0062DF44 /* SmallDetaiPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SmallDetaiPanel.m; path = ../LvivBicycleGuide11111111/SmallDetaiPanel.m; sourceTree = "<group>"; };
 		8EB8A5F019FE38E60090589C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8EB8A5F619FE815E0090589C /* launch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch2.png; sourceTree = "<group>"; };
 		8EB8A5F819FE81BB0090589C /* smallLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallLaunch.png; sourceTree = "<group>"; };
@@ -338,12 +338,12 @@
 		8E832E9A1A0133F10062DF44 /* DetailInfoPanel */ = {
 			isa = PBXGroup;
 			children = (
-				8E832E9B1A01341C0062DF44 /* BigDetailPanel.h */,
-				8E832E9C1A01341C0062DF44 /* BigDetailPanel.m */,
-				8E832E9F1A01341C0062DF44 /* SmallDetaiPanel.h */,
-				8E832EA01A01341C0062DF44 /* SmallDetaiPanel.m */,
-				8E832E9D1A01341C0062DF44 /* ILTranslucentView.h */,
-				8E832E9E1A01341C0062DF44 /* ILTranslucentView.m */,
+				7B13D16E1A022C2600E158E2 /* ILTranslucentView.h */,
+				7B13D16F1A022C2600E158E2 /* ILTranslucentView.m */,
+				7B13D1711A022C3300E158E2 /* SmallDetaiPanel.h */,
+				7B13D1721A022C3300E158E2 /* SmallDetaiPanel.m */,
+				7B13D1741A022C4500E158E2 /* BigDetailPanel.h */,
+				7B13D1751A022C4500E158E2 /* BigDetailPanel.m */,
 			);
 			name = DetailInfoPanel;
 			sourceTree = "<group>";
@@ -636,20 +636,20 @@
 				8EEFF84819FA61940047039A /* SlideMenuViewController.m in Sources */,
 				8E4AEF4D19FFB5330092139A /* GStaticCluster.m in Sources */,
 				A5605ECB19F11D890043C133 /* MapViewController.m in Sources */,
+				7B13D1761A022C4500E158E2 /* BigDetailPanel.m in Sources */,
 				A5605EC519F11D890043C133 /* AppDelegate.m in Sources */,
 				8E4AEF5C19FFB7E10092139A /* SNSFacebook.m in Sources */,
-				8E832EA21A01341C0062DF44 /* ILTranslucentView.m in Sources */,
 				8E4AEF5619FFB5BB0092139A /* Spot.m in Sources */,
 				8E4AEF5319FFB5330092139A /* GDefaultClusterRenderer.m in Sources */,
 				8E4AEF4C19FFB5330092139A /* GQuadItem.m in Sources */,
+				7B13D1731A022C3300E158E2 /* SmallDetaiPanel.m in Sources */,
 				8EEFF8A119FAA3DC0047039A /* TableViewCell.m in Sources */,
-				8E832EA11A01341C0062DF44 /* BigDetailPanel.m in Sources */,
 				A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */,
 				7B5E48E519F7E358008C50B2 /* RequestsClass.m in Sources */,
 				8E4AEF5219FFB5330092139A /* GQTPointQuadTreeChild.m in Sources */,
 				A5605EC119F11D890043C133 /* main.m in Sources */,
+				7B13D1701A022C2600E158E2 /* ILTranslucentView.m in Sources */,
 				8E4AEF4E19FFB5330092139A /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
-				8E832EA31A01341C0062DF44 /* SmallDetaiPanel.m in Sources */,
 				A5C6797E19F154DB00888C51 /* TableViewController.m in Sources */,
 				8EEFF84519FA56000047039A /* SWRevealViewController.m in Sources */,
 				8E832E931A0103EC0062DF44 /* MapSingletone.m in Sources */,
