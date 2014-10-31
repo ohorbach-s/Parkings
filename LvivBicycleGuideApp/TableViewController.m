@@ -30,6 +30,7 @@ extern GMSMarker *myMarker;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     storage = [StorageClass sharedManager];
     mapSingletone = [MapSingletone sharedManager];
     menuObject = [[SlideMenuViewController alloc] init];

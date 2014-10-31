@@ -37,7 +37,7 @@ extern NSString *iconOfSelectedMarker;
         }
         else {
 
-            marker.icon = [UIImage imageNamed:iconOfSelectedMarker];//[GMSMarker markerImageWithColor:[UIColor greenColor]];
+            marker.icon = [UIImage imageNamed:iconOfSelectedMarker];
         }
         marker.position = cluster.position;
         marker.map = _map;

@@ -17,6 +17,7 @@ static NSInteger indexOfCategory;
     StorageClass *storage;
     RequestsClass *requestToDisplay;
     MapSingletone *mapSingletone;
+    double currentScreenSize;
 }
 
 @end
@@ -34,7 +35,9 @@ static NSInteger indexOfCategory;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     storage = [StorageClass sharedManager];
+    [self checkingScreenSize];
     mapSingletone = [MapSingletone sharedManager];
     requestToDisplay = [[RequestsClass alloc] init];
     _selectedCategoryOfDisplayedObjects = @"Parking";
@@ -42,9 +45,18 @@ static NSInteger indexOfCategory;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 140.0;
+{ if (currentScreenSize==480.00) {
+    
+    return 110;
 }
+else
+    
+    return 140;
+
+}
+
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -66,8 +78,10 @@ static NSInteger indexOfCategory;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   // self.tableView.autoresizingMask=UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     NSString *CellIdentifier = [storage.pickerData2 objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
     return cell;
 }
 
@@ -100,5 +114,15 @@ static NSInteger indexOfCategory;
     UIGraphicsEndImageContext();
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
+-(void)checkingScreenSize;
+{
+    CGRect screenBounds=[[UIScreen mainScreen]bounds];
+    CGSize screenSiz = screenBounds.size;
+    double iphone3=480.00;
+    if (iphone3==screenSiz.height) {
+        currentScreenSize=screenSiz.height;
+    }
+}
+
 
 @end

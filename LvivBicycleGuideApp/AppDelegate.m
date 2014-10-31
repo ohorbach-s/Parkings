@@ -34,7 +34,7 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
     return YES;
-}
+    }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
