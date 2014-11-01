@@ -8,28 +8,33 @@
 
 #import "DetailInfoClass.h"
 
-extern NSArray *foundObjects;
+@interface DetailInfoClass () {
+
+}
+
+@end
+
 @implementation DetailInfoClass
 
 
--(void)setDetailInfoForTappedMarker: (CLLocationCoordinate2D) position
-{
-
-    for (PFObject *object in foundObjects) {
-        if (([object[@"longitude"] floatValue] == position.latitude) && ([object[@"latitude"] floatValue] == position.longitude)) {
-            
-            _name = object[@"name"];
-            _address = object[@"address"];
-            _longtitude = object[@"longitude"];
-            _latitude = object[@"latitude"];
-            _workTime = object[@"workTime"];
-            _phone = object[@"phone"];
-            _homePage = object[@"homePage"];
-            _description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", object[@"description"], object[@"workTime"], object[@"phone"], object[@"homePage"]];
-            _type = object[@"type"];
-        }
-    }
-}
+//-(void)setDetailInfoForTappedMarker: (CLLocationCoordinate2D) position
+//{
+//
+//    for (PFObject *object in dataModel.foundObjects) {
+//        if (([object[@"longitude"] floatValue] == position.latitude) && ([object[@"latitude"] floatValue] == position.longitude)) {
+//            
+//            _name = object[@"name"];
+//            _address = object[@"address"];
+//            _longtitude = object[@"longitude"];
+//            _latitude = object[@"latitude"];
+//            _workTime = object[@"workTime"];
+//            _phone = object[@"phone"];
+//            _homePage = object[@"homePage"];
+//            _description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", object[@"description"], object[@"workTime"], object[@"phone"], object[@"homePage"]];
+//            _type = object[@"type"];
+//        }
+//    }
+//}
 
 -(void)setDetailInfoForTappedRow: (PFObject*) chosenPlace
 {
@@ -44,5 +49,23 @@ extern NSArray *foundObjects;
     _type = chosenPlace[@"type"];
 
 }
+
+//-(void)setObservingForTappedMarker {
+//        [controller addObserver:self forKeyPath:@"markerPosition"
+//                                                             options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    
+//}
+//
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+//                       change:(NSDictionary *)change context:(void *)context {
+//       if ([keyPath isEqualToString:@"markerPosition"]) {
+//           [self setDetailInfoForTappedMarker:[object markerPosition]];
+//           [[NSNotificationCenter defaultCenter] postNotificationName:@"renewDataOfSubview"object:nil];
+//
+//           
+//    }
+//    
+//}
+
 
 @end

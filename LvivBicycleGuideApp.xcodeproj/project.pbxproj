@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B13D1701A022C2600E158E2 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13D16F1A022C2600E158E2 /* ILTranslucentView.m */; };
-		7B13D1731A022C3300E158E2 /* SmallDetaiPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13D1721A022C3300E158E2 /* SmallDetaiPanel.m */; };
-		7B13D1761A022C4500E158E2 /* BigDetailPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13D1751A022C4500E158E2 /* BigDetailPanel.m */; };
 		7B5E48E319F7E358008C50B2 /* DetailInfoClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E48DE19F7E358008C50B2 /* DetailInfoClass.m */; };
 		7B5E48E519F7E358008C50B2 /* RequestsClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E48E219F7E358008C50B2 /* RequestsClass.m */; };
 		7B5E48E919F7E546008C50B2 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5E48E719F7E546008C50B2 /* Bolts.framework */; };
 		7B5E48EA19F7E546008C50B2 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5E48E819F7E546008C50B2 /* Parse.framework */; };
+		840773D21A02805A00231C1F /* BigDetailPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 840773CD1A02805A00231C1F /* BigDetailPanel.m */; };
+		840773D31A02805A00231C1F /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840773CF1A02805A00231C1F /* ILTranslucentView.m */; };
+		840773D41A02805A00231C1F /* SmallDetaiPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 840773D11A02805A00231C1F /* SmallDetaiPanel.m */; };
 		84A99A0019F255790014B3D3 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A999FF19F255790014B3D3 /* GoogleMaps.framework */; };
 		84A99A0419F2615A0014B3D3 /* earth-america-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A99A0319F2615A0014B3D3 /* earth-america-7.png */; };
 		84A99A0619F2621C0014B3D3 /* list-fat-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A99A0519F2621B0014B3D3 /* list-fat-7.png */; };
 		84AC786019F24A3600EF4AD3 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84AC785F19F24A3600EF4AD3 /* GoogleMaps.bundle */; };
+		8E22D59B1A03D37200F3344A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E22D59A1A03D37200F3344A /* Accelerate.framework */; };
 		8E4AEF2E19FFB2BA0092139A /* route6-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E4AEF2D19FFB2BA0092139A /* route6-1.png */; };
 		8E4AEF4C19FFB5330092139A /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF3419FFB5330092139A /* GQuadItem.m */; };
 		8E4AEF4D19FFB5330092139A /* GStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF3619FFB5330092139A /* GStaticCluster.m */; };
@@ -30,7 +31,8 @@
 		8E4AEF5619FFB5BB0092139A /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5519FFB5BB0092139A /* Spot.m */; };
 		8E4AEF5C19FFB7E10092139A /* SNSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5919FFB7E10092139A /* SNSFacebook.m */; };
 		8E4AEF5D19FFB7E10092139A /* SNSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5B19FFB7E10092139A /* SNSTwitter.m */; };
-		8E4AEF6319FFF7C00092139A /* StorageClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF6219FFF7C00092139A /* StorageClass.m */; };
+		8E4AEF6319FFF7C00092139A /* PlaceCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF6219FFF7C00092139A /* PlaceCategory.m */; };
+		8E5D9E691A028D2000D00277 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D9E681A028D2000D00277 /* DataModel.m */; };
 		8E832E931A0103EC0062DF44 /* MapSingletone.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E832E921A0103EC0062DF44 /* MapSingletone.m */; };
 		8E832E971A0113AF0062DF44 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E832E961A0113AF0062DF44 /* back.png */; };
 		8E832E991A0114EB0062DF44 /* Default@2x-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E832E981A0114EB0062DF44 /* Default@2x-568h@2x.png */; };
@@ -79,6 +81,7 @@
 		A5605F0219F132BD0043C133 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5605F0119F132BD0043C133 /* QuartzCore.framework */; };
 		A5605F0419F133160043C133 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5605F0319F133160043C133 /* SystemConfiguration.framework */; };
 		A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = A598C6FE19F560C300551A0C /* DirectionAndDistance.m */; };
+		A5C0F8CD1A03F46D0081E1DC /* RNFrostedSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C0F8CC1A03F46D0081E1DC /* RNFrostedSidebar.m */; };
 		A5C6797E19F154DB00888C51 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6797D19F154DB00888C51 /* TableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -93,22 +96,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7B13D16E1A022C2600E158E2 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
-		7B13D16F1A022C2600E158E2 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
-		7B13D1711A022C3300E158E2 /* SmallDetaiPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallDetaiPanel.h; sourceTree = "<group>"; };
-		7B13D1721A022C3300E158E2 /* SmallDetaiPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallDetaiPanel.m; sourceTree = "<group>"; };
-		7B13D1741A022C4500E158E2 /* BigDetailPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigDetailPanel.h; sourceTree = "<group>"; };
-		7B13D1751A022C4500E158E2 /* BigDetailPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigDetailPanel.m; sourceTree = "<group>"; };
 		7B5E48DD19F7E358008C50B2 /* DetailInfoClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoClass.h; sourceTree = "<group>"; };
 		7B5E48DE19F7E358008C50B2 /* DetailInfoClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoClass.m; sourceTree = "<group>"; };
 		7B5E48E119F7E358008C50B2 /* RequestsClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsClass.h; sourceTree = "<group>"; };
 		7B5E48E219F7E358008C50B2 /* RequestsClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsClass.m; sourceTree = "<group>"; };
 		7B5E48E719F7E546008C50B2 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		7B5E48E819F7E546008C50B2 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		840773CC1A02805A00231C1F /* BigDetailPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigDetailPanel.h; sourceTree = "<group>"; };
+		840773CD1A02805A00231C1F /* BigDetailPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigDetailPanel.m; sourceTree = "<group>"; };
+		840773CE1A02805A00231C1F /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
+		840773CF1A02805A00231C1F /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
+		840773D01A02805A00231C1F /* SmallDetaiPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallDetaiPanel.h; sourceTree = "<group>"; };
+		840773D11A02805A00231C1F /* SmallDetaiPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallDetaiPanel.m; sourceTree = "<group>"; };
 		84A999FF19F255790014B3D3 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "GoogleMaps-iOS-1.8.1/GoogleMaps.framework"; sourceTree = "<group>"; };
 		84A99A0319F2615A0014B3D3 /* earth-america-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "earth-america-7.png"; sourceTree = "<group>"; };
 		84A99A0519F2621B0014B3D3 /* list-fat-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-fat-7.png"; sourceTree = "<group>"; };
 		84AC785F19F24A3600EF4AD3 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "GoogleMaps-iOS-1.8.1/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		8E22D59A1A03D37200F3344A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8E4AEF2D19FFB2BA0092139A /* route6-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "route6-1.png"; sourceTree = "<group>"; };
 		8E4AEF3219FFB5330092139A /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
 		8E4AEF3319FFB5330092139A /* GQuadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQuadItem.h; sourceTree = "<group>"; };
@@ -139,8 +143,10 @@
 		8E4AEF5919FFB7E10092139A /* SNSFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSFacebook.m; sourceTree = "<group>"; };
 		8E4AEF5A19FFB7E10092139A /* SNSTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSTwitter.h; sourceTree = "<group>"; };
 		8E4AEF5B19FFB7E10092139A /* SNSTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSTwitter.m; sourceTree = "<group>"; };
-		8E4AEF6119FFF7C00092139A /* StorageClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageClass.h; sourceTree = "<group>"; };
-		8E4AEF6219FFF7C00092139A /* StorageClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageClass.m; sourceTree = "<group>"; };
+		8E4AEF6119FFF7C00092139A /* PlaceCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCategory.h; sourceTree = "<group>"; };
+		8E4AEF6219FFF7C00092139A /* PlaceCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceCategory.m; sourceTree = "<group>"; };
+		8E5D9E671A028D2000D00277 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		8E5D9E681A028D2000D00277 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
 		8E832E911A0103EC0062DF44 /* MapSingletone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSingletone.h; sourceTree = "<group>"; };
 		8E832E921A0103EC0062DF44 /* MapSingletone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapSingletone.m; sourceTree = "<group>"; };
 		8E832E961A0113AF0062DF44 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -175,7 +181,7 @@
 		A5605EC019F11D890043C133 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5605EC219F11D890043C133 /* LvivBicycleGuideApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LvivBicycleGuideApp-Prefix.pch"; sourceTree = "<group>"; };
 		A5605EC319F11D890043C133 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A5605EC419F11D890043C133 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; wrapsLines = 1; };
+		A5605EC419F11D890043C133 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A5605EC719F11D890043C133 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A5605EC919F11D890043C133 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		A5605ECA19F11D890043C133 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
@@ -199,6 +205,8 @@
 		A5605F0319F133160043C133 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A598C6FD19F560C300551A0C /* DirectionAndDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionAndDistance.h; sourceTree = "<group>"; };
 		A598C6FE19F560C300551A0C /* DirectionAndDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionAndDistance.m; sourceTree = "<group>"; };
+		A5C0F8CB1A03F46D0081E1DC /* RNFrostedSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFrostedSidebar.h; sourceTree = SOURCE_ROOT; };
+		A5C0F8CC1A03F46D0081E1DC /* RNFrostedSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFrostedSidebar.m; sourceTree = SOURCE_ROOT; };
 		A5C6797C19F154DB00888C51 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		A5C6797D19F154DB00888C51 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E22D59B1A03D37200F3344A /* Accelerate.framework in Frameworks */,
 				8EB8A5F119FE38E60090589C /* Social.framework in Frameworks */,
 				A5605F0419F133160043C133 /* SystemConfiguration.framework in Frameworks */,
 				A5605F0219F132BD0043C133 /* QuartzCore.framework in Frameworks */,
@@ -338,12 +347,12 @@
 		8E832E9A1A0133F10062DF44 /* DetailInfoPanel */ = {
 			isa = PBXGroup;
 			children = (
-				7B13D16E1A022C2600E158E2 /* ILTranslucentView.h */,
-				7B13D16F1A022C2600E158E2 /* ILTranslucentView.m */,
-				7B13D1711A022C3300E158E2 /* SmallDetaiPanel.h */,
-				7B13D1721A022C3300E158E2 /* SmallDetaiPanel.m */,
-				7B13D1741A022C4500E158E2 /* BigDetailPanel.h */,
-				7B13D1751A022C4500E158E2 /* BigDetailPanel.m */,
+				840773CC1A02805A00231C1F /* BigDetailPanel.h */,
+				840773CD1A02805A00231C1F /* BigDetailPanel.m */,
+				840773CE1A02805A00231C1F /* ILTranslucentView.h */,
+				840773CF1A02805A00231C1F /* ILTranslucentView.m */,
+				840773D01A02805A00231C1F /* SmallDetaiPanel.h */,
+				840773D11A02805A00231C1F /* SmallDetaiPanel.m */,
 			);
 			name = DetailInfoPanel;
 			sourceTree = "<group>";
@@ -391,6 +400,7 @@
 		A5605EB319F11D890043C133 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E22D59A1A03D37200F3344A /* Accelerate.framework */,
 				8EB8A5F019FE38E60090589C /* Social.framework */,
 				7B5E48E619F7E546008C50B2 /* parse-library-1 */,
 				84A999FF19F255790014B3D3 /* GoogleMaps.framework */,
@@ -428,8 +438,8 @@
 				A5C6797D19F154DB00888C51 /* TableViewController.m */,
 				7B5E48DD19F7E358008C50B2 /* DetailInfoClass.h */,
 				7B5E48DE19F7E358008C50B2 /* DetailInfoClass.m */,
-				8E4AEF6119FFF7C00092139A /* StorageClass.h */,
-				8E4AEF6219FFF7C00092139A /* StorageClass.m */,
+				8E4AEF6119FFF7C00092139A /* PlaceCategory.h */,
+				8E4AEF6219FFF7C00092139A /* PlaceCategory.m */,
 				7B5E48E119F7E358008C50B2 /* RequestsClass.h */,
 				7B5E48E219F7E358008C50B2 /* RequestsClass.m */,
 				A598C6FD19F560C300551A0C /* DirectionAndDistance.h */,
@@ -438,10 +448,14 @@
 				8EEFF84719FA61940047039A /* SlideMenuViewController.m */,
 				8EEFF89F19FAA3DC0047039A /* TableViewCell.h */,
 				8EEFF8A019FAA3DC0047039A /* TableViewCell.m */,
+				A5C0F8CB1A03F46D0081E1DC /* RNFrostedSidebar.h */,
+				A5C0F8CC1A03F46D0081E1DC /* RNFrostedSidebar.m */,
 				A5605ECC19F11D890043C133 /* Images.xcassets */,
 				A5605EBB19F11D890043C133 /* Supporting Files */,
 				8E832E911A0103EC0062DF44 /* MapSingletone.h */,
 				8E832E921A0103EC0062DF44 /* MapSingletone.m */,
+				8E5D9E671A028D2000D00277 /* DataModel.h */,
+				8E5D9E681A028D2000D00277 /* DataModel.m */,
 			);
 			path = LvivBicycleGuideApp;
 			sourceTree = "<group>";
@@ -627,28 +641,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840773D21A02805A00231C1F /* BigDetailPanel.m in Sources */,
 				8E4AEF5119FFB5330092139A /* GQTPointQuadTree.m in Sources */,
 				8E4AEF4F19FFB5330092139A /* GClusterManager.m in Sources */,
 				7B5E48E319F7E358008C50B2 /* DetailInfoClass.m in Sources */,
 				8E4AEF5019FFB5330092139A /* SphericalMercatorProjection.m in Sources */,
-				8E4AEF6319FFF7C00092139A /* StorageClass.m in Sources */,
+				8E4AEF6319FFF7C00092139A /* PlaceCategory.m in Sources */,
 				8E4AEF5D19FFB7E10092139A /* SNSTwitter.m in Sources */,
 				8EEFF84819FA61940047039A /* SlideMenuViewController.m in Sources */,
 				8E4AEF4D19FFB5330092139A /* GStaticCluster.m in Sources */,
 				A5605ECB19F11D890043C133 /* MapViewController.m in Sources */,
-				7B13D1761A022C4500E158E2 /* BigDetailPanel.m in Sources */,
+				840773D41A02805A00231C1F /* SmallDetaiPanel.m in Sources */,
+				8E5D9E691A028D2000D00277 /* DataModel.m in Sources */,
 				A5605EC519F11D890043C133 /* AppDelegate.m in Sources */,
 				8E4AEF5C19FFB7E10092139A /* SNSFacebook.m in Sources */,
 				8E4AEF5619FFB5BB0092139A /* Spot.m in Sources */,
 				8E4AEF5319FFB5330092139A /* GDefaultClusterRenderer.m in Sources */,
 				8E4AEF4C19FFB5330092139A /* GQuadItem.m in Sources */,
-				7B13D1731A022C3300E158E2 /* SmallDetaiPanel.m in Sources */,
 				8EEFF8A119FAA3DC0047039A /* TableViewCell.m in Sources */,
+				A5C0F8CD1A03F46D0081E1DC /* RNFrostedSidebar.m in Sources */,
 				A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */,
+				840773D31A02805A00231C1F /* ILTranslucentView.m in Sources */,
 				7B5E48E519F7E358008C50B2 /* RequestsClass.m in Sources */,
 				8E4AEF5219FFB5330092139A /* GQTPointQuadTreeChild.m in Sources */,
 				A5605EC119F11D890043C133 /* main.m in Sources */,
-				7B13D1701A022C2600E158E2 /* ILTranslucentView.m in Sources */,
 				8E4AEF4E19FFB5330092139A /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				A5C6797E19F154DB00888C51 /* TableViewController.m in Sources */,
 				8EEFF84519FA56000047039A /* SWRevealViewController.m in Sources */,
@@ -777,6 +793,7 @@
 		A5605EE419F11D890043C133 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -796,6 +813,7 @@
 		A5605EE519F11D890043C133 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

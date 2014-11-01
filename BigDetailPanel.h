@@ -7,6 +7,7 @@
 //
 
 #import "ILTranslucentView.h"
+#import "DetailInfoClass.h"
 
 
 @interface BigDetailPanel : ILTranslucentView<GMSMapViewDelegate>
@@ -16,6 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *description;
 @property (assign, nonatomic) NSNumber *tableRowIndex;
 @property (strong, nonatomic) IBOutlet GMSMapView *smallMap;
-
--(void)setDataOfWindow;
+-(void)register;
+-(void)setDataOfWindow : (DetailInfoClass*) infoForMarker;
 @end

@@ -12,7 +12,7 @@
 #import "Spot.h"
 #import "GClusterManager.h"
 
-extern GClusterManager *clusterManager;
+//extern GClusterManager *clusterManager;
 NSArray *foundObjects;
 NSMutableArray *filteredObjects;
 
@@ -39,16 +39,16 @@ NSMutableArray *filteredObjects;
             [filteredObjects addObject:object];
             position = CLLocationCoordinate2DMake([object [@"latitude"] floatValue], [object [@"longitude"] floatValue]);
             spot = [[Spot alloc] initWithPosition:position];
-            [clusterManager addItem:spot];
-            [clusterManager cluster];
+           // [clusterManager addItem:spot];
+           // [clusterManager cluster];
         }
     }
 }
 
 -(void)cleanMarkersFromMap:(NSString*)category
 {
-    [clusterManager removeItems];
-    [filteredObjects removeAllObjects];
+//    [clusterManager removeItems];
+//    [filteredObjects removeAllObjects];
 }
 
 

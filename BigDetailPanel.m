@@ -9,7 +9,7 @@
 #import "BigDetailPanel.h"
 #import "SNSFacebook.h"
 #import "SNSTwitter.h"
-#import "StorageClass.h"
+#import "PlaceCategory.h"
 #import "SlideMenuViewController.h"
 
 @interface BigDetailPanel ()
@@ -17,7 +17,7 @@
     SLComposeViewController *composeController;
     GMSMarker *markerToParticularObject;
     CLLocationCoordinate2D particularPosition;
-    StorageClass *storage;
+    PlaceCategory *storage;
     NSInteger indexOfCategory;
     SlideMenuViewController *menu;
 }
@@ -38,28 +38,29 @@
 
 - (IBAction)Twitter:(id)sender
 {
-    SNSTwitter *twitter =[[SNSTwitter alloc]init];
-    [twitter shareTwitter:storage.detailInfoForObject];
+//    SNSTwitter *twitter =[[SNSTwitter alloc]init];
+//    [twitter shareTwitter:storage.detailInfoForObject];
 }
 - (IBAction)facebook:(id)sender
 {
-    SNSFacebook *facebook=[[SNSFacebook alloc]init];
-    [facebook shareFacebook:storage.detailInfoForObject];
+//    SNSFacebook *facebook=[[SNSFacebook alloc]init];
+//    [facebook shareFacebook:storage.detailInfoForObject];
 }
 
 
--(void)setDataOfWindow {
+
+-(void)setDataOfWindow : (DetailInfoClass*) infoForMarker {
     menu = [[SlideMenuViewController alloc] init];
     composeController =[[SLComposeViewController alloc]init];
-    storage = [StorageClass sharedManager];
+    storage = [PlaceCategory sharedManager];
     [self.smallMap.settings setAllGesturesEnabled:NO];
     [menu setIndexValueWithCompletion:^(NSInteger index) {
         indexOfCategory = index;
            }];
-    self.nameLabel.text = storage.detailInfoForObject.name;
-    self.bigAddressLabel.text = storage.detailInfoForObject.address;
-    self.description.text = storage.detailInfoForObject.description;
-    particularPosition = CLLocationCoordinate2DMake([storage.detailInfoForObject.latitude floatValue], [storage.detailInfoForObject.longtitude floatValue]);
+    self.nameLabel.text = infoForMarker.name;
+  self.bigAddressLabel.text = infoForMarker.address;
+    self.description.text = infoForMarker.description;
+    particularPosition = CLLocationCoordinate2DMake([infoForMarker.latitude floatValue], [infoForMarker.longtitude floatValue]);
     markerToParticularObject = [GMSMarker markerWithPosition:particularPosition];
     markerToParticularObject.icon = [UIImage imageNamed:storage.markersImages[indexOfCategory]];
 

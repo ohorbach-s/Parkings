@@ -8,14 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "SWRevealViewController.h"
-#import "StorageClass.h"
+#import "PlaceCategory.h"
 #import "MapSingletone.h"
+//#import "DataModel.h"
+
+@protocol MenuPassDelegate <NSObject>
+    
+-(void)setCategoryValue :(NSString*)value;
+
+
+@end
 
 @interface SlideMenuViewController : UITableViewController
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic)NSString *selectedCategoryOfDisplayedObjects;
-
+@property (weak, nonatomic)id<MenuPassDelegate>delegate;
 -(void)setIndexValueWithCompletion :(void(^)(NSInteger))completion;
-
+-(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion;
 @end

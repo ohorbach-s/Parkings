@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "MapViewController.h"
+#import "DataModel.h"
 
 @interface DetailInfoClass : NSObject
 
@@ -20,8 +22,5 @@
 @property (nonatomic, strong) NSString *homePage;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *type;
-
--(void)setDetailInfoForTappedMarker: (CLLocationCoordinate2D) position;
--(void)setDetailInfoForTappedRow: (PFObject*) chosenPlace;
 
 @end

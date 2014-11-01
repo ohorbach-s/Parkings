@@ -11,7 +11,7 @@
 #import "TableViewCell.h"
 
 #import "DirectionAndDistance.h"
-#import "StorageClass.h"
+#import "PlaceCategory.h"
 
 
 extern NSMutableArray *filteredObjects;
@@ -19,7 +19,7 @@ extern NSString *iconOfSelectedMarker;
 extern GMSMarker *myMarker;
 
 @interface TableViewController () {
-    StorageClass *storage;
+    PlaceCategory *storage;
     SlideMenuViewController *menuObject;
     MapSingletone *mapSingletone;
 }
@@ -30,8 +30,7 @@ extern GMSMarker *myMarker;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    storage = [StorageClass sharedManager];
+    storage = [PlaceCategory sharedManager];
     mapSingletone = [MapSingletone sharedManager];
     menuObject = [[SlideMenuViewController alloc] init];
     [self setAppearance];
@@ -68,7 +67,7 @@ extern GMSMarker *myMarker;
 {
     [_places reloadData];
     [menuObject setIndexValueWithCompletion:^(NSInteger indexValue){
-        self.navigationController.navigationBar.topItem.title = storage.pickerData[indexValue];
+        self.navigationController.navigationBar.topItem.title = storage.categoryNamesArray[indexValue];
     }];
 }
 #pragma mark - Table view data source
@@ -122,8 +121,8 @@ extern GMSMarker *myMarker;
 
 - (IBAction)pressInfoButton:(UIButton *)sender
 {
-    [storage.detailInfoForObject setDetailInfoForTappedRow:[filteredObjects objectAtIndex:[sender tag]]];
-    [_bigDetailPanel setDataOfWindow];
+    //[storage.detailInfoForObject setDetailInfoForTappedRow:[filteredObjects objectAtIndex:[sender tag]]];
+   // [_bigDetailPanel setDataOfWindow];
     [_bigDetailPanel setHidden:NO];
 }
 

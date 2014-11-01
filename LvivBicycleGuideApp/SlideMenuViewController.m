@@ -7,17 +7,16 @@
 //
 
 #import "SlideMenuViewController.h"
-#import "RequestsClass.h"
+//#import "RequestsClass.h"
 #import <GoogleMaps/GoogleMaps.h>
 
 extern NSString *iconOfSelectedMarker;
 static NSInteger indexOfCategory;
 
 @interface SlideMenuViewController () {
-    StorageClass *storage;
-    RequestsClass *requestToDisplay;
+    PlaceCategory *storage;
+ //   RequestsClass *requestToDisplay;
     MapSingletone *mapSingletone;
-    double currentScreenSize;
 }
 
 @end
@@ -35,28 +34,17 @@ static NSInteger indexOfCategory;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    storage = [StorageClass sharedManager];
-    [self checkingScreenSize];
+    storage = [PlaceCategory sharedManager];
     mapSingletone = [MapSingletone sharedManager];
-    requestToDisplay = [[RequestsClass alloc] init];
-    _selectedCategoryOfDisplayedObjects = @"Parking";
+  //  requestToDisplay = [[RequestsClass alloc] init];
+    //_selectedCategoryOfDisplayedObjects = @"Parking";
     [self setAppearance];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{ if (currentScreenSize==480.00) {
-    
-    return 110;
+{
+    return 140.0;
 }
-else
-    
-    return 140;
-
-}
-
-
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -72,16 +60,14 @@ else
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [storage.pickerData2 count];
+    return [storage.categoryNamesArray count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   // self.tableView.autoresizingMask=UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    NSString *CellIdentifier = [storage.pickerData2 objectAtIndex:indexPath.row];
+    NSString *CellIdentifier = [storage.categoryNamesArray objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     return cell;
 }
 
@@ -90,18 +76,29 @@ else
     completion(indexOfCategory);
 }
 
+-(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion
+{
+    comletion(_selectedCategoryOfDisplayedObjects);
+}
+                                             
+                                            
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_selectedCategoryOfDisplayedObjects) {
-        [requestToDisplay cleanMarkersFromMap:_selectedCategoryOfDisplayedObjects];
+   //     [requestToDisplay cleanMarkersFromMap:_selectedCategoryOfDisplayedObjects];
     }
-    _selectedCategoryOfDisplayedObjects = storage.pickerData2 [indexPath.row];
+    _selectedCategoryOfDisplayedObjects = storage.categoryNamesArray [indexPath.row];
+    [self.delegate setCategoryValue:_selectedCategoryOfDisplayedObjects];
+
     iconOfSelectedMarker = storage.markersImages[indexPath.row];
     indexOfCategory = indexPath.row;
-    [requestToDisplay displayObjectsMarkers:_selectedCategoryOfDisplayedObjects :iconOfSelectedMarker];
+     [self.revealViewController revealToggle:self];
+    //  [requestToDisplay displayObjectsMarkers:_selectedCategoryOfDisplayedObjects :iconOfSelectedMarker];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableView" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setSelectedCategory" object:nil];
-    [self.revealViewController revealToggle:self];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"performFilterRenew"object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapRenew"object:nil];
+   
     mapSingletone.polyline.map = nil;
     mapSingletone.polyline = nil;
 }
@@ -114,15 +111,5 @@ else
     UIGraphicsEndImageContext();
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
--(void)checkingScreenSize;
-{
-    CGRect screenBounds=[[UIScreen mainScreen]bounds];
-    CGSize screenSiz = screenBounds.size;
-    double iphone3=480.00;
-    if (iphone3==screenSiz.height) {
-        currentScreenSize=screenSiz.height;
-    }
-}
-
 
 @end
