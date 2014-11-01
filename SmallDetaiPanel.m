@@ -41,19 +41,39 @@ extern GMSMarker *myMarker;
 
 
 - (IBAction)pressRouteButton:(id)sender {
-    mapSingletone = [MapSingletone sharedManager];
-    DirectionAndDistance *findTheDirection = [[DirectionAndDistance alloc] init];
-    [findTheDirection buildTheRouteAndSetTheDistance:longitude :latitude :^(NSString* theDistance) {
-        self.distanceLabel.text = theDistance;
-        [mapSingletone.waypoints_ removeObject:[mapSingletone.waypoints_ lastObject]];
-        [mapSingletone.waypointStrings_ removeObject:[mapSingletone.waypointStrings_ lastObject]];
-        CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(latitude,longitude);
+    static int trackTapps;
+    if (trackTapps == 0) {
+        mapSingletone = [MapSingletone sharedManager];
+        [UIView animateWithDuration:1
+                         animations:^{
+                         }
+                         completion:^(BOOL finished) {
+                             _routeButton.highlighted = true;
+                             _routeButton.selected = true;
+                         }
+         ];
+        trackTapps ++;
+        DirectionAndDistance *findTheDirection = [[DirectionAndDistance alloc] init];
+        [findTheDirection buildTheRouteAndSetTheDistance:longitude :latitude :^(NSString* theDistance) {
+            self.distanceLabel.text = theDistance;
+            [mapSingletone.waypoints_ removeObject:[mapSingletone.waypoints_ lastObject]];
+            [mapSingletone.waypointStrings_ removeObject:[mapSingletone.waypointStrings_ lastObject]];
+            CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(latitude,longitude);
+            
+            GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
+            bounds = [bounds includingCoordinate:myMarker.position];
+            bounds = [bounds includingCoordinate:boundLocation];
+            [mapSingletone.mapView_ animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
+        }];
+    } else {
+        trackTapps--;
+        mapSingletone.polyline.map = nil;
+        mapSingletone.polyline = nil;
         
-        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
-        bounds = [bounds includingCoordinate:myMarker.position];
-        bounds = [bounds includingCoordinate:boundLocation];
-        [mapSingletone.mapView_ animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
-    }];
+        _routeButton.highlighted = false;
+        _routeButton.selected = false;
+    }
+    
 }
 
 @end

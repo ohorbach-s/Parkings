@@ -9,7 +9,7 @@
 #import "DirectionAndDistance.h"
 #import "MapViewController.h"
 
- NSString *distanceToTappedMarker;
+
 
 @interface DirectionAndDistance () <GMSMapViewDelegate, CLLocationManagerDelegate> {
     BOOL _sensor;
@@ -17,10 +17,31 @@
     NSURL *_directionsURL;
     NSDictionary *query;
     MapSingletone *mapSingletone;
+    NSString *distanceToTappedMarker;
 }
 @end
 
 @implementation DirectionAndDistance
+
+
++ (id)sharedManager {
+    static DirectionAndDistance *sharedDistanceManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedDistanceManager = [[DirectionAndDistance alloc] init];
+        
+    });
+    
+    return sharedDistanceManager;
+}
+- (id)init {
+    
+    if (self = [super init]) {
+       
+    }
+    return self;
+}
+
 
 -(void)buildTheRouteAndSetTheDistance :(float)tappedMarkerLongtitude :(float)tappedMarkerLatitude :(void(^)(NSString*))completion {
     mapSingletone = [MapSingletone sharedManager];

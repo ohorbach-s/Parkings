@@ -13,10 +13,8 @@
 
 @interface DirectionAndDistance : NSObject
 
-@property (nonatomic,strong) NSString *distanceToView;
-
 -(void)buildTheRouteAndSetTheDistance :(float)tappedMarkerLongtitude :(float)tappedMarkerLatitude :(void(^)(NSString*))completion ;
 - (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection :(void(^)(NSString*))completion2 ;
 - (void)retrieveDirectionsWithCompletionHandler :(void(^)(NSDictionary* ))completionHandler;
-
++ (id)sharedManager;
 @end

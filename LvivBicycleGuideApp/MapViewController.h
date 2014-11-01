@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <CoreLocation/CoreLocation.h>
-#import "RNFrostedSidebar.h"
 //#import "DetailInfoClass.h"
 ////#import "RequestsClass.h"
 #import <Parse/Parse.h>
@@ -28,12 +27,17 @@
 
 
 
-@interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate, RNFrostedSidebarDelegate>
+@interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic,strong) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UINavigationItem *menuButton;
 @property (unsafe_unretained, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet SmallDetaiPanel *detailSubviewObject;
 @property (weak, nonatomic) IBOutlet BigDetailPanel *bigDetailPanel;
+@property (strong,nonatomic)UIView *blurView;
+//@property (strong, nonatomic) IBOutlet  *weatherView;
+
+//@property (strong, nonatomic) IBOutlet WethrView *weatherView;
+
 //@property (weak, nonatomic)GMSMarker *tappedMarker;
 
 

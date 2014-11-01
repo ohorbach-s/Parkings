@@ -12,7 +12,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "SmallDetaiPanel.h"
-//#import "SlideMenuViewController.h"
+#import "SlideMenuViewController.h"
 #import "PlaceCategory.h"
 #import "MapSingletone.h"
 #import "Spot.h"
@@ -23,24 +23,25 @@
 #import "SWRevealViewController.h"
 #import "NonHierarchicalDistanceBasedAlgorithm.h"
 #import "GDefaultClusterRenderer.h"
-#import "RNFrostedSidebar.h"
+#import <Accelerate/Accelerate.h>
+#import <QuartzCore/QuartzCore.h>
 
 NSString *iconOfSelectedMarker;
 GMSMarker *myMarker;
 
 @interface MapViewController () {
     
-CLLocationCoordinate2D position;
-//SlideMenuViewController *menuObject;
+    CLLocationCoordinate2D position;
+    SlideMenuViewController *menuObject;
     GMSMarker *alreadyTappedMarker;
     PlaceCategory *storage;
     DataModel *dataModel;
     DirectionAndDistance *findTheDirection;
     MapSingletone *mapSingletone;
-     GMSCameraPosition *previousCameraPosition_;
+    GMSCameraPosition *previousCameraPosition_;
     GClusterManager *clusterManager;
      NSString *category;
-    RNFrostedSidebar *sideBluredMenu;
+    
 }
 
 
@@ -58,22 +59,10 @@ CLLocationCoordinate2D position;
     mapSingletone = [MapSingletone sharedManager];
     iconOfSelectedMarker = @"parking.png";
     dataModel = [DataModel sharedModel];
-    findTheDirection = [DirectionAndDistance new];
-    //    menuObject = [[SlideMenuViewController alloc] init];
-   
-    //init sideBluredMenu
-    NSArray *images = @[
-                        [UIImage imageNamed:@"parking.png"],
-                        [UIImage imageNamed:@"tools.png"],
-                        [UIImage imageNamed:@"cafe.png"],
-                        [UIImage imageNamed:@"supermarket.png"]
-                        ];
+    findTheDirection = [DirectionAndDistance sharedManager];
+        menuObject = [[SlideMenuViewController alloc] init];
+        [self firstMapLaunch];
     
-    sideBluredMenu = [[RNFrostedSidebar alloc] initWithImages:images];
-    sideBluredMenu.delegate = self;
-    
-    
-    [self firstMapLaunch];
     clusterManager = [GClusterManager managerWithMapView:mapSingletone.mapView_ algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                                       renderer:[[GDefaultClusterRenderer alloc] initWithMapView:mapSingletone.mapView_]];
     
@@ -89,12 +78,12 @@ CLLocationCoordinate2D position;
 
 
 
-//-(void)renewMyMap :(NSNotification*)notification
-//{
-//    [clusterManager removeItems];
-//    [dataModel performFilterRenew :category];
-//    [self displayInitialObjectsMarkers];
-//}
+-(void)renewMyMap :(NSNotification*)notification
+{
+    [clusterManager removeItems];
+    [dataModel performFilterRenew :category];
+    [self displayInitialObjectsMarkers];
+}
 
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition
@@ -112,9 +101,11 @@ CLLocationCoordinate2D position;
 
 -(void)setSelectedCategory : (NSNotification *)notification
 {
-    
-    //[menuObject setIndexValueWithCompletion:^(NSInteger indexValue){
-    //self.navigationController.navigationBar.topItem.title = iconOfSelectedMarker;
+    [menuObject setIndexValueWithCompletion:^(NSInteger indexValue){
+        self.navigationController.navigationBar.topItem.title = storage.categoryNamesArray[indexValue];
+        category = storage.categoryNamesArray[indexValue];
+
+    }];
 }
 
 
@@ -126,6 +117,7 @@ CLLocationCoordinate2D position;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [_detailSubviewObject setHidden:YES];
     [_bigDetailPanel setHidden:YES];
+
 }
 
 
@@ -137,6 +129,7 @@ CLLocationCoordinate2D position;
                return YES;
             } else {
                 mapSingletone.polyline.map = nil;
+                alreadyTappedMarker = marker;
                 position = marker.position;
                 self.detailSubviewObject.distanceLabel.text= @"";
                 [_detailSubviewObject setHidden:NO];
@@ -145,29 +138,87 @@ CLLocationCoordinate2D position;
             } 
 }
 
+- (void)createScreenshotAndLayoutWithScreenshotCompletion:(dispatch_block_t)screenshotCompletion {
+    
+        
+        
+        self.bigDetailPanel.alpha = 0.f;
+              self.bigDetailPanel.alpha = 1.f;
+       // self.blurView.alpha = 1.f;
+    
+        if (screenshotCompletion != nil) {
+            screenshotCompletion();
+        }
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0L), ^{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CATransition *transition = [CATransition animation];
+                transition.duration = 0.2;
+                transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                transition.type = kCATransitionFade;
+               // [self.blurView.layer addAnimation:transition forKey:nil];
+                [self.view setNeedsLayout];
+                [self.view layoutIfNeeded];
+            });
+        });
+    
+}
+
+
+
 - (IBAction)pressButtonMenu:(id)sender
 {
-    [sideBluredMenu show];
+    [self.revealViewController revealToggle:sender];
     [_bigDetailPanel setHidden:YES];
     [_detailSubviewObject setHidden:YES];
 }
 
-- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index
-{
-    self.navigationController.navigationBar.topItem.title = storage.categoryNamesArray[index];
-    iconOfSelectedMarker = storage.markersImages[index];
-    category = storage.categoryNamesArray[index];
-    [sidebar dismissAnimated:YES completion:nil];
-    [clusterManager removeItems];
-    [dataModel performFilterRenew :category];
-    [self displayInitialObjectsMarkers];
-
-}
-- (void)sidebar:(RNFrostedSidebar *)sidebar willDismissFromScreenAnimated:(BOOL)animatedYesOrNo
-{}
-
 - (IBAction)pressSmallInfoButton:(id)sender
 {
+    //self.blurView = [[UIView alloc] initWithFrame:self.view.bounds];
+    //self.blurView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    //[self.view addSubview:self.blurView];
+    
+    [self createScreenshotAndLayoutWithScreenshotCompletion:^{
+            CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+            opacityAnimation.fromValue = @0.;
+            opacityAnimation.toValue = @1.;
+            opacityAnimation.duration = 0.2f * 0.5f;
+            
+            CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+            
+            CATransform3D startingScale = CATransform3DScale(self.bigDetailPanel.layer.transform, 0, 0, 0);
+            CATransform3D overshootScale = CATransform3DScale(self.bigDetailPanel.layer.transform, 1.05, 1.05, 1.0);
+            CATransform3D undershootScale = CATransform3DScale(self.bigDetailPanel.layer.transform, 0.98, 0.98, 1.0);
+            CATransform3D endingScale = self.bigDetailPanel.layer.transform;
+            
+            NSMutableArray *scaleValues = [NSMutableArray arrayWithObject:[NSValue valueWithCATransform3D:startingScale]];
+            NSMutableArray *keyTimes = [NSMutableArray arrayWithObject:@0.0f];
+            NSMutableArray *timingFunctions = [NSMutableArray arrayWithObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+            
+        
+                [scaleValues addObjectsFromArray:@[[NSValue valueWithCATransform3D:overshootScale], [NSValue valueWithCATransform3D:undershootScale]]];
+                [keyTimes addObjectsFromArray:@[@0.5f, @0.85f]];
+                [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+            
+            
+            [scaleValues addObject:[NSValue valueWithCATransform3D:endingScale]];
+            [keyTimes addObject:@1.0f];
+            [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+            
+            scaleAnimation.values = scaleValues;
+            scaleAnimation.keyTimes = keyTimes;
+            scaleAnimation.timingFunctions = timingFunctions;
+            
+            CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+            animationGroup.animations = @[scaleAnimation, opacityAnimation];
+            animationGroup.duration = 0.5f;
+            
+            [self.bigDetailPanel.layer addAnimation:animationGroup forKey:nil];
+
+    }];
+
     [_detailSubviewObject setHidden:YES];
     [_bigDetailPanel setHidden:NO];
 }
@@ -176,6 +227,7 @@ CLLocationCoordinate2D position;
 {
     [_detailSubviewObject setHidden:YES];
     [_bigDetailPanel setHidden:YES];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -247,11 +299,8 @@ CLLocationCoordinate2D position;
 -(void)fillSubview :(NSNotification*) notification
 {
  [_detailSubviewObject setDetail:dataModel.infoForMarker.name :position.longitude :position.latitude];
-    [_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
+[_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
 }
-
-
-////setting observance over the main currency (KVO)
 
 
 -(void)dealloc
