@@ -18,8 +18,8 @@
     GMSMarker *markerToParticularObject;
     CLLocationCoordinate2D particularPosition;
     PlaceCategory *storage;
-    NSInteger indexOfCategory;
-    SlideMenuViewController *menu;
+    //NSInteger indexOfCategory;
+    //SlideMenuViewController *menu;
 }
 
 @end
@@ -50,19 +50,19 @@
 
 
 -(void)setDataOfWindow : (DetailInfoClass*) infoForMarker {
-    menu = [[SlideMenuViewController alloc] init];
+  //  menu = [[SlideMenuViewController alloc] init];
     composeController =[[SLComposeViewController alloc]init];
     storage = [PlaceCategory sharedManager];
     [self.smallMap.settings setAllGesturesEnabled:NO];
-    [menu setIndexValueWithCompletion:^(NSInteger index) {
-        indexOfCategory = index;
-           }];
+  //  [menu setIndexValueWithCompletion:^(NSInteger index) {
+    //    indexOfCategory = index;
+    //       }];
     self.nameLabel.text = infoForMarker.name;
   self.bigAddressLabel.text = infoForMarker.address;
     self.description.text = infoForMarker.description;
     particularPosition = CLLocationCoordinate2DMake([infoForMarker.latitude floatValue], [infoForMarker.longtitude floatValue]);
     markerToParticularObject = [GMSMarker markerWithPosition:particularPosition];
-    markerToParticularObject.icon = [UIImage imageNamed:storage.markersImages[indexOfCategory]];
+    markerToParticularObject.icon = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", infoForMarker.type]];
 
     [_smallMap animateToLocation:particularPosition];
     [_smallMap animateToZoom:16];

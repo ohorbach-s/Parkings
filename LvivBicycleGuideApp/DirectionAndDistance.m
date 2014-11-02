@@ -43,7 +43,7 @@
 }
 
 
--(void)buildTheRouteAndSetTheDistance :(float)tappedMarkerLongtitude :(float)tappedMarkerLatitude :(void(^)(NSString*))completion {
+-(void)buildTheRouteAndSetTheDistance :(float)tappedMarkerLongtitude :(float)tappedMarkerLatitude :(void(^)(NSString* ,GMSPolyline*))completion {
     mapSingletone = [MapSingletone sharedManager];
     
     CLLocationCoordinate2D positionOfTappedMarker = CLLocationCoordinate2DMake (tappedMarkerLongtitude, tappedMarkerLatitude);
@@ -59,18 +59,21 @@
         NSArray *keys = [NSArray arrayWithObjects:@"sensor", @"waypoints", nil];
         query = [NSDictionary dictionaryWithObjects:parameters
                                             forKeys:keys];
-        [self setDirectionsQuery:query :^(NSString *completion2){
+        [self setDirectionsQuery:query :^(NSString *completion2, GMSPolyline *polylineInBlock){
+             GMSPolyline *localPol;
+            localPol = nil;
             distanceToTappedMarker = completion2;
-            completion (distanceToTappedMarker);
+            localPol = polylineInBlock;
+            completion (distanceToTappedMarker, polylineInBlock);
         }];
     }
 }
 
 static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/directions/json?";
-- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection :(void(^)(NSString*))completion2 {
+- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection :(void(^)(NSString* ,GMSPolyline*))completion2 {
     NSArray *waypoints = [queryForObtainingTheDirection objectForKey:@"waypoints"];
     NSString *origin = [waypoints objectAtIndex:0];
-    NSString *destination = [waypoints objectAtIndex:1];//destinationPos];
+    NSString *destination = [waypoints objectAtIndex:1];
     NSString *sensor = [query objectForKey:@"sensor"];
     NSMutableString *url =
     [NSMutableString stringWithFormat:@"%@&origin=%@&destination=%@&sensor=%@",
@@ -88,10 +91,11 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         NSString *overview_route = [route objectForKey:@"points"];
         GMSPath *path = [GMSPath pathFromEncodedPath:overview_route];
         GMSPolyline *polyline2 = [GMSPolyline polylineWithPath:path];
-        mapSingletone.polyline.map = nil;
-        mapSingletone.polyline = polyline2;
-        mapSingletone.polyline.map = mapSingletone.mapView_;
-        completion2 (distanceToTappedMarkerToPass);
+        
+//        mapSingletone.polyline.map = nil;
+//        mapSingletone.polyline = polyline2;
+//        mapSingletone.polyline.map = mapSingletone.mapView_;
+        completion2 (distanceToTappedMarkerToPass, polyline2);
     }];
 }
 - (void)retrieveDirectionsWithCompletionHandler :(void(^)(NSDictionary*))completionHandler{

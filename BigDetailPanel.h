@@ -17,6 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *description;
 @property (assign, nonatomic) NSNumber *tableRowIndex;
 @property (strong, nonatomic) IBOutlet GMSMapView *smallMap;
--(void)register;
+
 -(void)setDataOfWindow : (DetailInfoClass*) infoForMarker;
 @end

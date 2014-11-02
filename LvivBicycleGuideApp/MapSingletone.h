@@ -15,7 +15,6 @@
 @property (nonatomic,strong) NSMutableArray *waypointStrings_;
 @property (nonatomic,strong) NSArray *_waypoints;
 @property (nonatomic,strong) NSString *positionString;
-@property (nonatomic,strong) GMSPolyline *polyline;
 
 + (id)sharedManager;
 

@@ -21,13 +21,13 @@
 //#import "Spot.h"
 //#import "GClusterManager.h"
 //#import "DataModel.h"
+#import "TableViewController.h"
 
 @class BigDetailPanel;
 @class SmallDetaiPanel;
 
 
-
-@interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate>
+@interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate, TableRouteDelegate>
 @property (nonatomic,strong) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UINavigationItem *menuButton;
 @property (unsafe_unretained, nonatomic) IBOutlet GMSMapView *mapView;

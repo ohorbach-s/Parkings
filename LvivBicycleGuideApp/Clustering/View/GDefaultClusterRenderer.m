@@ -3,17 +3,21 @@
 #import "GQuadItem.h"
 #import "GCluster.h"
 #import "MapViewController.h"
+#import "SlideMenuViewController.h"
 
-extern NSString *iconOfSelectedMarker;
+//extern NSString *iconOfSelectedMarker;
 @implementation GDefaultClusterRenderer {
     GMSMapView *_map;
     NSMutableArray *_markerCache;
+    NSString *iconOfSelectedMarker;
 }
 
 - (id)initWithMapView:(GMSMapView*)googleMap {
     if (self = [super init]) {
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
+        iconOfSelectedMarker = @"Parking.png";
+        [self setObservingForMarkerIcon];
     }
     return self;
 }
@@ -61,19 +65,19 @@ extern NSString *iconOfSelectedMarker;
     //markersImages = @[@"parking.png", @"tools.png",@"cafe.png",@"supermarket.png"];
 
 
-    if ([iconOfSelectedMarker isEqualToString:@"parking.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"Parking.png"])
     {
         [[UIColor blueColor]setFill];
     }
-    if ([iconOfSelectedMarker isEqualToString:@"tools.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"BicycleShop.png"])
     {
         [[UIColor greenColor]setFill];
     }
-    if ([iconOfSelectedMarker isEqualToString:@"cafe.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"Cafe.png"])
     {
         [[UIColor orangeColor] setFill];
     }
-    if ([iconOfSelectedMarker isEqualToString:@"supermarket.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"Supermarket.png"])
     {
             [[UIColor cyanColor]setFill];
     }
@@ -134,5 +138,24 @@ extern NSString *iconOfSelectedMarker;
 
     return image;
 }
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                       change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"markerIcon"]) {
+        iconOfSelectedMarker = [object markerIcon];
+    }
+}
+
+-(void)setObservingForMarkerIcon {
+   // UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    SlideMenuViewController *menuController = [[rootViewController childViewControllers] objectAtIndex:0];
+                                                
+    [menuController addObserver:self
+                     forKeyPath:@"markerIcon"
+                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
+}
+
 
 @end

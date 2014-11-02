@@ -11,7 +11,7 @@
 
 @interface DataModel () {
 
-    SlideMenuViewController *menuObject;
+   // SlideMenuViewController *menuObject;
     NSString *categoryName;
     GMSMarker *infoMarker;
 }
@@ -28,6 +28,7 @@
     _foundObjects = [query findObjects];
     _filteredObjects = [[NSMutableArray alloc] init];
     _infoForMarker = [[DetailInfoClass alloc] init];
+    
     for (PFObject* objectFromDataBase in _foundObjects) {
         if ([objectFromDataBase[@"type"]isEqualToString:@"Parking"])
             
@@ -54,39 +55,46 @@
     return self;
 }
 
-
--(void)setCategoryValue :(NSString*)value
-{
-//    categoryName = value;
-}
-
--(void)setMarkerForInfo: (GMSMarker*)marker {
+-(void)buildInfoForMarker: (GMSMarker*)marker {
     infoMarker = marker;
-    [self findObjectForTappedMarker];
     
-}
-
--(void)findObjectForTappedMarker
-
-{
-    
-       for (PFObject *object in _filteredObjects) {
-                       if (([object[@"longitude"] floatValue] == infoMarker.position.longitude ) && ([object[@"latitude"] floatValue] == infoMarker.position.latitude)) {
-                               _infoForMarker.name = object[@"name"];
-                                _infoForMarker.address = object[@"address"];
-                                _infoForMarker.longtitude = object[@"longitude"];
-                                _infoForMarker.latitude = object[@"latitude"];
-                               _infoForMarker.homePage = object[@"homePage"];
-                                _infoForMarker.description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", object[@"description"], object[@"workTime"], object[@"phone"], object[@"homePage"]];
-                    
-
-                                   }
-                }
+    for (PFObject *object in _filteredObjects) {
+        if (([object[@"longitude"] floatValue] == infoMarker.position.longitude ) && ([object[@"latitude"] floatValue] == infoMarker.position.latitude)) {
+            _infoForMarker.name = object[@"name"];
+            _infoForMarker.address = object[@"address"];
+            _infoForMarker.longtitude = object[@"longitude"];
+            _infoForMarker.latitude = object[@"latitude"];
+            _infoForMarker.homePage = object[@"homePage"];
+            _infoForMarker.description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", object[@"description"], object[@"workTime"], object[@"phone"], object[@"homePage"]];
+            _infoForMarker.type = object[@"type"];
+            
+            
+        }
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
 
+    
 }
 
--(void) performFilterRenew :(NSString*)title  /*:(NSNotification*)notification */{
+-(void)findObjectForTappedRow :(NSInteger)indexOfRow
+{
+
+    PFObject *chosenPlace = [_filteredObjects objectAtIndex:indexOfRow];
+    
+     _infoForMarker.name = chosenPlace[@"name"];
+    _infoForMarker.address = chosenPlace[@"address"];
+    _infoForMarker.longtitude = chosenPlace[@"longitude"];
+    _infoForMarker.latitude = chosenPlace[@"latitude"];
+    _infoForMarker.workTime = chosenPlace[@"workTime"];
+    _infoForMarker.phone = chosenPlace[@"phone"];
+    _infoForMarker.homePage = chosenPlace[@"homePage"];
+    _infoForMarker.description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", chosenPlace[@"description"], chosenPlace[@"workTime"], chosenPlace[@"phone"], chosenPlace[@"homePage"]];
+    _infoForMarker.type = chosenPlace[@"type"];
+
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
+}
+
+-(void) reactToCategorySelection :(NSString*)title  /*:(NSNotification*)notification */{
  
     [_filteredObjects removeAllObjects];
     for (PFObject* objectFromDataBase in _foundObjects) {

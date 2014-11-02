@@ -12,10 +12,9 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
-@property (weak, nonatomic) IBOutlet UIButton *routeButton;
-@property (weak, nonatomic) IBOutlet UIButton *detailButton;
+//@property (weak, nonatomic) IBOutlet UIButton *routeButton;
 
-- (IBAction)pressRouteButton:(id)sender;
+//- (IBAction)pressRouteButton:(id)sender;
 -(void)setDetail :(NSString*) acceptedName :(float)lon :(float) lat;
 
 @end

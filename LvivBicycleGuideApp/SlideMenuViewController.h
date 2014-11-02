@@ -12,18 +12,18 @@
 #import "MapSingletone.h"
 //#import "DataModel.h"
 
-@protocol MenuPassDelegate <NSObject>
-    
--(void)setCategoryValue :(NSString*)value;
+@protocol CleanPolylineDelegate <NSObject>
 
+-(void)cleanPolylineFromMap;
 
 @end
 
 @interface SlideMenuViewController : UITableViewController
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic)NSString *selectedCategoryOfDisplayedObjects;
-@property (weak, nonatomic)id<MenuPassDelegate>delegate;
+//@property (strong, nonatomic) IBOutlet UITableView *tableView;
+//@property (strong, nonatomic)NSString *selectedCategoryOfDisplayedObjects;
+@property (strong,nonatomic)NSString *markerIcon;
+@property (strong, nonatomic)id<CleanPolylineDelegate>delegateCategory;
 -(void)setIndexValueWithCompletion :(void(^)(NSInteger))completion;
--(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion;
+//-(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion;
 @end

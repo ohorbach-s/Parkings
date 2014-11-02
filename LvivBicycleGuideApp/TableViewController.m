@@ -9,18 +9,22 @@
 #import "TableViewController.h"
 #import "SWRevealViewController.h"
 #import "TableViewCell.h"
+#import "SlideMenuViewController.h"
+#import "MapSingletone.h"
+#import "BigDetailPanel.h"
 
 #import "DirectionAndDistance.h"
 #import "PlaceCategory.h"
 
-extern NSString *iconOfSelectedMarker;
-extern GMSMarker *myMarker;
+//extern NSString *iconOfSelectedMarker;
+//extern GMSMarker *myMarker;
 
 @interface TableViewController () {
     PlaceCategory *storage;
     DataModel *dataModel;
     SlideMenuViewController *menuObject;
     MapSingletone *mapSingletone;
+    NSString *iconOfSelectedMarker;
 }
 @end
 
@@ -33,8 +37,16 @@ extern GMSMarker *myMarker;
     storage = [PlaceCategory sharedManager];
     mapSingletone = [MapSingletone sharedManager];
     menuObject = [[SlideMenuViewController alloc] init];
+    iconOfSelectedMarker = @"Parking.png";
     [self setAppearance];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"reloadTableView" object:nil];
+    [self setObservingForMarkerIcon];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"performMapandTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
+}
+
+-(void)fillSubview:(NSNotification *)notification
+{
+[_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -88,21 +100,24 @@ extern GMSMarker *myMarker;
 
 - (IBAction)route:(UIButton *)sender
 {
-    DirectionAndDistance *findTheDirection = [DirectionAndDistance sharedManager];
-    NSInteger index = sender.tag;
-    float longt = [[dataModel.filteredObjects objectAtIndex:index][@"longitude"] doubleValue];
-    float lat = [[dataModel.filteredObjects objectAtIndex:index][@"latitude"] doubleValue];
-    [findTheDirection buildTheRouteAndSetTheDistance:longt :lat :^(NSString* theDistance) {
-        [mapSingletone.waypoints_ removeObject:[mapSingletone.waypoints_ lastObject]];
-        [mapSingletone.waypointStrings_ removeObject:[mapSingletone.waypointStrings_ lastObject]];
-
-        CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(lat,longt);
-
-        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
-        bounds = [bounds includingCoordinate:myMarker.position];
-        bounds = [bounds includingCoordinate:boundLocation];
-        [mapSingletone.mapView_ animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
-     }];
+    float latitude = [[dataModel.filteredObjects objectAtIndex:sender.tag][@"latitude"] floatValue];
+    float longitude = [[dataModel.filteredObjects objectAtIndex:sender.tag][@"longitude"] floatValue];
+    [self.delagate findDirection:latitude :longitude];
+//    DirectionAndDistance *findTheDirection = [DirectionAndDistance sharedManager];
+//    NSInteger index = sender.tag;
+//    float longt = [[dataModel.filteredObjects objectAtIndex:index][@"longitude"] doubleValue];
+//    float lat = [[dataModel.filteredObjects objectAtIndex:index][@"latitude"] doubleValue];
+//    [findTheDirection buildTheRouteAndSetTheDistance:longt :lat :^(NSString* theDistance) {
+//        [mapSingletone.waypoints_ removeObject:[mapSingletone.waypoints_ lastObject]];
+//        [mapSingletone.waypointStrings_ removeObject:[mapSingletone.waypointStrings_ lastObject]];
+//
+//        CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(lat,longt);
+//
+//        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
+//        bounds = [bounds includingCoordinate:myMarker.position];
+//        bounds = [bounds includingCoordinate:boundLocation];
+//        [mapSingletone.mapView_ animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
+//     }];
     [self.navigationController popToRootViewControllerAnimated:YES];
     self.tabBarController.selectedIndex = 0;
 }
@@ -124,6 +139,27 @@ extern GMSMarker *myMarker;
     _bigDetailPanel.translucentAlpha = 0.9;
     _bigDetailPanel.translucentStyle = UIBarStyleBlack;
     _bigDetailPanel.translucentTintColor = [UIColor clearColor];
+}
+
+- (IBAction)pressInfoButton:(UIButton *)sender
+{
+    [_bigDetailPanel setHidden:NO];
+    [dataModel findObjectForTappedRow:sender.tag];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                       change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"markerIcon"]) {
+        iconOfSelectedMarker = [object markerIcon];
+            }
+}
+
+-(void)setObservingForMarkerIcon {
+    SlideMenuViewController *menuController = [[self.revealViewController childViewControllers] objectAtIndex:0];
+    [menuController addObserver:self
+                     forKeyPath:@"markerIcon"
+                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
 }
 
 @end

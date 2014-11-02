@@ -23,7 +23,7 @@
 - (id)init {
     
     if (self = [super init]) {
-        _markersImages = @[@"parking.png", @"tools.png",@"cafe.png",@"supermarket.png"];
+        _markersImages = @[@"Parking.png", @"BicycleShop.png",@"Cafe.png",@"Supermarket.png"];
         _categoryNamesArray = @[@"Parking", @"BicycleShop", @"Cafe", @"Supermarket"];
         //_detailInfoForObject = [[DetailInfoClass alloc] init];
     }

@@ -15,7 +15,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedSingletoneManager = [[MapSingletone alloc] init];
-        
     });
     
     return sharedSingletoneManager;

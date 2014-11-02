@@ -34,7 +34,7 @@ static NSInteger indexOfCategory;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    storage = [PlaceCategory sharedManager];
+   storage = [PlaceCategory sharedManager];
     mapSingletone = [MapSingletone sharedManager];
   //  requestToDisplay = [[RequestsClass alloc] init];
     //_selectedCategoryOfDisplayedObjects = @"Parking";
@@ -76,31 +76,31 @@ static NSInteger indexOfCategory;
     completion(indexOfCategory);
 }
 
--(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion
-{
-    comletion(_selectedCategoryOfDisplayedObjects);
-}
-                                             
+//-(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion
+//{
+//    comletion(_selectedCategoryOfDisplayedObjects);
+//}
+
                                             
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_selectedCategoryOfDisplayedObjects) {
-   //     [requestToDisplay cleanMarkersFromMap:_selectedCategoryOfDisplayedObjects];
-    }
-    _selectedCategoryOfDisplayedObjects = storage.categoryNamesArray [indexPath.row];
-    [self.delegate setCategoryValue:_selectedCategoryOfDisplayedObjects];
-
-    iconOfSelectedMarker = storage.markersImages[indexPath.row];
+//    if (_selectedCategoryOfDisplayedObjects) {
+//   //     [requestToDisplay cleanMarkersFromMap:_selectedCategoryOfDisplayedObjects];
+//    }
+    //_selectedCategoryOfDisplayedObjects = storage.categoryNamesArray [indexPath.row];
+    //[self.delegate setCategoryValue:_selectedCategoryOfDisplayedObjects];
+    [self.delegateCategory cleanPolylineFromMap];
+    self.markerIcon = storage.markersImages[indexPath.row];
     indexOfCategory = indexPath.row;
      [self.revealViewController revealToggle:self];
     //  [requestToDisplay displayObjectsMarkers:_selectedCategoryOfDisplayedObjects :iconOfSelectedMarker];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableView" object:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableView" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setSelectedCategory" object:nil];
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"performFilterRenew"object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapRenew"object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapandTableRenew"object:nil];
    
-    mapSingletone.polyline.map = nil;
-    mapSingletone.polyline = nil;
+//    mapSingletone.polyline.map = nil;
+//    mapSingletone.polyline = nil;
 }
 
 -(void)setAppearance
