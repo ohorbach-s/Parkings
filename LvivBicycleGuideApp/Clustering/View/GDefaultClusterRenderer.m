@@ -3,27 +3,37 @@
 #import "GQuadItem.h"
 #import "GCluster.h"
 #import "MapViewController.h"
+#import "SlideMenuViewController.h"
 
-extern NSString *iconOfSelectedMarker;
-@implementation GDefaultClusterRenderer {
+//extern NSString *iconOfSelectedMarker;
+@implementation GDefaultClusterRenderer
+{
     GMSMapView *_map;
     NSMutableArray *_markerCache;
+    NSString *iconOfSelectedMarker;
+    SlideMenuViewController *menuController;
 }
 
-- (id)initWithMapView:(GMSMapView*)googleMap {
+- (id)initWithMapView:(GMSMapView*)googleMap
+{
     if (self = [super init]) {
+        UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        menuController = [[rootViewController childViewControllers] objectAtIndex:0];
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
+        iconOfSelectedMarker = @"Parking.png";
+        [self setObservingForMarkerIcon];
     }
     return self;
 }
 
 // here need to do changes!
-- (void)clustersChanged:(NSSet*)clusters{
+- (void)clustersChanged:(NSSet*)clusters
+{
     for (GMSMarker *marker in _markerCache) {
         marker.map = nil;
     }
-    		
+    
     [_markerCache removeAllObjects];
     
     for (id <GCluster> cluster in clusters) {
@@ -36,8 +46,8 @@ extern NSString *iconOfSelectedMarker;
             marker.icon = [self generateClusterIconWithCount:count];
         }
         else {
-
-            marker.icon = [UIImage imageNamed:iconOfSelectedMarker];//[GMSMarker markerImageWithColor:[UIColor greenColor]];
+            
+            marker.icon = [UIImage imageNamed:iconOfSelectedMarker];
         }
         marker.position = cluster.position;
         marker.map = _map;
@@ -45,68 +55,61 @@ extern NSString *iconOfSelectedMarker;
 }
 
 
-- (UIImage*) generateClusterIconWithCount:(NSUInteger)count {
+- (UIImage*) generateClusterIconWithCount:(NSUInteger)count
+{
     
     int diameter = 40;
     float inset = 3;
     
     CGRect rect = CGRectMake(0, 0, diameter, diameter);
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
-
-    //markersImages = @[@"parking.png", @"tools.png",@"cafe.png",@"supermarket.png"];
-
-
-    if ([iconOfSelectedMarker isEqualToString:@"parking.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"Parking.png"])
     {
         [[UIColor blueColor]setFill];
     }
-    if ([iconOfSelectedMarker isEqualToString:@"tools.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"BicycleShop.png"])
     {
         [[UIColor greenColor]setFill];
     }
-    if ([iconOfSelectedMarker isEqualToString:@"cafe.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"Cafe.png"])
     {
         [[UIColor orangeColor] setFill];
     }
-    if ([iconOfSelectedMarker isEqualToString:@"supermarket.png"])
+    if ([iconOfSelectedMarker isEqualToString:@"Supermarket.png"])
     {
-            [[UIColor cyanColor]setFill];
+        [[UIColor cyanColor]setFill];
     }
-    
-    
-
     CGContextSetLineWidth(ctx, inset);
-
+    
     // make circle rect 5 px from border
     CGRect circleRect = CGRectMake(0, 0, diameter, diameter);
     circleRect = CGRectInset(circleRect, inset, inset);
-
+    
     // draw circle
     CGContextFillEllipseInRect(ctx, circleRect);
     CGContextStrokeEllipseInRect(ctx, circleRect);
-
+    
     CTFontRef myFont = CTFontCreateWithName( (CFStringRef)@"Helvetica-Bold", 18.0f, NULL);
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
-            (__bridge id)myFont, (id)kCTFontAttributeName,
-                    [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
-
+                                    (__bridge id)myFont, (id)kCTFontAttributeName,
+                                    [UIColor whiteColor], (id)kCTForegroundColorAttributeName, nil];
+    
     // create a naked string
     NSString *string = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)count];
-
+    
     NSAttributedString *stringToDraw = [[NSAttributedString alloc] initWithString:string
                                                                        attributes:attributesDict];
-
+    
     // flip the coordinate system
     CGContextSetTextMatrix(ctx, CGAffineTransformIdentity);
     CGContextTranslateCTM(ctx, 0, diameter);
     CGContextScaleCTM(ctx, 1.0, -1.0);
-
+    
     CTFramesetterRef frameSetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)(stringToDraw));
     CGSize suggestedSize = CTFramesetterSuggestFrameSizeWithConstraints(
                                                                         frameSetter, /* Framesetter */
@@ -123,16 +126,38 @@ extern NSString *iconOfSelectedMarker;
     
     float midWidth = diameter / 2;
     midWidth -= suggestedSize.width / 2;
-
+    
     CTLineRef line = CTLineCreateWithAttributedString(
-            (__bridge CFAttributedStringRef)stringToDraw);
+                                                      (__bridge CFAttributedStringRef)stringToDraw);
     CGContextSetTextPosition(ctx, midWidth, 12);
     CTLineDraw(line, ctx);
-
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     return image;
 }
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                       change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"markerIcon"]) {
+        iconOfSelectedMarker = [object markerIcon];
+    }
+}
+
+-(void)setObservingForMarkerIcon
+{
+    [menuController addObserver:self
+                     forKeyPath:@"markerIcon"
+                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+}
+
+-(void) dealloc
+{
+    [menuController removeObserver:self
+                        forKeyPath:@"mainCurrencySaved"];
+}
+
 
 @end

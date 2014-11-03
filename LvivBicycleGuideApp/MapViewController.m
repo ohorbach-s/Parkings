@@ -7,18 +7,17 @@
 ////  Created by Alexxx on 10/17/14.
 ////  Copyright (c) 2014 SoftServe. All rights reserved.
 ////
-//
-#import "MapViewController.h"
 
+#import "MapViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "SmallDetaiPanel.h"
+#import "SmallInfoSubview.h"
 #import "SlideMenuViewController.h"
 #import "PlaceCategory.h"
-#import "MapSingletone.h"
+#import "RoutePoints.h"
 #import "Spot.h"
 #import "GClusterManager.h"
 #import "DataModel.h"
-#import "BigDetailPanel.h"
+#import "BigInfoSubview.h"
 #import "DirectionAndDistance.h"
 #import "SWRevealViewController.h"
 #import "NonHierarchicalDistanceBasedAlgorithm.h"
@@ -26,65 +25,86 @@
 #import <Accelerate/Accelerate.h>
 #import <QuartzCore/QuartzCore.h>
 
-NSString *iconOfSelectedMarker;
-GMSMarker *myMarker;
-
-@interface MapViewController () {
-    
+@interface MapViewController ()
+{
     CLLocationCoordinate2D position;
     SlideMenuViewController *menuObject;
     GMSMarker *alreadyTappedMarker;
-    PlaceCategory *storage;
+    PlaceCategory *placeCategory;
     DataModel *dataModel;
     DirectionAndDistance *findTheDirection;
-    MapSingletone *mapSingletone;
+    RoutePoints *routePoints;
     GMSCameraPosition *previousCameraPosition_;
     GClusterManager *clusterManager;
-     NSString *category;
-    
+    NSString *category;
+    GMSPolyline *polyline;
+    GMSMarker *userPositionMarker;
 }
-
+@property (weak, nonatomic) IBOutlet BigInfoSubview *bigInfoSubview;
+@property (weak, nonatomic) IBOutlet UIButton *routeButton;
+@property (nonatomic,strong) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UINavigationItem *menuButton;
+@property (unsafe_unretained, nonatomic) IBOutlet GMSMapView *mapView;
+@property (weak, nonatomic) IBOutlet SmallInfoSubview *smallInfoSubview;
 
 @end
 
-    static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/directions/json?";
+static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/directions/json?";
 
 @implementation MapViewController
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    storage = [PlaceCategory sharedManager];
-    mapSingletone = [MapSingletone sharedManager];
-    iconOfSelectedMarker = @"parking.png";
+    placeCategory = [PlaceCategory sharedManager];
+    routePoints = [RoutePoints sharedManager];
+    NSString *iconOfSelectedMarker;
+    SlideMenuViewController *menuController = [[self.revealViewController childViewControllers] objectAtIndex:0];
+    menuController.cleanPolylineDelegate = self;
+     menuObject = [[SlideMenuViewController alloc] init];
+    [self setObservingForMarkerIcon];
+    iconOfSelectedMarker = @"Parking.png";
     dataModel = [DataModel sharedModel];
     findTheDirection = [DirectionAndDistance sharedManager];
-        menuObject = [[SlideMenuViewController alloc] init];
-        [self firstMapLaunch];
+   
+    [self firstMapLaunch];
+    clusterManager = [GClusterManager managerWithMapView:self.mapView algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
+                                                renderer:[[GDefaultClusterRenderer alloc] initWithMapView:self.mapView]];
+    [self displayCategoryMarkers];
+    [self setAppearance];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSelectedCategory:) name:@"setSelectedCategory" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(renewMyMap:) name:@"performMapAndTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
+    [_smallInfoSubview setHidden:YES];
+    [_bigInfoSubview setHidden:YES];
+    TableViewController *controller = [[[self.tabBarController.viewControllers objectAtIndex:1] childViewControllers ]objectAtIndex:0];
+    controller.delagate =self;
     
-    clusterManager = [GClusterManager managerWithMapView:mapSingletone.mapView_ algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
-                                                                      renderer:[[GDefaultClusterRenderer alloc] initWithMapView:mapSingletone.mapView_]];
-    
-                      [self displayInitialObjectsMarkers];
-                      [self setAppearance];
-                      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSelectedCategory:) name:@"setSelectedCategory" object:nil];
-                      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(renewMyMap:) name:@"performMapRenew" object:nil];
-                      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
-                      [_detailSubviewObject setHidden:YES];
-                      [_bigDetailPanel setHidden:YES];
-
 }
 
+-(void)setObservingForMarkerIcon {
+    SlideMenuViewController *menuController = [[self.revealViewController childViewControllers] objectAtIndex:0];
+    TableViewController *controller = [[[self.tabBarController.viewControllers objectAtIndex:1] childViewControllers ]objectAtIndex:0];
+    [menuController addObserver:controller
+                     forKeyPath:@"markerIcon"
+                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [menuController addObserver:controller
+                     forKeyPath:@"category"
+                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+}
 
+-(void)cleanPolylineFromMap
+{
+    polyline.map = nil;
+    polyline = nil;
+}
 
 -(void)renewMyMap :(NSNotification*)notification
 {
     [clusterManager removeItems];
-    [dataModel performFilterRenew :category];
-    [self displayInitialObjectsMarkers];
+    [dataModel reactToCategorySelection :category];
+    [self displayCategoryMarkers];
 }
-
 
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition
 {
@@ -98,142 +118,149 @@ GMSMarker *myMarker;
     [clusterManager cluster];
 }
 
-
 -(void)setSelectedCategory : (NSNotification *)notification
 {
     [menuObject setIndexValueWithCompletion:^(NSInteger indexValue){
-        self.navigationController.navigationBar.topItem.title = storage.categoryNamesArray[indexValue];
-        category = storage.categoryNamesArray[indexValue];
-
+       self.navigationController.navigationBar.topItem.title = placeCategory.categoryNamesArray[indexValue];
+        category = placeCategory.categoryNamesArray[indexValue];
     }];
 }
 
-
 -(void)viewWillAppear:(BOOL)animated
 {
-    mapSingletone.polyline.map = mapSingletone.mapView_;
     [self.tabBarController.tabBar setHidden:NO];
     [self.navigationController.navigationBar setHidden:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [_detailSubviewObject setHidden:YES];
-    [_bigDetailPanel setHidden:YES];
-
+    [_smallInfoSubview setHidden:YES];
+    [_bigInfoSubview setHidden:YES];
 }
-
-
 
 -(BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
-
     if ([marker isEqual:alreadyTappedMarker]) {
-               return YES;
-            } else {
-                mapSingletone.polyline.map = nil;
-                alreadyTappedMarker = marker;
-                position = marker.position;
-                self.detailSubviewObject.distanceLabel.text= @"";
-                [_detailSubviewObject setHidden:NO];
-                [dataModel setMarkerForInfo:marker];
-                return YES;
-            } 
+        return YES;
+    } else if([marker isEqual:userPositionMarker]) {
+        
+        polyline.map = nil;
+        polyline = nil;
+        return YES;
+    } else {
+        alreadyTappedMarker = marker;
+        position = marker.position;
+        self.smallInfoSubview.distanceLabel.text= @"";
+        [_smallInfoSubview setHidden:NO];
+        [dataModel buildInfoForMarker:marker];
+        return YES;
+    }
 }
 
-- (void)createScreenshotAndLayoutWithScreenshotCompletion:(dispatch_block_t)screenshotCompletion {
-    
-        
-        
-        self.bigDetailPanel.alpha = 0.f;
-              self.bigDetailPanel.alpha = 1.f;
-       // self.blurView.alpha = 1.f;
-    
-        if (screenshotCompletion != nil) {
-            screenshotCompletion();
-        }
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0L), ^{
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                CATransition *transition = [CATransition animation];
-                transition.duration = 0.2;
-                transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-                transition.type = kCATransitionFade;
-               // [self.blurView.layer addAnimation:transition forKey:nil];
-                [self.view setNeedsLayout];
-                [self.view layoutIfNeeded];
-            });
+- (void)createScreenshotAndLayoutWithScreenshotCompletion:(dispatch_block_t)screenshotCompletion
+{
+    self.bigInfoSubview.alpha = 0.f;
+    self.bigInfoSubview.alpha = 1.f;
+    if (screenshotCompletion != nil) {
+        screenshotCompletion();
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0L), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CATransition *transition = [CATransition animation];
+            transition.duration = 0.2;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.type = kCATransitionFade;
+            [self.view setNeedsLayout];
+            [self.view layoutIfNeeded];
         });
+    });
     
 }
-
-
 
 - (IBAction)pressButtonMenu:(id)sender
 {
     [self.revealViewController revealToggle:sender];
-    [_bigDetailPanel setHidden:YES];
-    [_detailSubviewObject setHidden:YES];
+    [_bigInfoSubview setHidden:YES];
+    [_smallInfoSubview setHidden:YES];
+}
+
+-(void)findDirection:(float)markerLatitude :(float)markerLongitude
+{
+    [findTheDirection buildTheRouteAndSetTheDistance:markerLongitude
+                                                    :markerLatitude
+                                                    : ^(NSString* theDistance,
+                                                        GMSPolyline *polylineFromBlock) {
+        self.smallInfoSubview.distanceLabel.text = theDistance;
+        polyline.map = nil;
+        polyline = nil;
+        polyline = polylineFromBlock;
+        polyline.map = _mapView;
+        [routePoints.waypoints_ removeObject:[routePoints.waypoints_ lastObject]];
+        [routePoints.waypointStrings_ removeObject:[routePoints.waypointStrings_ lastObject]];
+        CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(markerLatitude,markerLongitude);
+        GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
+        bounds = [bounds includingCoordinate:userPositionMarker.position];
+        bounds = [bounds includingCoordinate:boundLocation];
+        [_mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
+    }];
+}
+
+- (IBAction)pressRouteButton:(id)sender
+{
+    [self findDirection:[dataModel.infoForMarker.latitude floatValue]:[dataModel.infoForMarker.longtitude floatValue]];
 }
 
 - (IBAction)pressSmallInfoButton:(id)sender
 {
-    //self.blurView = [[UIView alloc] initWithFrame:self.view.bounds];
-    //self.blurView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    //[self.view addSubview:self.blurView];
-    
     [self createScreenshotAndLayoutWithScreenshotCompletion:^{
-            CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-            opacityAnimation.fromValue = @0.;
-            opacityAnimation.toValue = @1.;
-            opacityAnimation.duration = 0.2f * 0.5f;
-            
-            CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-            
-            CATransform3D startingScale = CATransform3DScale(self.bigDetailPanel.layer.transform, 0, 0, 0);
-            CATransform3D overshootScale = CATransform3DScale(self.bigDetailPanel.layer.transform, 1.05, 1.05, 1.0);
-            CATransform3D undershootScale = CATransform3DScale(self.bigDetailPanel.layer.transform, 0.98, 0.98, 1.0);
-            CATransform3D endingScale = self.bigDetailPanel.layer.transform;
-            
-            NSMutableArray *scaleValues = [NSMutableArray arrayWithObject:[NSValue valueWithCATransform3D:startingScale]];
-            NSMutableArray *keyTimes = [NSMutableArray arrayWithObject:@0.0f];
-            NSMutableArray *timingFunctions = [NSMutableArray arrayWithObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-            
+        CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        opacityAnimation.fromValue = @0.;
+        opacityAnimation.toValue = @1.;
+        opacityAnimation.duration = 0.2f * 0.5f;
         
-                [scaleValues addObjectsFromArray:@[[NSValue valueWithCATransform3D:overshootScale], [NSValue valueWithCATransform3D:undershootScale]]];
-                [keyTimes addObjectsFromArray:@[@0.5f, @0.85f]];
-                [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            
-            
-            [scaleValues addObject:[NSValue valueWithCATransform3D:endingScale]];
-            [keyTimes addObject:@1.0f];
-            [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            
-            scaleAnimation.values = scaleValues;
-            scaleAnimation.keyTimes = keyTimes;
-            scaleAnimation.timingFunctions = timingFunctions;
-            
-            CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
-            animationGroup.animations = @[scaleAnimation, opacityAnimation];
-            animationGroup.duration = 0.5f;
-            
-            [self.bigDetailPanel.layer addAnimation:animationGroup forKey:nil];
-
+        CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+        
+        CATransform3D startingScale = CATransform3DScale(self.bigInfoSubview.layer.transform, 0, 0, 0);
+        CATransform3D overshootScale = CATransform3DScale(self.bigInfoSubview.layer.transform, 1.05, 1.05, 1.0);
+        CATransform3D undershootScale = CATransform3DScale(self.bigInfoSubview.layer.transform, 0.98, 0.98, 1.0);
+        CATransform3D endingScale = self.bigInfoSubview.layer.transform;
+        
+        NSMutableArray *scaleValues = [NSMutableArray arrayWithObject:[NSValue valueWithCATransform3D:startingScale]];
+        NSMutableArray *keyTimes = [NSMutableArray arrayWithObject:@0.0f];
+        NSMutableArray *timingFunctions = [NSMutableArray arrayWithObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+        
+        
+        [scaleValues addObjectsFromArray:@[[NSValue valueWithCATransform3D:overshootScale], [NSValue valueWithCATransform3D:undershootScale]]];
+        [keyTimes addObjectsFromArray:@[@0.5f, @0.85f]];
+        [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        
+        
+        [scaleValues addObject:[NSValue valueWithCATransform3D:endingScale]];
+        [keyTimes addObject:@1.0f];
+        [timingFunctions addObject:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        
+        scaleAnimation.values = scaleValues;
+        scaleAnimation.keyTimes = keyTimes;
+        scaleAnimation.timingFunctions = timingFunctions;
+        
+        CAAnimationGroup *animationGroup = [CAAnimationGroup animation];
+        animationGroup.animations = @[scaleAnimation, opacityAnimation];
+        animationGroup.duration = 0.5f;
+        
+        [self.bigInfoSubview.layer addAnimation:animationGroup forKey:nil];
+        
     }];
-
-    [_detailSubviewObject setHidden:YES];
-    [_bigDetailPanel setHidden:NO];
+    [_smallInfoSubview setHidden:YES];
+    [_bigInfoSubview setHidden:NO];
 }
 
 -(void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    [_detailSubviewObject setHidden:YES];
-    [_bigDetailPanel setHidden:YES];
-    
+    [_smallInfoSubview setHidden:YES];
+    [_bigInfoSubview setHidden:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    [mapSingletone.mapView_ animateToLocation:currentLocation.coordinate];
+    [self.mapView animateToLocation:currentLocation.coordinate];
     [_locationManager stopUpdatingLocation];
 }
 
@@ -250,22 +277,20 @@ GMSMarker *myMarker;
     [_locationManager startUpdatingLocation];
     position = CLLocationCoordinate2DMake(49.8327176,23.9970189);
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:position zoom:13];
-    mapSingletone.mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    [_mapView animateToCameraPosition:camera];
+    [_mapView animateToZoom:13];
     _mapView.delegate = self;
-    mapSingletone.mapView_ = self.mapView;
-    [mapSingletone.mapView_ animateToLocation:position];
-    [mapSingletone.mapView_ animateToZoom:13];
-    mapSingletone.mapView_.myLocationEnabled= YES;
-      mapSingletone.mapView_.settings.myLocationButton = YES;
+    _mapView.myLocationEnabled= YES;
+    _mapView.settings.myLocationButton = YES;
     GMSMarker *marker = [GMSMarker markerWithPosition:position];  //my location
-    myMarker = marker;
+    userPositionMarker = marker;
     alreadyTappedMarker = marker;
     marker.icon = [UIImage imageNamed:@"home.png"];
-    marker.map = mapSingletone.mapView_;
-    [mapSingletone.waypoints_ addObject:marker];
-    mapSingletone.positionString = [[NSString alloc] initWithFormat:@"%f,%f",
+    marker.map = _mapView;
+    [routePoints.waypoints_ addObject:marker];
+    routePoints.positionString = [[NSString alloc] initWithFormat:@"%f,%f",
                                     marker.position.latitude,marker.position.longitude];
-    [mapSingletone.waypointStrings_ addObject:mapSingletone.positionString];
+    [routePoints.waypointStrings_ addObject:routePoints.positionString];
 }
 
 -(void)setAppearance
@@ -273,22 +298,20 @@ GMSMarker *myMarker;
     self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
     self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    self.navigationController.navigationBar.topItem.title =  storage.categoryNamesArray[0];
-    _detailSubviewObject.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
-    
-    _detailSubviewObject.translucentAlpha = 0.9;
-    _detailSubviewObject.translucentStyle = UIBarStyleBlack;
-    _detailSubviewObject.translucentTintColor = [UIColor clearColor];
-    
-    _bigDetailPanel.translucentAlpha = 0.9;
-    _bigDetailPanel.translucentStyle = UIBarStyleBlack;
-    _bigDetailPanel.translucentTintColor = [UIColor clearColor];
+    self.navigationController.navigationBar.topItem.title =  placeCategory.categoryNamesArray[0];
+    _smallInfoSubview.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
+    _smallInfoSubview.translucentAlpha = 0.9;
+    _smallInfoSubview.translucentStyle = UIBarStyleBlack;
+    _smallInfoSubview.translucentTintColor = [UIColor clearColor];
+    _bigInfoSubview.translucentAlpha = 0.9;
+    _bigInfoSubview.translucentStyle = UIBarStyleBlack;
+    _bigInfoSubview.translucentTintColor = [UIColor clearColor];
 }
 
--(void)displayInitialObjectsMarkers
+-(void)displayCategoryMarkers
 {
     Spot *spot;
-    for (PFObject* object in dataModel.filteredObjects) {
+    for (PFObject* object in dataModel.selectedPlaces) {
         position = CLLocationCoordinate2DMake([object [@"latitude"] floatValue], [object [@"longitude"] floatValue]);
         spot = [[Spot alloc] initWithPosition:position];
         [clusterManager addItem:spot];
@@ -298,271 +321,18 @@ GMSMarker *myMarker;
 
 -(void)fillSubview :(NSNotification*) notification
 {
- [_detailSubviewObject setDetail:dataModel.infoForMarker.name :position.longitude :position.latitude];
-[_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
+    [_smallInfoSubview setDetail:dataModel.infoForMarker.name :position.longitude :position.latitude];
+    [_bigInfoSubview setDataOfWindow:dataModel.infoForMarker];
 }
-
 
 -(void)dealloc
 {
-
+   
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+        SlideMenuViewController *menuController = [[self.revealViewController childViewControllers] objectAtIndex:0];
+        TableViewController *controller = [[[self.tabBarController.viewControllers objectAtIndex:1] childViewControllers ]objectAtIndex:0];
+        [menuController removeObserver:controller forKeyPath:@"markerIcon"];
+
 }
 
 @end
-
-//#import "MapViewController.h"
-//#import "DirectionAndDistance.h"
-//#import "SWRevealViewController.h"
-//#import "GClusterManager.h"
-//#import "NonHierarchicalDistanceBasedAlgorithm.h"
-//#import "GDefaultClusterRenderer.h"
-//#import "BigDetailPanel.h"
-//
-//
-//GMSMarker *myMarker;
-//NSString *iconOfSelectedMarker;
-//GClusterManager *clusterManager;
-//
-//
-//@interface MapViewController () {
-//    
-//    CLLocationCoordinate2D position;    //   for temporary markers}
-//    GMSMarker *alreadyTappedMarker;
-//    DirectionAndDistance *findTheDirection;         SINGLETONE
-//     GMSCameraPosition *previousCameraPosition_;
-//    SlideMenuViewController *menuObject;
-//    PlaceCategory *storage;
-// //   RequestsClass *requestToDisplay;
-//    MapSingletone *mapSingletone;              NON SINGELTONE
-//    int trackTapps;
-//    DataModel *dataModel;
-//    NSString *category;
-//   }
-//
-//@end
-//
-//static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/directions/json?";
-//
-//@implementation MapViewController
-//
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    storage = [PlaceCategory sharedManager];
-//    mapSingletone = [MapSingletone sharedManager];
-//    iconOfSelectedMarker = @"parking.png";
-//    dataModel = [DataModel sharedModel];
-//    [dataModel firstLoad];
-//    
-//    findTheDirection = [DirectionAndDistance new];
-//    menuObject = [[SlideMenuViewController alloc] init];
-//    [self firstMapLaunch];
-//    
-//    clusterManager = [GClusterManager managerWithMapView:mapSingletone.mapView_
-//                                               algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
-//                                                renderer:[[GDefaultClusterRenderer alloc] initWithMapView:mapSingletone.mapView_]];
-//   
-//    [self displayInitialObjectsMarkers];
-//    trackTapps = 0;
-//    [self setAppearance];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSelectedCategory:) name:@"setSelectedCategory" object:nil];
-//    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayObjectsMarkers:) name:@"displayNewPlaces" object:nil];
-//   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performFilterRenew :) name:@"performFilterRenew" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(renewMyMap:) name:@"performMapRenew" object:nil];
-//
-//   // [[NSNotificationCenter defaultCenter] addObserver:_bigDetailPanel selector:@selector(setDataOfWindow:) name:@"renewDataOfSubview" object:nil];
-//    //hide detailInfo views
-//    [_bigDetailPanel register];
-//    [_detailSubviewObject setHidden:YES];
-//    [_bigDetailPanel setHidden:YES];
-//}
-//
-//-(void)renewMyMap :(NSNotification*)notification
-//{
-//    [clusterManager removeItems];
-//    [dataModel performFilterRenew :category];
-//    [self displayInitialObjectsMarkers];
-//}
-//
-//- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition
-//{
-//    assert(mapView == _mapView);
-//    // Don't re-compute clusters if the map has just been panned/tilted/rotated.
-//    GMSCameraPosition *currentPosition = [mapView camera];
-//    if (previousCameraPosition_ != nil && previousCameraPosition_.zoom == currentPosition.zoom) {
-//        return;
-//    }
-//    previousCameraPosition_ = [mapView camera];
-//    [clusterManager cluster];
-//}
-//
-//-(void)setSelectedCategory : (NSNotification *)notification
-//{
-//    [menuObject setIndexValueWithCompletion:^(NSInteger indexValue){
-//        self.navigationController.navigationBar.topItem.title = storage.categoryNamesArray[indexValue];
-//        category = storage.categoryNamesArray[indexValue];
-//
-//    }];
-//}
-//
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    mapSingletone.polyline.map = mapSingletone.mapView_;
-//    [self.tabBarController.tabBar setHidden:NO];
-//    [self.navigationController.navigationBar setHidden:NO];
-//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//    [_detailSubviewObject setHidden:YES];
-//    [_bigDetailPanel setHidden:YES];
-//
-//}
-//
-//-(BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
-//{
-//    if ([marker isEqual:alreadyTappedMarker]&&(trackTapps>0)) {
-//        mapSingletone.polyline.map = nil;
-//        mapSingletone.polyline = nil;
-//        trackTapps --;
-//        return YES;
-//    } else if ([marker isEqual:alreadyTappedMarker]) {
-//        mapSingletone.polyline = nil;
-//        return YES;
-//    } else {
-//        trackTapps ++;
-//        mapSingletone.polyline.map = nil;
-//        //position = CLLocationCoordinate2DMake(marker.position.longitude,marker.position.latitude);
-//        _markerPosition = CLLocationCoordinate2DMake(marker.position.longitude,marker.position.latitude);
-//        //[storage.detailInfoForObject setDetailInfoForTappedMarker:position];
-//        self.detailSubviewObject.distanceLabel.text= @"";
-//       // [self.detailSubviewObject setDetail:storage.detailInfoForObject.name :marker.position.longitude :marker.position.latitude];
-//        [_detailSubviewObject setHidden:NO];
-//        return YES;
-//    }
-//}
-//- (IBAction)pressButtonMenu:(id)sender
-//{
-//    [self.revealViewController revealToggle:sender];
-//    [_bigDetailPanel setHidden:YES];
-//    [_detailSubviewObject setHidden:YES];
-//}
-//- (IBAction)pressSmallInfoButton:(id)sender
-//{
-//   // [_bigDetailPanel setDataOfWindow];
-//    [_detailSubviewObject setHidden:YES];
-//    [_bigDetailPanel setHidden:NO];
-//}
-//
-//-(void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
-//{
-//    [_detailSubviewObject setHidden:YES];
-//    [_bigDetailPanel setHidden:YES];
-//}
-//
-//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-//{
-//    CLLocation *currentLocation = [locations lastObject];
-//    [mapSingletone.mapView_ animateToLocation:currentLocation.coordinate];
-//    [_locationManager stopUpdatingLocation];
-//}
-//
-//- (void)didReceiveMemoryWarning
-//{
-//    [super didReceiveMemoryWarning];
-//}
-//
-//-(void)firstMapLaunch
-//{
-//    self.locationManager = [[CLLocationManager alloc] init];
-//    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    self.locationManager.delegate = self;
-//    [_locationManager startUpdatingLocation];
-//    position = CLLocationCoordinate2DMake(49.8327176,23.9970189);
-//    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:position zoom:13];
-//    mapSingletone.mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-//    _mapView.delegate = self;
-//    mapSingletone.mapView_ = self.mapView;
-//    [mapSingletone.mapView_ animateToLocation:position];
-//    [mapSingletone.mapView_ animateToZoom:13];
-//    mapSingletone.mapView_.myLocationEnabled= YES;
-//      mapSingletone.mapView_.settings.myLocationButton = YES;
-//    GMSMarker *marker = [GMSMarker markerWithPosition:position];  //my location
-//    alreadyTappedMarker = marker;
-//    myMarker = marker;
-//    marker.icon = [UIImage imageNamed:@"home.png"];
-//    marker.map = mapSingletone.mapView_;
-//    [mapSingletone.waypoints_ addObject:marker];
-//    mapSingletone.positionString = [[NSString alloc] initWithFormat:@"%f,%f",
-//                                    marker.position.latitude,marker.position.longitude];
-//    [mapSingletone.waypointStrings_ addObject:mapSingletone.positionString];
-//}
-//
-//
-//-(void)setAppearance
-//{
-//    self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
-//    self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-//    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-//    self.navigationController.navigationBar.topItem.title =  storage.categoryNamesArray[0];
-//    _detailSubviewObject.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
-//    //set up smallview
-//    _detailSubviewObject.translucentAlpha = 0.9;
-//    _detailSubviewObject.translucentStyle = UIBarStyleBlack;
-//    _detailSubviewObject.translucentTintColor = [UIColor clearColor];
-//    //set up bigview
-//    _bigDetailPanel.translucentAlpha = 0.9;
-//    _bigDetailPanel.translucentStyle = UIBarStyleBlack;
-//    _bigDetailPanel.translucentTintColor = [UIColor clearColor];
-//}
-//
-//
-//-(void)displayObjectsMarkers : (NSNotification *)notification     ////////////////////////////
-//{
-////    
-////    [self displayInitialObjectsMarkers];
-//}
-//
-//-(void)displayInitialObjectsMarkers      ////////////////////////////
-//{
-//    Spot *spot;
-//    for (PFObject* object in dataModel.filteredObjects) {
-//        position = CLLocationCoordinate2DMake([object [@"latitude"] floatValue], [object [@"longitude"] floatValue]);
-//        spot = [[Spot alloc] initWithPosition:position];
-//        [clusterManager addItem:spot];
-//        [clusterManager cluster];
-//    }
-//}
-//
-////-(void)cleanMarkersFromMap:(NSString*)category
-////{
-////    [clusterManager removeItems];
-////    [dataModel.filteredObjects removeAllObjects];
-////}
-////
-////
-////-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-////                       change:(NSDictionary *)change context:(void *)context {
-////    if ([keyPath isEqualToString:@"selectedCategoryOfDisplayedObjects"]) {
-////        [_filteredObjects removeAllObjects];
-////        for (PFObject* objectFromDataBase in _foundObjects) {
-////            if ([objectFromDataBase[@"type"]isEqualToString:[object selectedCategoryOfDisplayedObjects]])
-////                
-////                [_filteredObjects addObject:objectFromDataBase];
-////        }
-////    }
-////}
-//
-//
-////setting observance over the main currency (KVO)
-//-(void)setObservingForSelectedCategory {
-//    [menuObject addObserver:self forKeyPath:@"selectedCategoryOfDisplayedObjects"
-//                    options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-//    
-//}
-//
-//
-//-(void)dealloc {
-//    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
-//
-//@end

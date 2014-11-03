@@ -12,13 +12,11 @@
 
 @implementation SNSTwitter
 
--(void)shareTwitter:(DetailInfoClass *)detailInfo
+-(void)shareTwitter:(PlaceDetailInfo *)detailInfo
 {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {
-        SLComposeViewController *composeController=[SLComposeViewController
-                                                    composeViewControllerForServiceType:SLServiceTypeTwitter];
-        composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+       SLComposeViewController* composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         NSString* txt = [NSString stringWithString:detailInfo.name];
         NSURL *url= [NSURL URLWithString:detailInfo.homePage];
         [composeController setInitialText: txt];

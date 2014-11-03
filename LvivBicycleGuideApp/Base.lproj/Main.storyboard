@@ -54,20 +54,16 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CLL-V6-4t2">
-                                                    <rect key="frame" x="21" y="28" width="30" height="19"/>
+                                                    <rect key="frame" x="23" y="21" width="26" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <state key="normal">
+                                                    <state key="normal" backgroundImage="route6-1.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="route:" destination="bqn-KB-vyg" eventType="touchUpInside" id="uZe-MF-l4a"/>
+                                                        <action selector="pressRouteButton:" destination="bqn-KB-vyg" eventType="touchUpInside" id="Lqb-cA-d4m"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="route6-1.png" id="aTe-lo-CSW">
-                                                    <rect key="frame" x="18" y="19" width="26" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
@@ -86,18 +82,18 @@
                                     <outlet property="delegate" destination="bqn-KB-vyg" id="A0X-el-Q1d"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" id="va5-Rb-fO0" customClass="BigDetailPanel">
+                            <view contentMode="scaleToFill" id="va5-Rb-fO0" customClass="BigInfoSubview">
                                 <rect key="frame" x="0.0" y="119" width="320" height="331"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Назва:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ccm-xz-Qlw">
-                                        <rect key="frame" x="10" y="9" width="60" height="29"/>
+                                        <rect key="frame" x="13" y="9" width="54" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Велокафе" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JYo-HK-NRZ">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Велокафе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JYo-HK-NRZ">
                                         <rect key="frame" x="64" y="9" width="241" height="29"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
@@ -105,13 +101,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адреса:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HDT-Fh-U4X">
-                                        <rect key="frame" x="10" y="36" width="60" height="32"/>
+                                        <rect key="frame" x="13" y="36" width="54" height="32"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дудаєва, 7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pH6-jF-4UL">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дудаєва, 7" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pH6-jF-4UL">
                                         <rect key="frame" x="72" y="37" width="223" height="29"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
@@ -127,28 +123,20 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                     </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter-1.png" id="1H9-LM-dK4">
-                                        <rect key="frame" x="64" y="241" width="46" height="38"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t8Y-Wc-njp">
+                                        <rect key="frame" x="5" y="246" width="47" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook.png" id="Swy-0j-KvE">
-                                        <rect key="frame" x="10" y="241" width="46" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t8Y-Wc-njp">
-                                        <rect key="frame" x="10" y="241" width="46" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" title="Button" image="facebook.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="facebook:" destination="va5-Rb-fO0" eventType="touchUpInside" id="aPU-8W-weG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MWs-y2-g1d">
-                                        <rect key="frame" x="64" y="243" width="46" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MWs-y2-g1d">
+                                        <rect key="frame" x="64" y="246" width="47" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" title="Button" image="twitter-1.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -160,13 +148,23 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="l9u-Ob-L6c">
+                                        <rect key="frame" x="118" y="243" width="49" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="google.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="GooglePlus:" destination="va5-Rb-fO0" eventType="touchUpInside" id="FgT-ue-82N"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="bigAddressLabel" destination="pH6-jF-4UL" id="BsO-Rd-4om"/>
+                                    <outlet property="address" destination="pH6-jF-4UL" id="hHh-zk-gFg"/>
                                     <outlet property="description" destination="qg9-zG-Yye" id="xjh-f4-uIF"/>
-                                    <outlet property="nameLabel" destination="JYo-HK-NRZ" id="6Td-Ed-sRV"/>
+                                    <outlet property="name" destination="JYo-HK-NRZ" id="h53-z7-WBe"/>
                                     <outlet property="smallMap" destination="GdY-B5-N7R" id="sQf-WF-Bys"/>
                                 </connections>
                             </view>
@@ -182,12 +180,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bigDetailPanel" destination="va5-Rb-fO0" id="7Kg-iS-cfZ"/>
-                        <outlet property="places" destination="qQs-iA-7wz" id="iBr-Ge-yXN"/>
+                        <outlet property="placesTable" destination="qQs-iA-7wz" id="emc-CY-iv3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wsi-I2-cUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="585" y="-446"/>
+            <point key="canvasLocation" x="581" y="-446"/>
         </scene>
         <!--Navigation Controller - Table-->
         <scene sceneID="iyL-HH-ZSO">
@@ -256,91 +254,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="DQ1-tN-1pr" customClass="BigDetailPanel">
-                                <rect key="frame" x="0.0" y="70" width="320" height="291"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Назва:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NGl-fI-4no">
-                                        <rect key="frame" x="10" y="9" width="60" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Велокафе" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DUw-A7-CuG">
-                                        <rect key="frame" x="64" y="9" width="241" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адреса:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="13b-rc-Gls">
-                                        <rect key="frame" x="10" y="36" width="60" height="32"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дудаєва, 7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lko-9g-q5N">
-                                        <rect key="frame" x="72" y="37" width="223" height="29"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Here will be deskription text" textAlignment="center" id="mXb-vX-hqr">
-                                        <rect key="frame" x="10" y="188" width="300" height="47"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                                    </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter-1.png" id="yMV-Jw-Eo9">
-                                        <rect key="frame" x="64" y="241" width="46" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook.png" id="YKc-si-vjQ">
-                                        <rect key="frame" x="10" y="241" width="46" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="z6H-TS-MYV">
-                                        <rect key="frame" x="10" y="241" width="46" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="facebook:" destination="DQ1-tN-1pr" eventType="touchUpInside" id="9FM-cC-7PZ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZCb-Hm-GBn">
-                                        <rect key="frame" x="64" y="243" width="46" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="Twitter:" destination="DQ1-tN-1pr" eventType="touchUpInside" id="Ht1-yc-DI5"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" id="CyE-lL-rDI" customClass="GMSMapView">
-                                        <rect key="frame" x="5" y="76" width="310" height="104"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="bigAddressLabel" destination="lko-9g-q5N" id="NxX-fj-9Wf"/>
-                                    <outlet property="description" destination="mXb-vX-hqr" id="NAm-sW-Vxu"/>
-                                    <outlet property="nameLabel" destination="DUw-A7-CuG" id="YH3-TZ-Xz3"/>
-                                    <outlet property="smallMap" destination="CyE-lL-rDI" id="fs0-30-WAb"/>
-                                </connections>
-                            </view>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="49" id="c6V-28-xFe" customClass="SmallDetaiPanel">
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="49" id="c6V-28-xFe" customClass="SmallInfoSubview">
                                 <rect key="frame" x="0.0" y="4" width="320" height="58"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
@@ -357,7 +271,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UIg-AM-yTG">
-                                        <rect key="frame" x="57" y="19" width="139" height="28"/>
+                                        <rect key="frame" x="57" y="0.0" width="139" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -381,7 +295,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="pressRouteButton:" destination="c6V-28-xFe" eventType="touchUpInside" id="rOJ-GV-x8W"/>
+                                            <action selector="pressRouteButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="I0U-ZB-7EZ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aQI-5K-saF">
@@ -395,10 +309,94 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="detailButton" destination="Rzt-JP-Wir" id="bZD-r2-DGz"/>
                                     <outlet property="distanceLabel" destination="aQI-5K-saF" id="LEA-Eu-myb"/>
-                                    <outlet property="nameLabel" destination="UIg-AM-yTG" id="PZ6-VQ-dmm"/>
-                                    <outlet property="routeButton" destination="xcq-3n-Mh4" id="AS4-Ft-HWJ"/>
+                                    <outlet property="name" destination="UIg-AM-yTG" id="YMJ-2L-SS3"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" id="DQ1-tN-1pr" customClass="BigInfoSubview">
+                                <rect key="frame" x="0.0" y="107" width="320" height="291"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Назва:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NGl-fI-4no">
+                                        <rect key="frame" x="10" y="9" width="54" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Велокафе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DUw-A7-CuG">
+                                        <rect key="frame" x="64" y="9" width="241" height="29"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Адреса:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="13b-rc-Gls">
+                                        <rect key="frame" x="10" y="36" width="54" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дудаєва, 7" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lko-9g-q5N">
+                                        <rect key="frame" x="72" y="37" width="223" height="29"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Here will be deskription text" textAlignment="center" id="mXb-vX-hqr">
+                                        <rect key="frame" x="10" y="188" width="300" height="47"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="z6H-TS-MYV">
+                                        <rect key="frame" x="10" y="243" width="47" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="facebook.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="facebook:" destination="DQ1-tN-1pr" eventType="touchUpInside" id="9FM-cC-7PZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZCb-Hm-GBn">
+                                        <rect key="frame" x="65" y="243" width="46" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="twitter-1.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="Twitter:" destination="DQ1-tN-1pr" eventType="touchUpInside" id="Ht1-yc-DI5"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" id="CyE-lL-rDI" customClass="GMSMapView">
+                                        <rect key="frame" x="5" y="76" width="310" height="104"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Khd-Bc-ROf">
+                                        <rect key="frame" x="119" y="242" width="46" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="google.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="GooglePlus:" destination="DQ1-tN-1pr" eventType="touchUpInside" id="7vt-ut-2dl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="address" destination="lko-9g-q5N" id="eYV-cg-OmO"/>
+                                    <outlet property="description" destination="mXb-vX-hqr" id="NAm-sW-Vxu"/>
+                                    <outlet property="name" destination="DUw-A7-CuG" id="LeP-Ky-N6B"/>
+                                    <outlet property="smallMap" destination="CyE-lL-rDI" id="fs0-30-WAb"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -412,10 +410,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bigDetailPanel" destination="DQ1-tN-1pr" id="fbk-Lu-wMR"/>
-                        <outlet property="detailSubviewObject" destination="c6V-28-xFe" id="fmp-nB-c0v"/>
+                        <outlet property="bigInfoSubview" destination="DQ1-tN-1pr" id="dkw-mP-Ygy"/>
                         <outlet property="mapView" destination="mpq-ri-9fJ" id="V1S-Pn-BGp"/>
                         <outlet property="menuButton" destination="D5f-8i-uyn" id="N3r-vy-KQ2"/>
+                        <outlet property="routeButton" destination="xcq-3n-Mh4" id="NLG-q1-dph"/>
+                        <outlet property="smallInfoSubview" destination="c6V-28-xFe" id="WZc-lr-HcB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -644,9 +643,6 @@
                             <outlet property="delegate" destination="yhf-Id-6oj" id="1p9-0N-H0m"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="tableView" destination="Wax-wE-LTc" id="7ko-1k-Uhd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3SI-v0-cMO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -658,6 +654,7 @@
         <image name="cafe.png" width="32" height="37"/>
         <image name="earth-america-7.png" width="30" height="30"/>
         <image name="facebook.png" width="168" height="168"/>
+        <image name="google.png" width="512" height="512"/>
         <image name="list-fat-7.png" width="30" height="30"/>
         <image name="parking.png" width="32" height="37"/>
         <image name="route6-1.png" width="550" height="550"/>

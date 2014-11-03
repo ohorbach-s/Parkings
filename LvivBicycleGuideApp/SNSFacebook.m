@@ -12,12 +12,12 @@
 
 @implementation SNSFacebook
 
--(void)shareFacebook:(DetailInfoClass *)detailInfo{
+-(void)shareFacebook:(PlaceDetailInfo *)detailInfo
+{
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
-        SLComposeViewController *composeController=[SLComposeViewController
-                                                    composeViewControllerForServiceType:SLServiceTypeFacebook];
-        composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        SLComposeViewController* composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         NSString* txt = [NSString stringWithString:detailInfo.name];
         NSURL *url= [NSURL URLWithString:detailInfo.homePage];
         [composeController setInitialText: txt];

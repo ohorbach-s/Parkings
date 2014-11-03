@@ -9,21 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "SWRevealViewController.h"
 #import "PlaceCategory.h"
-#import "MapSingletone.h"
+#import "RoutePoints.h"
 //#import "DataModel.h"
 
-@protocol MenuPassDelegate <NSObject>
-    
--(void)setCategoryValue :(NSString*)value;
+@protocol CleanPolylineDelegate <NSObject>
 
+-(void)cleanPolylineFromMap;
 
 @end
 
 @interface SlideMenuViewController : UITableViewController
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic)NSString *selectedCategoryOfDisplayedObjects;
-@property (weak, nonatomic)id<MenuPassDelegate>delegate;
+@property (strong,nonatomic)NSString *markerIcon;
+@property (strong, nonatomic)NSString *category;
+@property (strong, nonatomic)id<CleanPolylineDelegate>cleanPolylineDelegate;
+
 -(void)setIndexValueWithCompletion :(void(^)(NSInteger))completion;
--(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion;
+
 @end

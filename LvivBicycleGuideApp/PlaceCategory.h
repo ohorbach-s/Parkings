@@ -7,15 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DetailInfoClass.h"
-
+#import "PlaceDetailInfo.h"
 
 @interface PlaceCategory : NSObject
 
 @property(nonatomic, strong)NSArray *markersImages;
 @property(nonatomic, strong)NSArray *categoryNamesArray;
-//@property (nonatomic,strong)DetailInfoClass *detailInfoForObject;
-
 
 + (id)sharedManager;
+
 @end
+

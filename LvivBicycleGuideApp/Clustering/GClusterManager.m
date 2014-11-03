@@ -4,17 +4,17 @@
 }
 
 - (void)setMapView:(GMSMapView*)mapView {
-//    previousCameraPosition = nil;
+    //    previousCameraPosition = nil;
     _mapView = mapView;
 }
 
 - (void)setClusterAlgorithm:(id <GClusterAlgorithm>)clusterAlgorithm {
-//    previousCameraPosition = nil;
+    //    previousCameraPosition = nil;
     _clusterAlgorithm = clusterAlgorithm;
 }
 
 - (void)setClusterRenderer:(id <GClusterRenderer>)clusterRenderer {
-//    previousCameraPosition = nil;
+    //    previousCameraPosition = nil;
     _clusterRenderer = clusterRenderer;
 }
 
@@ -23,7 +23,7 @@
 }
 
 - (void)removeItems {
-  [_clusterAlgorithm removeItems];
+    [_clusterAlgorithm removeItems];
 }
 
 - (void)cluster {
@@ -33,18 +33,6 @@
 
 #pragma mark mapview delegate
 
-//- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition {
-//    assert(mapView == _mapView);
-//    
-//    // Don't re-compute clusters if the map has just been panned/tilted/rotated.
-//    GMSCameraPosition *position = [mapView camera];
-//    if (previousCameraPosition != nil && previousCameraPosition.zoom == position.zoom) {
-//        return;
-//    }
-//    previousCameraPosition = [mapView camera];
-//   
-//    [self cluster];
-//}
 
 #pragma mark convenience
 

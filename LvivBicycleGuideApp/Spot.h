@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-@import CoreLocation;
 #import "GClusterItem.h"
 
 @interface Spot : NSObject <GClusterItem>
 
 @property (nonatomic) CLLocationCoordinate2D location;
+
 -(instancetype) initWithPosition:(CLLocationCoordinate2D)position;
+
 @end

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
-#import "DetailInfoClass.h"
+#import "PlaceDetailInfo.h"
 
 @interface SNSTwitter : NSObject
--(void)shareTwitter:(DetailInfoClass *)detailInfo;
+
+-(void)shareTwitter:(PlaceDetailInfo *)detailInfo;
 
 @end

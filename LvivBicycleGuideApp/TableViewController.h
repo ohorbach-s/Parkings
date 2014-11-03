@@ -7,17 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SlideMenuViewController.h"
-#import "MapSingletone.h"
-#import "BigDetailPanel.h"
+
+@class BigInfoSubview;
+
+@protocol TableRouteDelegate <NSObject>
+
+-(void)findDirection:(float)markerLatitude :(float)markerLongitude;
+
+@end
 
 @interface TableViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *places;
-@property (strong, nonatomic) IBOutlet BigDetailPanel *bigDetailPanel;
+@property (strong, nonatomic) id<TableRouteDelegate> delagate;
 
-- (IBAction)route:(UIButton *)sender;
+- (IBAction)pressRouteButton:(UIButton *)sender;
 - (IBAction)pressInfoButton:(UIButton *)sender;
-
+- (void)fillSubview:(NSNotification *)notification;
 
 @end

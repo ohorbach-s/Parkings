@@ -14,11 +14,7 @@
 
 - (void)addItem:(id <GClusterItem>) item;
 - (void)removeItems;
-
 - (void)cluster;
-
-//convenience
-
 + (instancetype)managerWithMapView:(GMSMapView*)googleMap
                          algorithm:(id<GClusterAlgorithm>)algorithm
                           renderer:(id<GClusterRenderer>)renderer;
