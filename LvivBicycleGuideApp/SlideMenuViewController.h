@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SWRevealViewController.h"
+#import "PlaceCategories.h"
+#import "RoutePoints.h"
 #import "PlaceCategory.h"
-#import "MapSingletone.h"
-//#import "DataModel.h"
+#import "DataModel.h"
 
 @protocol CleanPolylineDelegate <NSObject>
 
@@ -18,12 +19,20 @@
 
 @end
 
+@protocol ChangeCategory <NSObject>
+
+-(void)changeCategory :(NSInteger)index;
+
+@end
+
 @interface SlideMenuViewController : UITableViewController
 
-//@property (strong, nonatomic) IBOutlet UITableView *tableView;
-//@property (strong, nonatomic)NSString *selectedCategoryOfDisplayedObjects;
 @property (strong,nonatomic)NSString *markerIcon;
-@property (strong, nonatomic)id<CleanPolylineDelegate>delegateCategory;
+@property (strong, nonatomic)NSString *category;
+
+@property (weak, nonatomic)id<CleanPolylineDelegate>cleanPolylineDelegate;
+@property (weak, nonatomic)id<ChangeCategory>changeCategoryDelegate;
+
 -(void)setIndexValueWithCompletion :(void(^)(NSInteger))completion;
-//-(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion;
+
 @end

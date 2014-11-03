@@ -7,16 +7,17 @@
 //
 
 #import "DataModel.h"
-#import "DetailInfoClass.h"
+#import "PlaceDetailInfo.h"
+#import "PlaceCategories.h"
 
-@interface DataModel () {
-
-   // SlideMenuViewController *menuObject;
-    NSString *categoryName;
+@interface DataModel ()
+{
+    //NSString *categoryName;
     GMSMarker *infoMarker;
+    PlaceCategories *namesArray;
 }
 
-@property (nonatomic,strong) NSArray *foundObjects;
+@property (nonatomic,strong) NSArray *allRetrievedPlaces;
 
 @end
 
@@ -25,85 +26,113 @@
 -(void)firstLoad
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
-    _foundObjects = [query findObjects];
-    _filteredObjects = [[NSMutableArray alloc] init];
-    _infoForMarker = [[DetailInfoClass alloc] init];
-    
-    for (PFObject* objectFromDataBase in _foundObjects) {
+    _allRetrievedPlaces = [query findObjects];
+    _selectedPlaces = [[NSMutableArray alloc] init];
+    _infoForMarker = [[PlaceDetailInfo alloc] init];
+    namesArray = [PlaceCategories sharedManager];
+    self.currentCategory = [[PlaceCategory alloc] init];
+    for (PFObject* objectFromDataBase in _allRetrievedPlaces) {
         if ([objectFromDataBase[@"type"]isEqualToString:@"Parking"])
-            
-            [_filteredObjects addObject:objectFromDataBase];
-    }    
+            [_selectedPlaces addObject:objectFromDataBase];
+    }
 }
 
-+ (id)sharedModel {
++ (id)sharedModel
+{
     static DataModel *sharedModel = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedModel = [[DataModel alloc] init];
         [sharedModel firstLoad];
+        
     });
     
     return sharedModel;
 }
-- (id)init {
-    
+
+- (id)init
+{
     if (self = [super init]) {
-        _foundObjects = [[NSArray alloc] init];
-        _filteredObjects = [[NSMutableArray alloc] init];
+        _allRetrievedPlaces = [[NSArray alloc] init];
+        _selectedPlaces = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
--(void)buildInfoForMarker: (GMSMarker*)marker {
+-(void)buildInfoForMarker: (GMSMarker*)marker
+{
     infoMarker = marker;
-    
-    for (PFObject *object in _filteredObjects) {
+    for (PFObject *object in _selectedPlaces) {
         if (([object[@"longitude"] floatValue] == infoMarker.position.longitude ) && ([object[@"latitude"] floatValue] == infoMarker.position.latitude)) {
             _infoForMarker.name = object[@"name"];
             _infoForMarker.address = object[@"address"];
             _infoForMarker.longtitude = object[@"longitude"];
             _infoForMarker.latitude = object[@"latitude"];
             _infoForMarker.homePage = object[@"homePage"];
-            _infoForMarker.description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", object[@"description"], object[@"workTime"], object[@"phone"], object[@"homePage"]];
+            NSMutableString *test = [NSMutableString stringWithString: @""];
+            if (object[@"description"]) {
+                [test appendString:[NSString stringWithFormat:@"%@", object[@"description"]]];
+            }
+            if (object[@"workTime"]) {
+                [test appendString:[NSString stringWithFormat:@"\n %@", object[@"workTime"]]];
+            }
+            if (object[@"phone"]) {
+                [test appendString:[NSString stringWithFormat:@"\n %@", object[@"phone"]]];
+            }
+            if (object[@"homePage"]) {
+                [test appendString:[NSString stringWithFormat:@"\n %@", object[@"homePage"]]];
+            }
+            _infoForMarker.description = [NSString stringWithString:test];
             _infoForMarker.type = object[@"type"];
-            
-            
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
-
-    
 }
 
 -(void)findObjectForTappedRow :(NSInteger)indexOfRow
 {
-
-    PFObject *chosenPlace = [_filteredObjects objectAtIndex:indexOfRow];
-    
-     _infoForMarker.name = chosenPlace[@"name"];
+    PFObject *chosenPlace = [_selectedPlaces objectAtIndex:indexOfRow];
+    _infoForMarker.name = chosenPlace[@"name"];
     _infoForMarker.address = chosenPlace[@"address"];
     _infoForMarker.longtitude = chosenPlace[@"longitude"];
     _infoForMarker.latitude = chosenPlace[@"latitude"];
     _infoForMarker.workTime = chosenPlace[@"workTime"];
     _infoForMarker.phone = chosenPlace[@"phone"];
     _infoForMarker.homePage = chosenPlace[@"homePage"];
-    _infoForMarker.description = [NSString stringWithFormat:@"%@\n %@\n %@\n %@", chosenPlace[@"description"], chosenPlace[@"workTime"], chosenPlace[@"phone"], chosenPlace[@"homePage"]];
+    NSMutableString *test = [NSMutableString stringWithString: @""];
+    if (chosenPlace[@"description"]) {
+        [test appendString:[NSString stringWithFormat:@"%@", chosenPlace[@"description"]]];
+    }
+    if (chosenPlace[@"workTime"]) {
+        [test appendString:[NSString stringWithFormat:@"\n %@", chosenPlace[@"workTime"]]];
+    }
+    if (chosenPlace[@"phone"]) {
+        [test appendString:[NSString stringWithFormat:@"\n %@", chosenPlace[@"phone"]]];
+    }
+    if (chosenPlace[@"homePage"]) {
+        [test appendString:[NSString stringWithFormat:@"\n %@", chosenPlace[@"homePage"]]];
+    }
+    _infoForMarker.description = [NSString stringWithString:test];
     _infoForMarker.type = chosenPlace[@"type"];
-
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
 }
 
--(void) reactToCategorySelection :(NSString*)title  /*:(NSNotification*)notification */{
- 
-    [_filteredObjects removeAllObjects];
-    for (PFObject* objectFromDataBase in _foundObjects) {
-        if ([objectFromDataBase[@"type"]isEqualToString:title]){
-            
-            [_filteredObjects addObject:objectFromDataBase];
-            
+-(void) reactToCategorySelection :(NSString*)title
+{
+    [_selectedPlaces removeAllObjects];
+    for (PFObject* objectFromDataBase in _allRetrievedPlaces) {
+        
+        if ([objectFromDataBase[@"type"]isEqualToString:title])  {
+            [_selectedPlaces addObject:objectFromDataBase];
         }
     }
+}
+
+-(void)changeCategory :(NSInteger)index
+{
+    [self reactToCategorySelection:[namesArray.categoryNamesArray objectAtIndex:index]];
+    self.currentCategory.categoryName = [namesArray.categoryNamesArray objectAtIndex:index];
+    self.currentCategory.categoryIcon = [namesArray.markersImages objectAtIndex:index];
 }
 
 

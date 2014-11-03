@@ -11,7 +11,7 @@
 #import "MapViewController.h"
 #import "DataModel.h"
 
-@interface DetailInfoClass : NSObject
+@interface PlaceDetailInfo : NSObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *address;

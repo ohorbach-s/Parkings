@@ -12,7 +12,7 @@
 
 @implementation SNSTwitter
 
--(void)shareTwitter:(DetailInfoClass *)detailInfo
+-(void)shareTwitter:(PlaceDetailInfo *)detailInfo
 {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {

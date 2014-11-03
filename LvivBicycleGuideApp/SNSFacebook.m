@@ -12,7 +12,8 @@
 
 @implementation SNSFacebook
 
--(void)shareFacebook:(DetailInfoClass *)detailInfo{
+-(void)shareFacebook:(PlaceDetailInfo *)detailInfo
+{
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
         SLComposeViewController *composeController=[SLComposeViewController

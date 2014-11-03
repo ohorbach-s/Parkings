@@ -8,17 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
-//#import "SlideMenuViewController.h"
+#import "PlaceCategory.h"
 
-@class DetailInfoClass;
+@class PlaceDetailInfo;
+
 @interface DataModel : NSObject
 
-@property (nonatomic, strong) NSMutableArray *filteredObjects;
-@property (nonatomic, strong) DetailInfoClass *infoForMarker;
-//-(void)setCategoryValue :(NSString*)value;
+@property (nonatomic, strong) NSMutableArray *selectedPlaces;
+@property (nonatomic, strong) PlaceDetailInfo *infoForMarker;
+@property (nonatomic, strong)PlaceCategory *currentCategory;
+
 + (id)sharedModel;
-- (id)init ;
+- (id)init;
 -(void) reactToCategorySelection :(NSString*)title;
 -(void)buildInfoForMarker: (GMSMarker*)marker;
 -(void)findObjectForTappedRow :(NSInteger)indexOfRow;
+
+
+-(void)changeCategory :(NSInteger)index;
+
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class BigDetailPanel;
+@class BigInfoSubview;
 
 @protocol TableRouteDelegate <NSObject>
 
@@ -18,11 +18,11 @@
 
 @interface TableViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *places;
-@property (strong, nonatomic) IBOutlet BigDetailPanel *bigDetailPanel;
+@property (strong, nonatomic) IBOutlet BigInfoSubview *bigDetailPanel;
 @property (strong, nonatomic) id<TableRouteDelegate> delagate;
 
-- (IBAction)route:(UIButton *)sender;
+- (IBAction)pressRouteButton:(UIButton *)sender;
 - (IBAction)pressInfoButton:(UIButton *)sender;
--(void)fillSubview:(NSNotification *)notification;
+- (void)fillSubview:(NSNotification *)notification;
+
 @end

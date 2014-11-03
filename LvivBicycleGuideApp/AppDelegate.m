@@ -19,7 +19,7 @@
                   clientKey:@"Na8yNupcquVi35ithwur5tNqC1hIswZutyrttcBj"];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-
+    
     
     [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
     UIImage* tabBarBackground = [UIImage imageNamed:@"back.png"];

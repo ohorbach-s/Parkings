@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MapSingletone : NSObject
+@interface RoutePoints : NSObject
 
-@property (nonatomic,strong) GMSMapView *mapView_;
 @property (nonatomic,strong) NSMutableArray *waypoints_;
 @property (nonatomic,strong) NSMutableArray *waypointStrings_;
 @property (nonatomic,strong) NSArray *_waypoints;

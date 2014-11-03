@@ -6,20 +6,22 @@
 //  Copyright (c) 2014 SoftServe. All rights reserved.
 //
 
-#import "MapSingletone.h"
+#import "RoutePoints.h"
 
-@implementation MapSingletone
+@implementation RoutePoints
 
-+ (id)sharedManager {
-    static MapSingletone *sharedSingletoneManager = nil;
++ (id)sharedManager
+{
+    static RoutePoints *sharedSingletoneManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedSingletoneManager = [[MapSingletone alloc] init];
+        sharedSingletoneManager = [[RoutePoints alloc] init];
     });
     
     return sharedSingletoneManager;
 }
-- (id)init {
+- (id)init
+{
     
     if (self = [super init]) {
         _waypoints_ = [[NSMutableArray alloc]init];

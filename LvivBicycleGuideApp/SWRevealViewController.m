@@ -124,7 +124,11 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return frame;
 }
 
-
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return NO;
+}
 - (void)prepareRearViewForPosition:(FrontViewPosition)newPosition
 {
     if ( _rearView == nil )

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MapSingletone.h"
+#import "RoutePoints.h"
 
 @interface DirectionAndDistance : NSObject
 
@@ -17,4 +17,5 @@
 - (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection :(void(^)(NSString* ,GMSPolyline*))completion2;
 - (void)retrieveDirectionsWithCompletionHandler :(void(^)(NSDictionary* ))completionHandler;
 + (id)sharedManager;
+
 @end

@@ -7,16 +7,16 @@
 //
 
 #import "SlideMenuViewController.h"
-//#import "RequestsClass.h"
 #import <GoogleMaps/GoogleMaps.h>
 
-extern NSString *iconOfSelectedMarker;
 static NSInteger indexOfCategory;
 
-@interface SlideMenuViewController () {
-    PlaceCategory *storage;
- //   RequestsClass *requestToDisplay;
-    MapSingletone *mapSingletone;
+@interface SlideMenuViewController ()
+{
+    PlaceCategories *storage;
+    RoutePoints *routePoints;
+    PlaceCategory *currentCategory;
+    DataModel *dataModel;
 }
 
 @end
@@ -34,11 +34,12 @@ static NSInteger indexOfCategory;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   storage = [PlaceCategory sharedManager];
-    mapSingletone = [MapSingletone sharedManager];
-  //  requestToDisplay = [[RequestsClass alloc] init];
-    //_selectedCategoryOfDisplayedObjects = @"Parking";
+    storage = [PlaceCategories sharedManager];
+    routePoints = [RoutePoints sharedManager];
+    self.markerIcon = @"Parking.png";
+    self.category = @"Parking";
     [self setAppearance];
+    dataModel = [DataModel sharedModel];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,7 +64,6 @@ static NSInteger indexOfCategory;
     return [storage.categoryNamesArray count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier = [storage.categoryNamesArray objectAtIndex:indexPath.row];
@@ -76,31 +76,17 @@ static NSInteger indexOfCategory;
     completion(indexOfCategory);
 }
 
-//-(void)passCategoryStringWithBlock: (void(^)(NSString*))comletion
-//{
-//    comletion(_selectedCategoryOfDisplayedObjects);
-//}
-
-                                            
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (_selectedCategoryOfDisplayedObjects) {
-//   //     [requestToDisplay cleanMarkersFromMap:_selectedCategoryOfDisplayedObjects];
-//    }
-    //_selectedCategoryOfDisplayedObjects = storage.categoryNamesArray [indexPath.row];
-    //[self.delegate setCategoryValue:_selectedCategoryOfDisplayedObjects];
-    [self.delegateCategory cleanPolylineFromMap];
+    [self.cleanPolylineDelegate cleanPolylineFromMap];
     self.markerIcon = storage.markersImages[indexPath.row];
+    self.category = storage.categoryNamesArray [indexPath.row];
     indexOfCategory = indexPath.row;
-     [self.revealViewController revealToggle:self];
-    //  [requestToDisplay displayObjectsMarkers:_selectedCategoryOfDisplayedObjects :iconOfSelectedMarker];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTableView" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"setSelectedCategory" object:nil];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"performFilterRenew"object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapandTableRenew"object:nil];
+    [self.revealViewController revealToggle:self];
+    
+    [dataModel changeCategory:indexPath.row];
+
    
-//    mapSingletone.polyline.map = nil;
-//    mapSingletone.polyline = nil;
 }
 
 -(void)setAppearance

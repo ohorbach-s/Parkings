@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
-#import "DetailInfoClass.h"
+#import "PlaceDetailInfo.h"
 
 @interface SNSFacebook : NSObject
--(void)shareFacebook:(DetailInfoClass*)detailInfo;
+
+-(void)shareFacebook:(PlaceDetailInfo*)detailInfo;
+
 @end

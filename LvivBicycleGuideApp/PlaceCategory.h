@@ -1,21 +1,19 @@
 //
-//  Category.h
+//  PlaceCategory.h
 //  LvivBicycleGuideApp
 //
-//  Created by Yuliia on 10/28/14.
+//  Created by Yuliia on 11/3/14.
 //  Copyright (c) 2014 SoftServe. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "DetailInfoClass.h"
+
 
 
 @interface PlaceCategory : NSObject
 
-@property(nonatomic, strong)NSArray *markersImages;
-@property(nonatomic, strong)NSArray *categoryNamesArray;
-//@property (nonatomic,strong)DetailInfoClass *detailInfoForObject;
+@property (nonatomic,strong)NSString *categoryName;
+@property (nonatomic,strong)NSString *categoryIcon;
 
 
-+ (id)sharedManager;
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import "GClusterRenderer.h"
+#import "DataModel.h"
 
 @interface GDefaultClusterRenderer : NSObject <GClusterRenderer> 
 
