@@ -41,10 +41,14 @@ static NSInteger indexOfCategory;
     [self setAppearance];
     dataModel = [DataModel sharedModel];
 }
-
+//setting custom height for cells
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 140.0;
+    if ([self gettingScreenSize]==568.00) {
+        return 140.0;
+    }else
+        return 110;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,12 +74,7 @@ static NSInteger indexOfCategory;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     return cell;
 }
-
--(void)setIndexValueWithCompletion :(void(^)(NSInteger)) completion
-{
-    completion(indexOfCategory);
-}
-
+//clean previous routes and implementing changes on data model
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.cleanPolylineDelegate cleanPolylineFromMap];
@@ -83,12 +82,9 @@ static NSInteger indexOfCategory;
     self.category = storage.categoryNamesArray [indexPath.row];
     indexOfCategory = indexPath.row;
     [self.revealViewController revealToggle:self];
-    
     [dataModel changeCategory:indexPath.row];
-
-   
 }
-
+//set visual appearance
 -(void)setAppearance
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
@@ -97,5 +93,14 @@ static NSInteger indexOfCategory;
     UIGraphicsEndImageContext();
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
+-(double)gettingScreenSize
+{
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    CGFloat screenHeight = screenSize.height;
+    
+    return screenHeight;
+}
+
 
 @end

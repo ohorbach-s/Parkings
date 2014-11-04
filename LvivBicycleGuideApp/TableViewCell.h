@@ -15,5 +15,4 @@
 @property (weak, nonatomic) IBOutlet UIButton *routeToPlace;
 @property (weak, nonatomic) IBOutlet UIButton *infoAboutPlace;
 
-
 @end

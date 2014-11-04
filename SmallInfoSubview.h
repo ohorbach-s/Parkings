@@ -13,7 +13,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *name;
 @property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
 
--(void)setDetail :(NSString*) acceptedName :(float)acceptedLongitude :(float) acceptedLatitude;
+-(void)setDetailWithName :(NSString*) acceptedName AndLongitude:(float)acceptedLongitude AndLatitude:(float) acceptedLatitude;
 
 @end
 

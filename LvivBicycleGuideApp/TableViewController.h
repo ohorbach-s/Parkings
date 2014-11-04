@@ -12,7 +12,7 @@
 
 @protocol TableRouteDelegate <NSObject>
 
--(void)findDirection:(float)markerLatitude :(float)markerLongitude;
+-(void)findDirectionForLatitude:(float)markerLatitude AndLongitude:(float)markerLongitude;
 
 @end
 

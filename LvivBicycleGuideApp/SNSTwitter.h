@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
+#import "SNSSocialNetwork.h"
+#import "DataModel.h"
 #import "PlaceDetailInfo.h"
 
-@interface SNSTwitter : NSObject
+@interface SNSTwitter : NSObject<SNSSocialNetwork>
 
--(void)shareTwitter:(PlaceDetailInfo *)detailInfo;
+
+
 
 @end

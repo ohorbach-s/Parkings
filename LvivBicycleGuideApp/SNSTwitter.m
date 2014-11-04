@@ -7,26 +7,18 @@
 //
 
 #import "SNSTwitter.h"
-#import "MapViewController.h"
 
 
 @implementation SNSTwitter
 
--(void)shareTwitter:(PlaceDetailInfo *)detailInfo
-{
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+-(void)share
+{     DataModel*model=[DataModel sharedModel];
+        if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {
-        SLComposeViewController *composeController=[SLComposeViewController
-                                                    composeViewControllerForServiceType:SLServiceTypeTwitter];
-        composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        NSString* txt = [NSString stringWithString:detailInfo.name];
-        NSURL *url= [NSURL URLWithString:detailInfo.homePage];
-        [composeController setInitialText: txt];
-        if(url){
-            
-            [composeController addURL:url];
-        }
-        [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:composeController animated:YES completion:nil];
+       SLComposeViewController* composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        NSURL *url=[NSURL URLWithString:model.infoForMarker.homePage];
+        if(url)
+            [composeController addURL:url];        [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:composeController animated:YES completion:nil];
     }else
     {
         UIAlertView* allertView=[[UIAlertView alloc] initWithTitle:@"Error login accaunt"

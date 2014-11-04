@@ -7,17 +7,17 @@
 //
 
 #import "BigInfoSubview.h"
-#import "SNSFacebook.h"
-#import "SNSTwitter.h"
 #import "PlaceCategories.h"
 #import "SlideMenuViewController.h"
 
 @interface BigInfoSubview ()
 {
-    SLComposeViewController *composeController;
+    
     GMSMarker *markerToParticularObject;
     CLLocationCoordinate2D particularPosition;
     PlaceCategories *storage;
+    AAShareBubbles *bubles;
+    SNSNetworkFactory* networkFactory;
 }
 
 @end
@@ -33,21 +33,24 @@
     return self;
 }
 
-- (IBAction)Twitter:(id)sender
+//share
+-(IBAction)Share:(id)sender
 {
-//    SNSTwitter *twitter =[[SNSTwitter alloc]init];
-//    [twitter shareTwitter:storage.detailInfoForObject];
-}
-- (IBAction)facebook:(id)sender
-{
-//    SNSFacebook *facebook=[[SNSFacebook alloc]init];
-//    [facebook shareFacebook:storage.detailInfoForObject];
+    bubles=[[AAShareBubbles alloc]initWithPoint:self.center radius:80 inView:self];
+    bubles.delegate=self;
+    bubles.radius=80;
+    bubles.showTwitterBubble=YES;
+    bubles.showVkBubble=YES;
+    bubles.showGooglePlusBubble=YES;
+    bubles.showFacebookBubble=YES;
+    [bubles show];
+    
 }
 
+//fill fields with relevant information
 -(void)setDataOfWindow : (PlaceDetailInfo*) infoForMarker
 {
-    
-    composeController =[[SLComposeViewController alloc]init];
+    networkFactory=[SNSNetworkFactory new];
     storage = [PlaceCategories sharedManager];
     [self.smallMap.settings setAllGesturesEnabled:NO];
     self.name.text = infoForMarker.name;
@@ -60,6 +63,29 @@
     [_smallMap animateToLocation:particularPosition];
     [_smallMap animateToZoom:16];
     markerToParticularObject.map = _smallMap;
+}
+-(void)aaShareBubbles:(AAShareBubbles *)shareBubbles tappedBubbleWithType:(AAShareBubbleType)bubbleType
+{
+    
+    
+    SNSSocialNetworkType type = SNSSocialNetworkTypeFacebook;
+    switch(bubbleType)
+    {
+        case AAShareBubbleTypeFacebook: type=SNSSocialNetworkTypeFacebook; break;
+            // case AAShareBubbleTypeLinkedIn: type=SNSSocialNetworkTypeLinkedIn; break;
+        case AAShareBubbleTypeTwitter: type=SNSSocialNetworkTypeTwitter; break;
+        case AAShareBubbleTypeVk: type=SNSSocialNetworkTypeVkontakte;   break;
+        case AAShareBubbleTypeGooglePlus: type=SNSSocialNetworkTypeGooglePlus; break;
+    }
+    
+    id socialNetwork= [networkFactory getNetwork:type];
+    self.some=socialNetwork;
+    [socialNetwork share];
+    
+}
+-(void)aaShareBubblesDidHide
+{
+    
 }
 
 @end

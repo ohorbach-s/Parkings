@@ -22,7 +22,6 @@
 }
 - (id)init
 {
-    
     if (self = [super init]) {
         _waypoints_ = [[NSMutableArray alloc]init];
         _waypointStrings_ = [[NSMutableArray alloc]init];

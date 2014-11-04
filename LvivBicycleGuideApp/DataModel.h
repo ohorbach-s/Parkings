@@ -23,8 +23,6 @@
 -(void) reactToCategorySelection :(NSString*)title;
 -(void)buildInfoForMarker: (GMSMarker*)marker;
 -(void)findObjectForTappedRow :(NSInteger)indexOfRow;
-
-
 -(void)changeCategory :(NSInteger)index;
 
 @end

@@ -13,7 +13,6 @@
 
 - (id)init
 {
-    
     if (self = [super init]) {
         _categoryName = @"Parking";
         _categoryIcon = @"Parking.png";

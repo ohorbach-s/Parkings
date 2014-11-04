@@ -47,7 +47,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
 }
-
+//passing data to detail subview
 -(void)fillSubview:(NSNotification *)notification
 {
     [_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
@@ -60,7 +60,7 @@
     [self.navigationController.navigationBar setHidden:NO];
     [_bigDetailPanel setHidden:YES];
 }
-
+//display subview or hide it
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_bigDetailPanel.hidden) {
@@ -68,26 +68,19 @@
         [dataModel findObjectForTappedRow:indexPath.row];
         
     }else {
-    [_bigDetailPanel setHidden:YES];
+        [_bigDetailPanel setHidden:YES];
     }
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-   // [self.bigDetailPanel setHidden:YES];
-//}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_bigDetailPanel setHidden:YES];
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
-//-(void)reloadTableView: (NSNotification *)notification    //contains nav.contr.title renew !!!
-//{
-   // [_placesTable reloadData];
-//    [menuObject setIndexValueWithCompletion:^(NSInteger indexValue){
-//       self.navigationController.navigationBar.topItem.title = placeCategory.categoryNamesArray[indexValue];
-//    }];
-//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -108,22 +101,22 @@
     cell.infoAboutPlace.tag = indexPath.row;
     return cell;
 }
-
+//display menu
 - (IBAction)tapMenuButton:(id)sender
 {
     [self.revealViewController revealToggle:sender];
     self.bigDetailPanel.hidden = YES;
 }
-
+//build and display  the route to selected destination
 - (IBAction)pressRouteButton:(UIButton *)sender
 {
     float latitude = [[dataModel.selectedPlaces objectAtIndex:sender.tag][@"latitude"] floatValue];
     float longitude = [[dataModel.selectedPlaces objectAtIndex:sender.tag][@"longitude"] floatValue];
-    [self.delagate findDirection:latitude :longitude];
+    [self.delagate findDirectionForLatitude:latitude AndLongitude:longitude];
     [self.navigationController popToRootViewControllerAnimated:YES];
     self.tabBarController.selectedIndex = 0;
 }
-
+//setting view visual appearance
 -(void)setAppearance
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
@@ -139,33 +132,30 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     
-  //  _bigDetailPanel.translucentAlpha = 0.9;
-   // _bigDetailPanel.translucentStyle = UIBarStyleBlack;
-   // _bigDetailPanel.translucentTintColor = [UIColor clearColor];
+    _bigDetailPanel.translucentAlpha = 0.9;
+    _bigDetailPanel.translucentStyle = UIBarStyleBlack;
+    _bigDetailPanel.translucentTintColor = [UIColor clearColor];
 }
-
+//displaying detail subview
 - (IBAction)pressInfoButton:(UIButton *)sender
 {
     [_bigDetailPanel setHidden:NO];
     [dataModel findObjectForTappedRow:sender.tag];
-}
+    self.bigDetailPanel.description.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor]};
 
+}
+//setting observance for values
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                        change:(NSDictionary *)change context:(void *)context {
-//    if ([keyPath isEqualToString:@"markerIcon"]) {
-//        iconOfSelectedMarker = [object markerIcon];
-//    }
     if ([keyPath isEqualToString:@"categoryIcon"]) {
         self.navigationController.navigationBar.topItem.title = [object categoryName];
         iconOfSelectedMarker = [object categoryIcon];
         [_placesTable reloadData];
     }
-}
+    }
 
 -(void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    SlideMenuViewController *menuController = [[self.revealViewController childViewControllers] objectAtIndex:0];
-//    [menuController removeObserver:self forKeyPath:@"markerIcon"];
 }
 @end

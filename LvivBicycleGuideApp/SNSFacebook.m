@@ -7,25 +7,24 @@
 //
 
 #import "SNSFacebook.h"
-#import "MapViewController.h"
+
+
 
 
 @implementation SNSFacebook
 
--(void)shareFacebook:(PlaceDetailInfo *)detailInfo
+-(void)share
 {
+        DataModel*model=[DataModel sharedModel];
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
-        SLComposeViewController *composeController=[SLComposeViewController
-                                                    composeViewControllerForServiceType:SLServiceTypeFacebook];
-        composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        NSString* txt = [NSString stringWithString:detailInfo.name];
-        NSURL *url= [NSURL URLWithString:detailInfo.homePage];
-        [composeController setInitialText: txt];
-        if(url){
-            
+        
+        SLComposeViewController* composeController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+              [composeController setInitialText:[NSString stringWithFormat: @"I was here: %@",model.infoForMarker.name]];
+        NSURL *url=[NSURL URLWithString:model.infoForMarker.homePage];
+        if(url)
             [composeController addURL:url];
-        }
+      
         [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:composeController animated:YES completion:nil];
     }else
     {
@@ -33,8 +32,10 @@
                                                            message:@"Please log in"
                                                           delegate:nil
                                                  cancelButtonTitle:@"OK"
-                                                 otherButtonTitles:nil, nil];
+                                                 otherButtonTitles:@"Create new", nil];
         [allertView show];
     }
 }
+
+
 @end

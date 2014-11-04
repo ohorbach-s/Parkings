@@ -17,6 +17,19 @@
 		84A99A0419F2615A0014B3D3 /* earth-america-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A99A0319F2615A0014B3D3 /* earth-america-7.png */; };
 		84A99A0619F2621C0014B3D3 /* list-fat-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A99A0519F2621B0014B3D3 /* list-fat-7.png */; };
 		84AC786019F24A3600EF4AD3 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84AC785F19F24A3600EF4AD3 /* GoogleMaps.bundle */; };
+		8E1316221A090F77001B3C69 /* AAShareBubbles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E13161F1A090F77001B3C69 /* AAShareBubbles.bundle */; };
+		8E1316231A090F77001B3C69 /* AAShareBubbles.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1316211A090F77001B3C69 /* AAShareBubbles.m */; };
+		8E1316261A090FA6001B3C69 /* SNSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1316251A090FA6001B3C69 /* SNSFacebook.m */; };
+		8E1316291A090FCF001B3C69 /* SNSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1316281A090FCF001B3C69 /* SNSTwitter.m */; };
+		8E13162C1A090FDF001B3C69 /* SNSGooglePlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E13162B1A090FDF001B3C69 /* SNSGooglePlus.m */; };
+		8E13162F1A091043001B3C69 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E13162D1A091043001B3C69 /* GoogleOpenSource.framework */; };
+		8E1316301A091043001B3C69 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E13162E1A091043001B3C69 /* GooglePlus.framework */; };
+		8E1316361A091094001B3C69 /* SNSNetworkFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1316331A091094001B3C69 /* SNSNetworkFactory.m */; };
+		8E1316381A0910CB001B3C69 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1316371A0910CB001B3C69 /* AddressBook.framework */; };
+		8E13163A1A0910EA001B3C69 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1316391A0910EA001B3C69 /* MediaPlayer.framework */; };
+		8E13163C1A0910F9001B3C69 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E13163B1A0910F9001B3C69 /* AssetsLibrary.framework */; };
+		8E13163E1A09110D001B3C69 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E13163D1A09110D001B3C69 /* CoreMotion.framework */; };
+		8E1316451A09194C001B3C69 /* sher.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E1316441A09194C001B3C69 /* sher.png */; };
 		8E22D59B1A03D37200F3344A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E22D59A1A03D37200F3344A /* Accelerate.framework */; };
 		8E4AEF2E19FFB2BA0092139A /* route6-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E4AEF2D19FFB2BA0092139A /* route6-1.png */; };
 		8E4AEF4C19FFB5330092139A /* GQuadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF3419FFB5330092139A /* GQuadItem.m */; };
@@ -28,8 +41,6 @@
 		8E4AEF5219FFB5330092139A /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF4619FFB5330092139A /* GQTPointQuadTreeChild.m */; };
 		8E4AEF5319FFB5330092139A /* GDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF4B19FFB5330092139A /* GDefaultClusterRenderer.m */; };
 		8E4AEF5619FFB5BB0092139A /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5519FFB5BB0092139A /* Spot.m */; };
-		8E4AEF5C19FFB7E10092139A /* SNSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5919FFB7E10092139A /* SNSFacebook.m */; };
-		8E4AEF5D19FFB7E10092139A /* SNSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5B19FFB7E10092139A /* SNSTwitter.m */; };
 		8E4AEF6319FFF7C00092139A /* PlaceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF6219FFF7C00092139A /* PlaceCategories.m */; };
 		8E5D9E691A028D2000D00277 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D9E681A028D2000D00277 /* DataModel.m */; };
 		8E832E931A0103EC0062DF44 /* RoutePoints.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E832E921A0103EC0062DF44 /* RoutePoints.m */; };
@@ -110,6 +121,26 @@
 		84A99A0319F2615A0014B3D3 /* earth-america-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "earth-america-7.png"; sourceTree = "<group>"; };
 		84A99A0519F2621B0014B3D3 /* list-fat-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-fat-7.png"; sourceTree = "<group>"; };
 		84AC785F19F24A3600EF4AD3 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "GoogleMaps-iOS-1.8.1/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		8E13161F1A090F77001B3C69 /* AAShareBubbles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AAShareBubbles.bundle; sourceTree = "<group>"; };
+		8E1316201A090F77001B3C69 /* AAShareBubbles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAShareBubbles.h; sourceTree = "<group>"; };
+		8E1316211A090F77001B3C69 /* AAShareBubbles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAShareBubbles.m; sourceTree = "<group>"; };
+		8E1316241A090FA6001B3C69 /* SNSFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSFacebook.h; sourceTree = "<group>"; };
+		8E1316251A090FA6001B3C69 /* SNSFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSFacebook.m; sourceTree = "<group>"; };
+		8E1316271A090FCF001B3C69 /* SNSTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSTwitter.h; sourceTree = "<group>"; };
+		8E1316281A090FCF001B3C69 /* SNSTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSTwitter.m; sourceTree = "<group>"; };
+		8E13162A1A090FDF001B3C69 /* SNSGooglePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSGooglePlus.h; sourceTree = "<group>"; };
+		8E13162B1A090FDF001B3C69 /* SNSGooglePlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSGooglePlus.m; sourceTree = "<group>"; };
+		8E13162D1A091043001B3C69 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
+		8E13162E1A091043001B3C69 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
+		8E1316321A091094001B3C69 /* SNSNetworkFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSNetworkFactory.h; sourceTree = "<group>"; };
+		8E1316331A091094001B3C69 /* SNSNetworkFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSNetworkFactory.m; sourceTree = "<group>"; };
+		8E1316341A091094001B3C69 /* SNSSocialNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSSocialNetwork.h; sourceTree = "<group>"; };
+		8E1316351A091094001B3C69 /* SNSSocialNetworkType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSSocialNetworkType.h; sourceTree = "<group>"; };
+		8E1316371A0910CB001B3C69 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		8E1316391A0910EA001B3C69 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		8E13163B1A0910F9001B3C69 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		8E13163D1A09110D001B3C69 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		8E1316441A09194C001B3C69 /* sher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sher.png; sourceTree = "<group>"; };
 		8E22D59A1A03D37200F3344A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8E4AEF2D19FFB2BA0092139A /* route6-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "route6-1.png"; sourceTree = "<group>"; };
 		8E4AEF3219FFB5330092139A /* GClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GClusterAlgorithm.h; sourceTree = "<group>"; };
@@ -137,10 +168,6 @@
 		8E4AEF4B19FFB5330092139A /* GDefaultClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDefaultClusterRenderer.m; sourceTree = "<group>"; };
 		8E4AEF5419FFB5BB0092139A /* Spot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spot.h; sourceTree = "<group>"; };
 		8E4AEF5519FFB5BB0092139A /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spot.m; sourceTree = "<group>"; };
-		8E4AEF5819FFB7E10092139A /* SNSFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSFacebook.h; sourceTree = "<group>"; };
-		8E4AEF5919FFB7E10092139A /* SNSFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSFacebook.m; sourceTree = "<group>"; };
-		8E4AEF5A19FFB7E10092139A /* SNSTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNSTwitter.h; sourceTree = "<group>"; };
-		8E4AEF5B19FFB7E10092139A /* SNSTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNSTwitter.m; sourceTree = "<group>"; };
 		8E4AEF6119FFF7C00092139A /* PlaceCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCategories.h; sourceTree = "<group>"; };
 		8E4AEF6219FFF7C00092139A /* PlaceCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceCategories.m; sourceTree = "<group>"; };
 		8E5D9E671A028D2000D00277 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
@@ -215,7 +242,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E13163E1A09110D001B3C69 /* CoreMotion.framework in Frameworks */,
+				8E13163C1A0910F9001B3C69 /* AssetsLibrary.framework in Frameworks */,
+				8E13163A1A0910EA001B3C69 /* MediaPlayer.framework in Frameworks */,
+				8E1316381A0910CB001B3C69 /* AddressBook.framework in Frameworks */,
 				8E22D59B1A03D37200F3344A /* Accelerate.framework in Frameworks */,
+				8E13162F1A091043001B3C69 /* GoogleOpenSource.framework in Frameworks */,
 				8EB8A5F119FE38E60090589C /* Social.framework in Frameworks */,
 				A5605F0419F133160043C133 /* SystemConfiguration.framework in Frameworks */,
 				A5605F0219F132BD0043C133 /* QuartzCore.framework in Frameworks */,
@@ -235,6 +267,7 @@
 				A5605EB919F11D890043C133 /* UIKit.framework in Frameworks */,
 				84A99A0019F255790014B3D3 /* GoogleMaps.framework in Frameworks */,
 				A5605EB519F11D890043C133 /* Foundation.framework in Frameworks */,
+				8E1316301A091043001B3C69 /* GooglePlus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +291,62 @@
 				7B5E48E819F7E546008C50B2 /* Parse.framework */,
 			);
 			path = "parse-library-1";
+			sourceTree = "<group>";
+		};
+		8E13161B1A090F3E001B3C69 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				8E1316241A090FA6001B3C69 /* SNSFacebook.h */,
+				8E1316251A090FA6001B3C69 /* SNSFacebook.m */,
+			);
+			name = Facebook;
+			sourceTree = "<group>";
+		};
+		8E13161C1A090F4B001B3C69 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				8E1316271A090FCF001B3C69 /* SNSTwitter.h */,
+				8E1316281A090FCF001B3C69 /* SNSTwitter.m */,
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
+		8E13161D1A090F51001B3C69 /* GooglePlus */ = {
+			isa = PBXGroup;
+			children = (
+				8E13162A1A090FDF001B3C69 /* SNSGooglePlus.h */,
+				8E13162B1A090FDF001B3C69 /* SNSGooglePlus.m */,
+			);
+			name = GooglePlus;
+			sourceTree = "<group>";
+		};
+		8E13161E1A090F64001B3C69 /* ShareBubbles */ = {
+			isa = PBXGroup;
+			children = (
+				8E13161F1A090F77001B3C69 /* AAShareBubbles.bundle */,
+				8E1316201A090F77001B3C69 /* AAShareBubbles.h */,
+				8E1316211A090F77001B3C69 /* AAShareBubbles.m */,
+			);
+			name = ShareBubbles;
+			sourceTree = "<group>";
+		};
+		8E1316311A091080001B3C69 /* SocialFactory */ = {
+			isa = PBXGroup;
+			children = (
+				8E1316321A091094001B3C69 /* SNSNetworkFactory.h */,
+				8E1316331A091094001B3C69 /* SNSNetworkFactory.m */,
+				8E1316341A091094001B3C69 /* SNSSocialNetwork.h */,
+				8E1316351A091094001B3C69 /* SNSSocialNetworkType.h */,
+			);
+			name = SocialFactory;
+			sourceTree = "<group>";
+		};
+		8E13163F1A09131A001B3C69 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				8E1316441A09194C001B3C69 /* sher.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		8E4AEF2F19FFB5200092139A /* Clustering */ = {
@@ -335,10 +424,11 @@
 		8E4AEF5719FFB7B20092139A /* SocialNetworkSharing */ = {
 			isa = PBXGroup;
 			children = (
-				8E4AEF5819FFB7E10092139A /* SNSFacebook.h */,
-				8E4AEF5919FFB7E10092139A /* SNSFacebook.m */,
-				8E4AEF5A19FFB7E10092139A /* SNSTwitter.h */,
-				8E4AEF5B19FFB7E10092139A /* SNSTwitter.m */,
+				8E1316311A091080001B3C69 /* SocialFactory */,
+				8E13161E1A090F64001B3C69 /* ShareBubbles */,
+				8E13161D1A090F51001B3C69 /* GooglePlus */,
+				8E13161C1A090F4B001B3C69 /* Twitter */,
+				8E13161B1A090F3E001B3C69 /* Facebook */,
 			);
 			name = SocialNetworkSharing;
 			sourceTree = "<group>";
@@ -368,6 +458,7 @@
 				A5605EB219F11D890043C133 /* Products */,
 				8E832E961A0113AF0062DF44 /* back.png */,
 				8EAFCFB51A07FC9D003008B5 /* blue1-1.png */,
+				8E13163F1A09131A001B3C69 /* Images */,
 				8EDE43EE19FBFD4D00F4773F /* clear.png */,
 				8E4AEF2D19FFB2BA0092139A /* route6-1.png */,
 				8EDE43CC19FBA5EC00F4773F /* rsz_2images_2.png */,
@@ -400,6 +491,12 @@
 		A5605EB319F11D890043C133 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E13163D1A09110D001B3C69 /* CoreMotion.framework */,
+				8E13163B1A0910F9001B3C69 /* AssetsLibrary.framework */,
+				8E1316391A0910EA001B3C69 /* MediaPlayer.framework */,
+				8E1316371A0910CB001B3C69 /* AddressBook.framework */,
+				8E13162D1A091043001B3C69 /* GoogleOpenSource.framework */,
+				8E13162E1A091043001B3C69 /* GooglePlus.framework */,
 				8E22D59A1A03D37200F3344A /* Accelerate.framework */,
 				8EB8A5F019FE38E60090589C /* Social.framework */,
 				7B5E48E619F7E546008C50B2 /* parse-library-1 */,
@@ -603,7 +700,9 @@
 				8EEFF85419FA7BD10047039A /* Cafe.png in Resources */,
 				8E835B8E1A065D4B00AA4475 /* tabletab.png in Resources */,
 				8EEFF85019FA7BC30047039A /* Supermarket.png in Resources */,
+				8E1316221A090F77001B3C69 /* AAShareBubbles.bundle in Resources */,
 				84A99A0419F2615A0014B3D3 /* earth-america-7.png in Resources */,
+				8E1316451A09194C001B3C69 /* sher.png in Resources */,
 				8EDE43EF19FBFD4D00F4773F /* clear.png in Resources */,
 				8E832E991A0114EB0062DF44 /* Default@2x-568h@2x.png in Resources */,
 				8EEFF84E19FA77430047039A /* Parking.png in Resources */,
@@ -646,7 +745,7 @@
 				7B5E48E319F7E358008C50B2 /* PlaceDetailInfo.m in Sources */,
 				8E4AEF5019FFB5330092139A /* SphericalMercatorProjection.m in Sources */,
 				8E4AEF6319FFF7C00092139A /* PlaceCategories.m in Sources */,
-				8E4AEF5D19FFB7E10092139A /* SNSTwitter.m in Sources */,
+				8E1316291A090FCF001B3C69 /* SNSTwitter.m in Sources */,
 				8EEFF84819FA61940047039A /* SlideMenuViewController.m in Sources */,
 				8EAFCFAF1A07A1C3003008B5 /* PlaceCategory.m in Sources */,
 				8E4AEF4D19FFB5330092139A /* GStaticCluster.m in Sources */,
@@ -654,19 +753,22 @@
 				840773D41A02805A00231C1F /* SmallInfoSubview.m in Sources */,
 				8E5D9E691A028D2000D00277 /* DataModel.m in Sources */,
 				A5605EC519F11D890043C133 /* AppDelegate.m in Sources */,
-				8E4AEF5C19FFB7E10092139A /* SNSFacebook.m in Sources */,
 				8E4AEF5619FFB5BB0092139A /* Spot.m in Sources */,
 				8E4AEF5319FFB5330092139A /* GDefaultClusterRenderer.m in Sources */,
 				8E4AEF4C19FFB5330092139A /* GQuadItem.m in Sources */,
 				8EEFF8A119FAA3DC0047039A /* TableViewCell.m in Sources */,
+				8E1316361A091094001B3C69 /* SNSNetworkFactory.m in Sources */,
 				A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */,
 				840773D31A02805A00231C1F /* ILTranslucentView.m in Sources */,
 				8E4AEF5219FFB5330092139A /* GQTPointQuadTreeChild.m in Sources */,
+				8E13162C1A090FDF001B3C69 /* SNSGooglePlus.m in Sources */,
 				A5605EC119F11D890043C133 /* main.m in Sources */,
+				8E1316261A090FA6001B3C69 /* SNSFacebook.m in Sources */,
 				8E4AEF4E19FFB5330092139A /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				A5C6797E19F154DB00888C51 /* TableViewController.m in Sources */,
 				8EEFF84519FA56000047039A /* SWRevealViewController.m in Sources */,
 				8E832E931A0103EC0062DF44 /* RoutePoints.m in Sources */,
+				8E1316231A090F77001B3C69 /* AAShareBubbles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,17 +34,18 @@
 }
 
 - (id)init
-{    
+{
     if (self = [super init]) {
         
     }
     return self;
 }
-
--(void)buildTheRouteAndSetTheDistance :(float)tappedMarkerLongtitude :(float)tappedMarkerLatitude :(void(^)(NSString* ,GMSPolyline*))completion
+//creating the query
+-(void)buildTheRouteAndSetTheDistanceForLongitude:(float)tappedMarkerLongtitude
+                                       AndLatitude:(float)tappedMarkerLatitude
+                            WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion
 {
     routePoints = [RoutePoints sharedManager];
-    
     CLLocationCoordinate2D positionOfTappedMarker = CLLocationCoordinate2DMake (tappedMarkerLongtitude, tappedMarkerLatitude);
     GMSMarker *marker = [GMSMarker markerWithPosition:positionOfTappedMarker];
     [routePoints.waypoints_ addObject:marker];
@@ -58,7 +59,7 @@
         NSArray *keys = [NSArray arrayWithObjects:@"sensor", @"waypoints", nil];
         query = [NSDictionary dictionaryWithObjects:parameters
                                             forKeys:keys];
-        [self setDirectionsQuery:query :^(NSString *completion2, GMSPolyline *polylineInBlock){
+        [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock){
             GMSPolyline *localPol;
             localPol = nil;
             distanceToTappedMarker = completion2;
@@ -67,9 +68,9 @@
         }];
     }
 }
-
+//passing the query to api and processing the response
 static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/directions/json?";
-- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection :(void(^)(NSString* ,GMSPolyline*))completion2
+- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion2
 {
     NSArray *waypoints = [queryForObtainingTheDirection objectForKey:@"waypoints"];
     NSString *origin = [waypoints objectAtIndex:0];
@@ -94,7 +95,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         completion2 (distanceToTappedMarkerToPass, polyline2);
     }];
 }
-
+//getting the response
 - (void)retrieveDirectionsWithCompletionHandler :(void(^)(NSDictionary*))completionHandler{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSData* data =

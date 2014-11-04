@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PlaceDetailInfo.h"
-
+//all categories class
 @interface PlaceCategories : NSObject
 
 @property(nonatomic, strong)NSArray *markersImages;

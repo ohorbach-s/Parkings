@@ -12,7 +12,6 @@
 
 @interface DataModel ()
 {
-    //NSString *categoryName;
     GMSMarker *infoMarker;
     PlaceCategories *namesArray;
 }
@@ -22,7 +21,7 @@
 @end
 
 @implementation DataModel
-
+//retrieving information about all objects from the cloud
 -(void)firstLoad
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Place"];
@@ -44,9 +43,7 @@
     dispatch_once(&onceToken, ^{
         sharedModel = [[DataModel alloc] init];
         [sharedModel firstLoad];
-        
     });
-    
     return sharedModel;
 }
 
@@ -58,7 +55,7 @@
     }
     return self;
 }
-
+//retrieve information for particular object (for tapped marker)
 -(void)buildInfoForMarker: (GMSMarker*)marker
 {
     infoMarker = marker;
@@ -88,7 +85,7 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
 }
-
+//etrieve information for particular object (for tapped row)
 -(void)findObjectForTappedRow :(NSInteger)indexOfRow
 {
     PFObject *chosenPlace = [_selectedPlaces objectAtIndex:indexOfRow];
@@ -116,7 +113,7 @@
     _infoForMarker.type = chosenPlace[@"type"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
 }
-
+//rebuild the selected objects array
 -(void) reactToCategorySelection :(NSString*)title
 {
     [_selectedPlaces removeAllObjects];
@@ -127,7 +124,7 @@
         }
     }
 }
-
+//accept new category value
 -(void)changeCategory :(NSInteger)index
 {
     [self reactToCategorySelection:[namesArray.categoryNamesArray objectAtIndex:index]];

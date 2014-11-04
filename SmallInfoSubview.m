@@ -29,8 +29,10 @@
     }
     return self;
 }
-
--(void)setDetail :(NSString*) acceptedName :(float)acceptedLongitude :(float) acceptedLatitude
+//fill fields of window
+-(void)setDetailWithName :(NSString*) acceptedName
+             AndLongitude:(float)acceptedLongitude
+              AndLatitude:(float) acceptedLatitude
 {
     self.name.text = acceptedName;
     longitude = acceptedLongitude;

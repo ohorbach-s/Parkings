@@ -23,13 +23,11 @@
 }
 - (id)init
 {
-    
     if (self = [super init]) {
         _markersImages = @[@"Parking.png", @"BicycleShop.png",@"Cafe.png",@"Supermarket.png"];
         _categoryNamesArray = @[ @"Parking", @"BicycleShop", @"Cafe", @"Supermarket"];
     }
     return self;
 }
-
 
 @end
