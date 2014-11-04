@@ -24,7 +24,8 @@
 //retrieving information about all objects from the cloud
 -(void)firstLoad
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"Place"];
+    PFQuery *query = [PFQuery queryWithClassName:
+                      NSLocalizedString(@"PlaceEng", nil)];
     _allRetrievedPlaces = [query findObjects];
     _selectedPlaces = [[NSMutableArray alloc] init];
     _infoForMarker = [[PlaceDetailInfo alloc] init];

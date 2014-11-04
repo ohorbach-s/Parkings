@@ -26,6 +26,10 @@
     if (self = [super init]) {
         _markersImages = @[@"Parking.png", @"BicycleShop.png",@"Cafe.png",@"Supermarket.png"];
         _categoryNamesArray = @[ @"Parking", @"BicycleShop", @"Cafe", @"Supermarket"];
+//        _categoryNamesArray = @[NSLocalizedString(@"Parking", nil),
+//                                NSLocalizedString(@"BicycleShop", nil),
+//                                NSLocalizedString(@"Cafe", nil),
+//                                NSLocalizedString(@"Supermarket", nil)];
     }
     return self;
 }

@@ -108,7 +108,19 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                        change:(NSDictionary *)change
                       context:(void *)context {
     if ([keyPath isEqualToString:@"categoryName"]) {
-        self.navigationController.navigationBar.topItem.title = [object categoryName];
+        ////////////////////////////////////////////////////////////////////////////////
+        if ([[object categoryName] isEqualToString:@"Parking"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
+        } else if ([[object categoryName] isEqualToString:@"BicycleShop"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Services", nil);
+        } else if ([[object categoryName] isEqualToString:@"Cafe"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Cafes", nil);
+        } else if ([[object categoryName] isEqualToString:@"Supermarket"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Supermarkets", nil);
+        }
+        ////////////////////////////////////////////////////////////////////////////////
+        
+//        self.navigationController.navigationBar.topItem.title = [object categoryName];
     }
     
     if ([keyPath isEqualToString:@"categoryIcon"]) {
@@ -311,7 +323,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
     self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    self.navigationController.navigationBar.topItem.title =  placeCategories.categoryNamesArray[0];
+    self.navigationController.navigationBar.topItem.title =  NSLocalizedString(@"Parkings", nil);
     _smallInfoSubview.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     _smallInfoSubview.translucentAlpha = 0.9;
     _smallInfoSubview.translucentStyle = UIBarStyleBlack;

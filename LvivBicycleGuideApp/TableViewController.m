@@ -42,7 +42,7 @@
     [self setAppearance];
     if (!iconOfSelectedMarker) {
         iconOfSelectedMarker = @"Parking.png";
-        self.navigationController.navigationBar.topItem.title = @"Parking";
+        self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
@@ -148,7 +148,19 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                        change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"categoryIcon"]) {
-        self.navigationController.navigationBar.topItem.title = [object categoryName];
+        
+////////////////////////////////////////////////////////////////////////////////
+        if ([[object categoryName] isEqualToString:@"Parking"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
+        } else if ([[object categoryName] isEqualToString:@"BicycleShop"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Services", nil);
+        } else if ([[object categoryName] isEqualToString:@"Cafe"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Cafes", nil);
+        } else if ([[object categoryName] isEqualToString:@"Supermarket"]) {
+            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Supermarkets", nil);
+        }
+////////////////////////////////////////////////////////////////////////////////
+//        self.navigationController.navigationBar.topItem.title = [object categoryName];
         iconOfSelectedMarker = [object categoryIcon];
         [_placesTable reloadData];
     }

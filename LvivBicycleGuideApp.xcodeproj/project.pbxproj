@@ -13,6 +13,7 @@
 		840773D21A02805A00231C1F /* BigInfoSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 840773CD1A02805A00231C1F /* BigInfoSubview.m */; };
 		840773D31A02805A00231C1F /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840773CF1A02805A00231C1F /* ILTranslucentView.m */; };
 		840773D41A02805A00231C1F /* SmallInfoSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 840773D11A02805A00231C1F /* SmallInfoSubview.m */; };
+		840DFB981A095022003B2CE9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 840DFB9A1A095022003B2CE9 /* Localizable.strings */; };
 		84A99A0019F255790014B3D3 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A999FF19F255790014B3D3 /* GoogleMaps.framework */; };
 		84A99A0419F2615A0014B3D3 /* earth-america-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A99A0319F2615A0014B3D3 /* earth-america-7.png */; };
 		84A99A0619F2621C0014B3D3 /* list-fat-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A99A0519F2621B0014B3D3 /* list-fat-7.png */; };
@@ -117,6 +118,9 @@
 		840773CF1A02805A00231C1F /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
 		840773D01A02805A00231C1F /* SmallInfoSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallInfoSubview.h; sourceTree = "<group>"; };
 		840773D11A02805A00231C1F /* SmallInfoSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallInfoSubview.m; sourceTree = "<group>"; };
+		840DFB991A095022003B2CE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		840DFB9B1A095048003B2CE9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
+		840DFB9C1A095048003B2CE9 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84A999FF19F255790014B3D3 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "GoogleMaps-iOS-1.8.1/GoogleMaps.framework"; sourceTree = "<group>"; };
 		84A99A0319F2615A0014B3D3 /* earth-america-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "earth-america-7.png"; sourceTree = "<group>"; };
 		84A99A0519F2621B0014B3D3 /* list-fat-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-fat-7.png"; sourceTree = "<group>"; };
@@ -451,6 +455,7 @@
 			children = (
 				8E832E981A0114EB0062DF44 /* Default@2x-568h@2x.png */,
 				A5605EC619F11D890043C133 /* Main.storyboard */,
+				840DFB9A1A095022003B2CE9 /* Localizable.strings */,
 				A5605EBA19F11D890043C133 /* LvivBicycleGuideApp */,
 				8E832E9A1A0133F10062DF44 /* DetailInfoPanel */,
 				A5605ED919F11D890043C133 /* LvivBicycleGuideAppTests */,
@@ -699,6 +704,7 @@
 				8E832E971A0113AF0062DF44 /* back.png in Resources */,
 				8EEFF85419FA7BD10047039A /* Cafe.png in Resources */,
 				8E835B8E1A065D4B00AA4475 /* tabletab.png in Resources */,
+				840DFB981A095022003B2CE9 /* Localizable.strings in Resources */,
 				8EEFF85019FA7BC30047039A /* Supermarket.png in Resources */,
 				8E1316221A090F77001B3C69 /* AAShareBubbles.bundle in Resources */,
 				84A99A0419F2615A0014B3D3 /* earth-america-7.png in Resources */,
@@ -791,6 +797,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		840DFB9A1A095022003B2CE9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				840DFB991A095022003B2CE9 /* Base */,
+				840DFB9C1A095048003B2CE9 /* uk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		A5605EBD19F11D890043C133 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -803,6 +818,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A5605EC719F11D890043C133 /* Base */,
+				840DFB9B1A095048003B2CE9 /* uk */,
 			);
 			name = Main.storyboard;
 			path = LvivBicycleGuideApp;

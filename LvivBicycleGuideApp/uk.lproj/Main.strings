@@ -1,0 +1,84 @@
+
+/* Class = "IBUILabel"; text = "Supermarkets with bicycle parkings"; ObjectID = "0Ck-C2-uRB"; */
+"0Ck-C2-uRB.text" = "Супермаркети з велопарковкою";
+
+/* Class = "IBUILabel"; text = "Address:"; ObjectID = "13b-rc-Gls"; */
+"13b-rc-Gls.text" = "Адреса:";
+
+/* Class = "IBUILabel"; text = "Find me"; ObjectID = "5hl-lY-A0w"; */
+"5hl-lY-A0w.text" = "Find me";
+
+/* Class = "IBUILabel"; text = "Name:"; ObjectID = "Ccm-xz-Qlw"; */
+"Ccm-xz-Qlw.text" = "Назва:";
+
+/* Class = "IBUILabel"; text = "Велокафе"; ObjectID = "DUw-A7-CuG"; */
+"DUw-A7-CuG.text" = "Велокафе";
+
+/* Class = "IBUITabBarItem"; title = "Table"; ObjectID = "Eug-6w-U0M"; */
+"Eug-6w-U0M.title" = "Таблиця";
+
+/* Class = "IBUILabel"; text = "Address:"; ObjectID = "HDT-Fh-U4X"; */
+"HDT-Fh-U4X.text" = "Адреса:";
+
+/* Class = "IBUITabBarItem"; title = "Map"; ObjectID = "J1P-PE-lzM"; */
+"J1P-PE-lzM.title" = "Карта";
+
+/* Class = "IBUILabel"; text = "Велокафе"; ObjectID = "JYo-HK-NRZ"; */
+"JYo-HK-NRZ.text" = "Велокафе";
+
+/* Class = "IBUILabel"; text = "Supermarkets"; ObjectID = "Knq-3c-Q4H"; */
+"Knq-3c-Q4H.text" = "Супермаркети";
+
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "Kyz-Bx-YLy"; */
+"Kyz-Bx-YLy.title" = "Меню";
+
+/* Class = "IBUILabel"; text = "Name:"; ObjectID = "NGl-fI-4no"; */
+"NGl-fI-4no.text" = "Назва:";
+
+/* Class = "IBUILabel"; text = "Parkings"; ObjectID = "Nha-ch-Cvs"; */
+"Nha-ch-Cvs.text" = "Паркінги";
+
+/* Class = "IBUILabel"; text = "Cafes with bicycle parking"; ObjectID = "O5S-xY-PsT"; */
+"O5S-xY-PsT.text" = "Кафе з велопарковкою";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "RdI-qk-CqY"; */
+"RdI-qk-CqY.text" = "Name";
+
+/* Class = "IBUILabel"; text = "Services"; ObjectID = "Sf3-pc-fTE"; */
+"Sf3-pc-fTE.text" = "Сервіси";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "UIg-AM-yTG"; */
+"UIg-AM-yTG.text" = "Name";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "WTb-p1-ycm"; */
+"WTb-p1-ycm.normalTitle" = "Button";
+
+/* Class = "IBUILabel"; text = "Bicycle shops, rental, repair and other services"; ObjectID = "Xcs-CA-TnS"; */
+"Xcs-CA-TnS.text" = "Веломагазини, прокат, ремонт та інші послуги";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "aQI-5K-saF"; */
+"aQI-5K-saF.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Дудаєва, 7"; ObjectID = "lko-9g-q5N"; */
+"lko-9g-q5N.text" = "Дудаєва, 7";
+
+/* Class = "IBUILabel"; text = "Places, where you can park your bicycle"; ObjectID = "mIr-Yp-Awn"; */
+"mIr-Yp-Awn.text" = "Місця, де можна припаркувати велосипед";
+
+/* Class = "IBUITextView"; text = "Here will be deskription text"; ObjectID = "mXb-vX-hqr"; */
+"mXb-vX-hqr.text" = "Here will be deskription text";
+
+/* Class = "IBUILabel"; text = "Дудаєва, 7"; ObjectID = "pH6-jF-4UL"; */
+"pH6-jF-4UL.text" = "Дудаєва, 7";
+
+/* Class = "IBUITextView"; text = "Here will be deskription text"; ObjectID = "qg9-zG-Yye"; */
+"qg9-zG-Yye.text" = "Here will be deskription text";
+
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "vxO-SF-o9n"; */
+"vxO-SF-o9n.title" = "Меню";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "xlc-at-9ke"; */
+"xlc-at-9ke.normalTitle" = "Button";
+
+/* Class = "IBUILabel"; text = "Cafes"; ObjectID = "yA4-eF-LjQ"; */
+"yA4-eF-LjQ.text" = "Кафе";
