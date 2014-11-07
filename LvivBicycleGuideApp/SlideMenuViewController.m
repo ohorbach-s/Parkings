@@ -42,14 +42,6 @@ static NSInteger indexOfCategory;
     dataModel = [DataModel sharedModel];
 }
 //setting custom height for cells
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self gettingScreenSize]==568.00) {
-        return 140.0;
-    }else
-        return 110;
-    
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -57,50 +49,82 @@ static NSInteger indexOfCategory;
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2 ;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [storage.categoryNamesArray count];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section==0)
+    {
+        return [storage.categoryNamesArray count];
+    }
+    else{
+        return [storage.categoryNamesArray count];
+    }
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    
+//    if(section == 0)
+//        return @"Section 1";
+//    if(section == 1)
+//        return @"Section 2";
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = [storage.categoryNamesArray objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    if (indexPath.section==0) {
+    //    ObjectData *theCellData = [array1 objectAtIndex:indexPath.row];
+        NSString *cellValue =[storage.categoryNamesArray objectAtIndex:[indexPath row]];
+        cell.textLabel.text = cellValue;
+    }
+    else {
+        NSString *cellValue =[storage.categoryNamesArray objectAtIndex:[indexPath row]];
+        cell.textLabel.text = cellValue;
+    }
     return cell;
 }
-//clean previous routes and implementing changes on data model
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.cleanPolylineDelegate cleanPolylineFromMap];
-    self.markerIcon = storage.markersImages[indexPath.row];
-    self.category = storage.categoryNamesArray [indexPath.row];
-    indexOfCategory = indexPath.row;
-    [self.revealViewController revealToggle:self];
-    [dataModel changeCategory:indexPath.row];
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return 2;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    return [storage.categoryNamesArray count];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSString *CellIdentifier = [storage.categoryNamesArray objectAtIndex:indexPath.row];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+//    return cell;
+//}
+////clean previous routes and implementing changes on data model
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [self.cleanPolylineDelegate cleanPolylineFromMap];
+//    self.markerIcon = storage.markersImages[indexPath.row];
+//    self.category = storage.categoryNamesArray [indexPath.row];
+//    indexOfCategory = indexPath.row;
+//    [self.revealViewController revealToggle:self];
+//    [dataModel changeCategory:indexPath.row];
+//}
 //set visual appearance
 -(void)setAppearance
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"background.jpg"] drawInRect:self.view.bounds];
+    [[UIImage imageNamed:@"greenbsck.png"] drawInRect:self.view.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
--(double)gettingScreenSize
-{
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
-    CGFloat screenHeight = screenSize.height;
-    
-    return screenHeight;
-}
-
-
 @end

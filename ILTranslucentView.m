@@ -58,9 +58,9 @@
         nonexistentSubview = [[UIView alloc] initWithFrame:self.bounds];
         
         [nonexistentSubview .layer setCornerRadius:30.0f];
-        [nonexistentSubview .layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [nonexistentSubview .layer setBorderColor:[UIColor yellowColor].CGColor];
         [nonexistentSubview .layer setBorderWidth:1.5f];
-        [nonexistentSubview .layer setShadowColor:[UIColor grayColor].CGColor];
+        [nonexistentSubview .layer setShadowColor:[UIColor yellowColor].CGColor];
 
         
         nonexistentSubview.backgroundColor=[UIColor clearColor];
@@ -72,9 +72,9 @@
         toolbarContainerClipView = [[UIView alloc] initWithFrame:self.bounds];
         
         [toolbarContainerClipView.layer setCornerRadius:30.0f];
-        [toolbarContainerClipView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [toolbarContainerClipView.layer setBorderColor:[UIColor yellowColor].CGColor];
         [toolbarContainerClipView.layer setBorderWidth:1.5f];
-        [toolbarContainerClipView.layer setShadowColor:[UIColor grayColor].CGColor];
+        [toolbarContainerClipView.layer setShadowColor:[UIColor yellowColor].CGColor];
         
         toolbarContainerClipView.backgroundColor=[UIColor clearColor];
         toolbarContainerClipView.clipsToBounds=YES;
@@ -98,9 +98,9 @@
         overlayBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
         
         [overlayBackgroundView.layer setCornerRadius:30.0f];
-        [overlayBackgroundView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [overlayBackgroundView.layer setBorderColor:[UIColor yellowColor].CGColor];
         [overlayBackgroundView.layer setBorderWidth:1.5f];
-        [overlayBackgroundView.layer setShadowColor:[UIColor grayColor].CGColor];
+        [overlayBackgroundView.layer setShadowColor:[UIColor yellowColor].CGColor];
 
         
         overlayBackgroundView.backgroundColor = self.backgroundColor;

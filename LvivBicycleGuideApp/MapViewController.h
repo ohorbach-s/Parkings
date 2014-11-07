@@ -16,7 +16,5 @@
 @class SmallInfoSubview;
 
 @interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate, TableRouteDelegate>
-
-
-
+@property (nonatomic)BOOL customRouteMode;
 @end

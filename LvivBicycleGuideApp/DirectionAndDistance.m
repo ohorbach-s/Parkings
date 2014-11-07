@@ -60,11 +60,7 @@
         query = [NSDictionary dictionaryWithObjects:parameters
                                             forKeys:keys];
         [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock){
-            GMSPolyline *localPol;
-            localPol = nil;
-            distanceToTappedMarker = completion2;
-            localPol = polylineInBlock;
-            completion (distanceToTappedMarker, polylineInBlock);
+            completion (completion2, polylineInBlock);
         }];
     }
 }
@@ -107,6 +103,23 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                               error:&error];
         completionHandler(json);
     });
+}
+
+-(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion
+{
+
+routePoints = [RoutePoints sharedManager];
+    NSString *sensor = @"true";
+    NSArray *parameters = [NSArray arrayWithObjects:sensor, routePoints.customWaypointStrings,
+                           nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"sensor", @"waypoints", nil];
+    query = [NSDictionary dictionaryWithObjects:parameters
+                                        forKeys:keys];
+    [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock){
+        completion (nil, polylineInBlock);
+    }];
+
+    
 }
 
 @end

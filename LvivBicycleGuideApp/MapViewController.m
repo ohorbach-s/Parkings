@@ -24,6 +24,8 @@
 #import "GDefaultClusterRenderer.h"
 #import <Accelerate/Accelerate.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AdditionMenuViewController.h"
+
 
 @interface MapViewController ()
 {
@@ -40,6 +42,9 @@
     GMSPolyline *polyline;
     GMSMarker *userPositionMarker;
     CLLocation *currentLocation;
+    GMSMarker *startPoint;
+    GMSMarker *endPoint;
+    
 }
 @property (weak, nonatomic) IBOutlet BigInfoSubview *bigInfoSubview;
 @property (weak, nonatomic) IBOutlet UIButton *routeButton;
@@ -83,6 +88,8 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     TableViewController *controller = [[[self.tabBarController.viewControllers objectAtIndex:1]
                                         childViewControllers ]objectAtIndex:0];
     controller.delagate =self;
+    [_locationManager startUpdatingLocation];
+  //  MapViewController *contr = [[[[[[[[[UIApplication sharedApplication] keyWindow] rootViewController] childViewControllers] objectAtIndex:1] //childViewControllers] objectAtIndex:0] viewControllers] objectAtIndex:0];
 }
 //set observing for values
 -(void)setObservingForMarkerIcon {
@@ -108,7 +115,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                        change:(NSDictionary *)change
                       context:(void *)context {
     if ([keyPath isEqualToString:@"categoryName"]) {
-        ////////////////////////////////////////////////////////////////////////////////
+  
         if ([[object categoryName] isEqualToString:@"Parking"]) {
             self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
         } else if ([[object categoryName] isEqualToString:@"BicycleShop"]) {
@@ -118,7 +125,6 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         } else if ([[object categoryName] isEqualToString:@"Supermarket"]) {
             self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Supermarkets", nil);
         }
-        ////////////////////////////////////////////////////////////////////////////////
         
 //        self.navigationController.navigationBar.topItem.title = [object categoryName];
     }
@@ -166,13 +172,21 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         polyline.map = nil;
         polyline = nil;
         return YES;
+    } else if (marker.icon == nil ) {
+        return YES;
     } else {
         alreadyTappedMarker = marker;
         _position = marker.position;
         self.smallInfoSubview.distanceLabel.text= @"";
         [_smallInfoSubview setHidden:NO];
         [dataModel buildInfoForMarker:marker];
+        CLLocation *first=[[CLLocation alloc]initWithLatitude:userPositionMarker.position.latitude longitude:userPositionMarker.position.longitude ];
+        CLLocation *second=[[CLLocation alloc]initWithLatitude:marker.position.latitude longitude:marker.position.longitude];
+        CLLocationDistance distance = [first distanceFromLocation:second];
+        NSLog(@"%f   the distance",distance);
+        
         return YES;
+
     }
 }
 
@@ -217,7 +231,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     [UIView animateWithDuration:0.2 animations:^(void){
          [_bigInfoSubview.layer setCornerRadius:30.0f];
          // border
-         [_bigInfoSubview.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+         [_bigInfoSubview.layer setBorderColor:[UIColor yellowColor].CGColor];
          [_bigInfoSubview.layer setBorderWidth:1.5f];
          // drop shadow
          _bigInfoSubview.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.1f, 1.1f);
@@ -254,39 +268,94 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
 //hide each of shown subview
 -(void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
+    NSString *positionString;
     [_smallInfoSubview setHidden:YES];
     [_bigInfoSubview setHidden:YES];
+    static int countTapps = 0;
+    if (!endPoint.map) {
+    countTapps++;
+    if (countTapps == 1) {
+        startPoint = [GMSMarker markerWithPosition:coordinate];
+        [routePoints.customWayPoints addObject:startPoint];
+        positionString = [[NSString alloc] initWithFormat:@"%f,%f",
+                                    coordinate.latitude, coordinate.longitude];
+        [routePoints.customWaypointStrings addObject:positionString];
+        startPoint.icon = [UIImage imageNamed:@"start.png"];
+        startPoint.map = _mapView;
+    } else if (countTapps == 2) {
+        endPoint = [GMSMarker markerWithPosition:coordinate];
+        [routePoints.customWayPoints addObject:startPoint];
+        positionString = [[NSString alloc] initWithFormat:@"%f,%f",
+                          coordinate.latitude, coordinate.longitude];
+        [routePoints.customWaypointStrings addObject:positionString];
+        endPoint.icon = [UIImage imageNamed:@"finish.png"];
+        endPoint.map = _mapView;
+        countTapps = 0;
+        [findTheDirection findCustomRouteWithCompletionHandler:^(NSString *distance, GMSPolyline *polylineFromBlock){
+            polylineFromBlock.map = _mapView;
+            polylineFromBlock.tappable = YES;
+        }];
+        
+    }
+        
+    } else //if (countTapps > 2)
+    {
+     
+        
+    }
     //[self.mapView.settings setAllGesturesEnabled:YES];
 }
+
+ -(void)mapView:(GMSMapView *)mapView didTapOverlay:(GMSOverlay *)overlay
+{
+ if ([overlay isKindOfClass:[GMSPolyline class]])
+ {
+     overlay.map = nil;
+     overlay = nil;
+     startPoint.map = nil;
+     endPoint.map = nil;
+     [routePoints.customWayPoints removeAllObjects];
+     [routePoints.customWaypointStrings removeAllObjects];
+ }
+
+}
+
 //findind a user location
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    [_locationManager startUpdatingLocation];
+    
     currentLocation = [locations lastObject];
     [self.mapView animateToLocation:currentLocation.coordinate];
 //
     CLLocationCoordinate2D position = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     
-    if (!_marker) {
-        _marker = [GMSMarker markerWithPosition:position];
-        _marker.icon = [UIImage imageNamed:@"home.png"];
-        _marker.map = self.mapView;
-    } else {
-        self.marker.map = nil;
-       // _marker = [[GMSMarker alloc] init];
-        self.marker.position = position;
-        [self.marker setPosition:position];
-        self.marker.map = self.mapView;
+    //if (!_marker) {
+        self.marker = [GMSMarker markerWithPosition:position];
+       // _marker.icon = [UIImage imageNamed:@"home.png"];
+        //_marker.map = self.mapView;
+   // } else {
        // self.marker.map = nil;
-}
+        //self.marker = nil;
+        //self.marker = [GMSMarker markerWithPosition:self.mapView.myLocation.coordinate];
+        //_marker.position = self.mapView.myLocation.coordinate;
+        //[self.marker setPosition:position];
+        self.marker.map = self.mapView;
+        [self.mapView animateToLocation:position];
+       // self.marker.map = nil;
+    //self.mapView.myLocation.
+//}
     userPositionMarker = _marker;
     alreadyTappedMarker = _marker;
     [routePoints.waypoints_ addObject:_marker];
-    routePoints.positionString = [[NSString alloc] initWithFormat:@"%f,%f",
+    NSString *updatedPosition = [[NSString alloc] initWithFormat:@"%f,%f",
                                   _marker.position.latitude,_marker.position.longitude];
-    [routePoints.waypointStrings_ addObject:routePoints.positionString];
+    [routePoints.waypointStrings_ removeAllObjects];
+    [routePoints.waypointStrings_ addObject:updatedPosition];
     [_locationManager stopUpdatingLocation];
 }
+
+//- (void)locationManager:(CLLocationManager *)manager did
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -300,21 +369,11 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     self.locationManager.delegate = self;
     [_locationManager startUpdatingLocation];
     _position = CLLocationCoordinate2DMake(49.8327176,23.9970189);
-   // GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:position zoom:13];
-   // [_mapView animateToCameraPosition:camera];
     [_mapView animateToZoom:13];
     _mapView.delegate = self;
     _mapView.myLocationEnabled= YES;
     _mapView.settings.myLocationButton = YES;
-   // GMSMarker *marker = [GMSMarker markerWithPosition:position];  //my location
-//    userPositionMarker = marker;
-//    alreadyTappedMarker = marker;
-//    marker.icon = [UIImage imageNamed:@"home.png"];
-    //marker.map = _mapView;
-    //[routePoints.waypoints_ addObject:marker];
-    //routePoints.positionString = [[NSString alloc] initWithFormat:@"%f,%f",
-     //                             marker.position.latitude,marker.position.longitude];
-   // [routePoints.waypointStrings_ addObject:routePoints.positionString];
+
 }
 //setting view visual characteristics
 -(void)setAppearance
@@ -324,10 +383,11 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     self.tabBarController.tabBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     self.navigationController.navigationBar.topItem.title =  NSLocalizedString(@"Parkings", nil);
-    _smallInfoSubview.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
+    _smallInfoSubview.backgroundColor = [[UIColor grayColor]colorWithAlphaComponent:0.5];
     _smallInfoSubview.translucentAlpha = 0.9;
     _smallInfoSubview.translucentStyle = UIBarStyleBlack;
     _smallInfoSubview.translucentTintColor = [UIColor clearColor];
+    _bigInfoSubview.backgroundColor = [[UIColor grayColor]colorWithAlphaComponent:0.5];
     _bigInfoSubview.translucentAlpha = 0.9;
     _bigInfoSubview.translucentStyle = UIBarStyleBlack;
     _bigInfoSubview.translucentTintColor = [UIColor clearColor];

@@ -22,15 +22,15 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
-    [[UITabBar appearance] setSelectedImageTintColor:[UIColor whiteColor]];
-    UIImage* tabBarBackground = [UIImage imageNamed:@"back.png"];
+    [[UITabBar appearance] setSelectedImageTintColor:[UIColor grayColor]];
+    UIImage* tabBarBackground = [UIImage imageNamed:@"tabgreen.png"];
     [[UITabBar appearance] setBackgroundImage:tabBarBackground];
     [[UINavigationBar appearance]
-     setBackgroundImage:[UIImage imageNamed:@"background.jpg"]
+     setBackgroundImage:[UIImage imageNamed:@"navgreen.png"]
      forBarMetrics:UIBarMetricsDefault];
     
     NSDictionary *navbarTitleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                               [UIColor whiteColor],NSForegroundColorAttributeName,
+                                               [UIColor grayColor],NSForegroundColorAttributeName,
                                                [NSValue valueWithUIOffset:UIOffsetMake(-1, 0)], NSForegroundColorAttributeName, nil];
     
     [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];

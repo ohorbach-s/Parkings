@@ -25,6 +25,8 @@
     if (self = [super init]) {
         _waypoints_ = [[NSMutableArray alloc]init];
         _waypointStrings_ = [[NSMutableArray alloc]init];
+        _customWayPoints = [[NSMutableArray alloc] init];
+        _customWaypointStrings = [[NSMutableArray alloc]init];
     }
     return self;
 }

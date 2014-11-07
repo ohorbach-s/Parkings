@@ -120,7 +120,7 @@
 -(void)setAppearance
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"background.jpg"] drawInRect:self.view.bounds];
+    [[UIImage imageNamed:@"beige.png"] drawInRect:self.view.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
@@ -148,8 +148,7 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                        change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"categoryIcon"]) {
-        
-////////////////////////////////////////////////////////////////////////////////
+
         if ([[object categoryName] isEqualToString:@"Parking"]) {
             self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
         } else if ([[object categoryName] isEqualToString:@"BicycleShop"]) {
@@ -159,7 +158,6 @@
         } else if ([[object categoryName] isEqualToString:@"Supermarket"]) {
             self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Supermarkets", nil);
         }
-////////////////////////////////////////////////////////////////////////////////
 //        self.navigationController.navigationBar.topItem.title = [object categoryName];
         iconOfSelectedMarker = [object categoryIcon];
         [_placesTable reloadData];
