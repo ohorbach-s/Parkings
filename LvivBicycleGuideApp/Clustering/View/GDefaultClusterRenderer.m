@@ -49,8 +49,8 @@
             marker.icon = [self generateClusterIconWithCount:count];
         }
         else {
-            
-            marker.icon = [UIImage imageNamed:iconOfSelectedMarker];
+            GQuadItem *item = [[cluster.items allObjects] firstObject];
+            marker.icon = item.icon;
         }
         marker.position = cluster.position;
         marker.map = _map;
@@ -60,7 +60,6 @@
 
 - (UIImage*) generateClusterIconWithCount:(NSUInteger)count
 {
-    
     int diameter = 40;
     float inset = 3;
     
@@ -70,22 +69,23 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
-    if ([iconOfSelectedMarker isEqualToString:@"Parking.png"])
-    {
-        [[UIColor blueColor]setFill];
-    }
-    if ([iconOfSelectedMarker isEqualToString:@"BicycleShop.png"])
-    {
-        [[UIColor greenColor]setFill];
-    }
-    if ([iconOfSelectedMarker isEqualToString:@"Cafe.png"])
-    {
-        [[UIColor orangeColor] setFill];
-    }
-    if ([iconOfSelectedMarker isEqualToString:@"Supermarket.png"])
-    {
-        [[UIColor cyanColor]setFill];
-    }
+    [[UIColor orangeColor]setFill];
+//    if ([iconOfSelectedMarker isEqualToString:@"Parking.png"])
+//    {
+//        [[UIColor blueColor]setFill];
+//    }
+//    if ([iconOfSelectedMarker isEqualToString:@"BicycleShop.png"])
+//    {
+//        [[UIColor greenColor]setFill];
+//    }
+//    if ([iconOfSelectedMarker isEqualToString:@"Cafe.png"])
+//    {
+//        [[UIColor orangeColor] setFill];
+//    }
+//    if ([iconOfSelectedMarker isEqualToString:@"Supermarket.png"])
+//    {
+//        [[UIColor cyanColor]setFill];
+//    }
     CGContextSetLineWidth(ctx, inset);
     
     // make circle rect 5 px from border

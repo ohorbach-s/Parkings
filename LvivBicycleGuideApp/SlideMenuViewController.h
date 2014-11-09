@@ -13,6 +13,7 @@
 #import "PlaceCategory.h"
 #import "DataModel.h"
 
+
 @protocol CleanPolylineDelegate <NSObject>
 
 -(void)cleanPolylineFromMap;

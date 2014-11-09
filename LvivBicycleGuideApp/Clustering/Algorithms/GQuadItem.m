@@ -4,15 +4,17 @@
 @implementation GQuadItem{
     id <GClusterItem> _item;
     GQTPoint _point;
-    CLLocationCoordinate2D _position;
+//    CLLocationCoordinate2D _position;
+//    UIImage *icon;
 }
 
-- (id)initWithItem:(id <GClusterItem>)clusterItem {
+- (id)initWithItem:(id <GClusterItem>)clusterItem{
     if (self = [super init]) {
         SphericalMercatorProjection *projection = [[SphericalMercatorProjection alloc] initWithWorldWidth:1];
 
         _position = clusterItem.position;
-        _point = [projection coordinateToPoint:_position];
+        _icon = clusterItem.icon;
+        _point = [projection coordinateToPoint:self.position];
         _item = clusterItem;
     }
     return self;
@@ -30,9 +32,9 @@
     return newGQuadItem;
 }
 
-- (CLLocationCoordinate2D)position {
-    return _position;
-}
+//- (CLLocationCoordinate2D)position {
+//    return _position;
+//}
 
 - (NSSet*)items {
     return [NSSet setWithObject:_item];

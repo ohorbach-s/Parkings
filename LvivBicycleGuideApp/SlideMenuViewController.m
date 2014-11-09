@@ -6,10 +6,20 @@
 //  Copyright (c) 2014 SoftServe. All rights reserved.
 //
 
+
+#define Parkings 0
+#define BicycleShop 1
+#define Cafe 2
+#define Supermarket 3
+
+
 #import "SlideMenuViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import "GClusterManager.h"
 
-static NSInteger indexOfCategory;
+
+
+//static NSInteger indexOfCategory;
 
 @interface SlideMenuViewController ()
 {
@@ -34,12 +44,15 @@ static NSInteger indexOfCategory;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     storage = [PlaceCategories sharedManager];
     routePoints = [RoutePoints sharedManager];
     self.markerIcon = @"Parking.png";
     self.category = @"Parking";
     [self setAppearance];
     dataModel = [DataModel sharedModel];
+    
+    
 }
 //setting custom height for cells
 
@@ -50,26 +63,31 @@ static NSInteger indexOfCategory;
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2 ;
+    return 1 ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0)
     {
-        return [storage.categoryNamesArray count];
+        return 4;
     }
     else{
-        return [storage.categoryNamesArray count];
+        return 4;
     }
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    
-//    if(section == 0)
-//        return @"Section 1";
-//    if(section == 1)
-//        return @"Section 2";
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *sectionName;
+    switch (section) {
+        case 0:
+            sectionName = @"Choose markers to show:";
+            break;
+        default:
+            sectionName = @"lalala";
+            break;
+    }
+    return sectionName;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -80,16 +98,23 @@ static NSInteger indexOfCategory;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    NSString *cellName;
+    switch (indexPath.row) {
+        case Parkings:
+            cellName = @"Parking";
+            break;
+        case BicycleShop:
+            cellName = @"BicycleShop";
+            break;
+        case Cafe:
+            cellName = @"Cafe";
+            break;
+        case Supermarket:
+            cellName = @"Supermarket";
+            break;
+    }
+    cell.textLabel.text = cellName;
     
-    if (indexPath.section==0) {
-    //    ObjectData *theCellData = [array1 objectAtIndex:indexPath.row];
-        NSString *cellValue =[storage.categoryNamesArray objectAtIndex:[indexPath row]];
-        cell.textLabel.text = cellValue;
-    }
-    else {
-        NSString *cellValue =[storage.categoryNamesArray objectAtIndex:[indexPath row]];
-        cell.textLabel.text = cellValue;
-    }
     return cell;
 }
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -118,6 +143,28 @@ static NSInteger indexOfCategory;
 //    [self.revealViewController revealToggle:self];
 //    [dataModel changeCategory:indexPath.row];
 //}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    int categorySelection = indexPath.row;
+  
+    NSDictionary *userInfo;
+    switch(categorySelection) {
+        case Parkings:
+            userInfo = @{@"Category":@0};
+            break;
+        case BicycleShop:
+           userInfo = @{@"Category":@1};
+            break;
+        case Cafe:
+           userInfo = @{@"Category":@2};
+            break;
+        case Supermarket:
+            userInfo = @{@"Category":@3};
+            break;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryChanged" object:nil userInfo:userInfo];
+    return;
+}
 //set visual appearance
 -(void)setAppearance
 {

@@ -72,13 +72,23 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     iconOfSelectedMarker = @"Parking.png";
     dataModel = [DataModel sharedModel];
     findTheDirection = [DirectionAndDistance sharedManager];
-    [self setObservingForMarkerIcon];
+    
+    
+    
+//    [self setObservingForMarkerIcon];
     [self firstMapLaunch];
-    clusterManager = [GClusterManager managerWithMapView:self.mapView
+    
+    
+    
+    
+    clusterManager =  [GClusterManager managerWithMapView:self.mapView
                                                algorithm:[[NonHierarchicalDistanceBasedAlgorithm alloc] init]
                                                 renderer:[[GDefaultClusterRenderer alloc]
                                                           initWithMapView:self.mapView]];
-    [self displayCategoryMarkers];
+
+    
+    
+//    [self displayCategoryMarkers];
     [self setAppearance];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fillSubview:)
@@ -398,7 +408,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     Spot *spot;
     for (PFObject* object in dataModel.selectedPlaces) {
         _position = CLLocationCoordinate2DMake([object [@"latitude"] floatValue], [object [@"longitude"] floatValue]);
-        spot = [[Spot alloc] initWithPosition:_position];
+        spot = [[Spot alloc] initWithPosition:_position andIconTypePath:@"Parking.png"];
         [clusterManager addItem:spot];
         [clusterManager cluster];
     }

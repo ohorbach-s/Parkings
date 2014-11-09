@@ -30,6 +30,11 @@
     [_quadTree add:quadItem];
 }
 
+-(void) removeItem {
+    
+}
+
+
 - (void)removeItems
 {
   [_items removeAllObjects];

@@ -12,7 +12,8 @@
 @interface Spot : NSObject <GClusterItem>
 
 @property (nonatomic) CLLocationCoordinate2D location;
+@property (strong,nonatomic) UIImage *icon;
 
--(instancetype) initWithPosition:(CLLocationCoordinate2D)position;
+-(instancetype) initWithPosition:(CLLocationCoordinate2D)position andIconTypePath:(NSString*)iconPath;
 
 @end
