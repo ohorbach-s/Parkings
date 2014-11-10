@@ -16,6 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *stolenDatePicker;
 @property (weak, nonatomic) IBOutlet UIButton *dateButton;
 @property (weak, nonatomic) IBOutlet UIImageView *stolenBImage;
+@property (weak, nonatomic) IBOutlet UIButton *postButton;
+@property (weak, nonatomic) IBOutlet UITextView *description;
+@property (weak, nonatomic) IBOutlet UIButton *datebutton;
+@property (weak, nonatomic) IBOutlet UIButton *photobutton;
 
 @end
 
@@ -34,8 +38,13 @@
 {
     [super viewDidLoad];
     [self.stolenDatePicker setHidden:YES];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];    // Do any additional setup after loading the view.
+    [self.postButton.layer setCornerRadius:8.0f];
+    [self.description.layer setCornerRadius:15.0f];
+    [self.description.layer setBackgroundColor:[[UIColor colorWithRed:204/255.0f green:245/255.0f blue:107/255.0f alpha:1.0f] CGColor]];
+    [self.datebutton.layer setCornerRadius:7.0f];
+    [self.photobutton.layer setCornerRadius:7.0f];
     
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated

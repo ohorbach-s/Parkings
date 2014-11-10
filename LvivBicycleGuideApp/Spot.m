@@ -10,11 +10,9 @@
 
 @implementation Spot
 
--(instancetype) initWithPosition:(CLLocationCoordinate2D)position andIconTypePath:(NSString*)iconPath{
-    if(self=[super init]){
+-(instancetype) initWithPosition:(CLLocationCoordinate2D)position {
+    if(self=[super init])
         self.location = position;
-        self.icon= [UIImage imageNamed:iconPath];
-    }
     return self;
 }
 

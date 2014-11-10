@@ -9,6 +9,5 @@
 - (id)initWithItem:(id <GClusterItem>)item;
 
 @property(nonatomic, assign, readonly) CLLocationCoordinate2D position;
-@property(nonatomic, assign, readonly) UIImage *icon;
 
 @end

@@ -30,15 +30,10 @@
     [_quadTree add:quadItem];
 }
 
--(void) removeItem {
-    
-}
-
-
 - (void)removeItems
 {
-  [_items removeAllObjects];
-  [_quadTree clear];
+    [_items removeAllObjects];
+    [_quadTree clear];
 }
 
 - (NSSet*)getClusters:(float)zoom {
@@ -104,7 +99,7 @@
     bounds.maxX = point.x + halfSpan;
     bounds.minY = point.y - halfSpan;
     bounds.maxY = point.y + halfSpan;
-
+    
     return bounds;
 }
 

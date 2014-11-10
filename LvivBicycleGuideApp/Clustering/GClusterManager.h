@@ -12,12 +12,14 @@
 @property(nonatomic, strong) id<GClusterAlgorithm> clusterAlgorithm;
 @property(nonatomic, strong) id<GClusterRenderer> clusterRenderer;
 
-
 - (void)addItem:(id <GClusterItem>) item;
 - (void)removeItems;
 - (void)cluster;
 + (instancetype)managerWithMapView:(GMSMapView*)googleMap
                          algorithm:(id<GClusterAlgorithm>)algorithm
                           renderer:(id<GClusterRenderer>)renderer;
+
+
+
 
 @end

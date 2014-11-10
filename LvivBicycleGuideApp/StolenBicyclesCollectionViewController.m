@@ -30,10 +30,36 @@
     
 }
 
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Stolen" forIndexPath:indexPath];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,100,100)];
+    imgView.contentMode = UIViewContentModeScaleAspectFit;
+    imgView.clipsToBounds = YES;
+    imgView.image = [UIImage imageNamed:@"stolen.jpg"];
+    [cell addSubview:imgView];
+    return cell;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)backButtonPressed:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

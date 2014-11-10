@@ -25,4 +25,6 @@
 - (IBAction)pressInfoButton:(UIButton *)sender;
 - (void)fillSubview:(NSNotification *)notification;
 
+-(void)reloadTableView: (NSNotification*)notification;
+
 @end

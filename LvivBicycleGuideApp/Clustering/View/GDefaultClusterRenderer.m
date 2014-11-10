@@ -3,7 +3,7 @@
 #import "GQuadItem.h"
 #import "GCluster.h"
 #import "MapViewController.h"
-#import "SlideMenuViewController.h"
+#import "SlideMenuControllerViewController.h"
 
 //extern NSString *iconOfSelectedMarker;
 @implementation GDefaultClusterRenderer
@@ -11,15 +11,13 @@
     GMSMapView *_map;
     NSMutableArray *_markerCache;
     NSString *iconOfSelectedMarker;
-   // SlideMenuViewController *menuController;
+    // SlideMenuViewController *menuController;
     DataModel *dataModel;
 }
 
 - (id)initWithMapView:(GMSMapView*)googleMap
 {
     if (self = [super init]) {
-        UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-        //menuController = [[rootViewController childViewControllers] objectAtIndex:0];
         _map = googleMap;
         _markerCache = [[NSMutableArray alloc] init];
         iconOfSelectedMarker = @"Parking.png";
@@ -49,8 +47,8 @@
             marker.icon = [self generateClusterIconWithCount:count];
         }
         else {
-            GQuadItem *item = [[cluster.items allObjects] firstObject];
-            marker.icon = item.icon;
+            
+            marker.icon = [UIImage imageNamed:iconOfSelectedMarker];
         }
         marker.position = cluster.position;
         marker.map = _map;
@@ -60,6 +58,7 @@
 
 - (UIImage*) generateClusterIconWithCount:(NSUInteger)count
 {
+    
     int diameter = 40;
     float inset = 3;
     
@@ -69,23 +68,22 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     // set stroking color and draw circle
     [[UIColor colorWithRed:1 green:1 blue:1 alpha:0.8] setStroke];
-    [[UIColor orangeColor]setFill];
-//    if ([iconOfSelectedMarker isEqualToString:@"Parking.png"])
-//    {
-//        [[UIColor blueColor]setFill];
-//    }
-//    if ([iconOfSelectedMarker isEqualToString:@"BicycleShop.png"])
-//    {
-//        [[UIColor greenColor]setFill];
-//    }
-//    if ([iconOfSelectedMarker isEqualToString:@"Cafe.png"])
-//    {
-//        [[UIColor orangeColor] setFill];
-//    }
-//    if ([iconOfSelectedMarker isEqualToString:@"Supermarket.png"])
-//    {
-//        [[UIColor cyanColor]setFill];
-//    }
+    if ([iconOfSelectedMarker isEqualToString:@"Parking.png"])
+    {
+        [[UIColor blueColor]setFill];
+    }
+    if ([iconOfSelectedMarker isEqualToString:@"BicycleShop.png"])
+    {
+        [[UIColor greenColor]setFill];
+    }
+    if ([iconOfSelectedMarker isEqualToString:@"Cafe.png"])
+    {
+        [[UIColor orangeColor] setFill];
+    }
+    if ([iconOfSelectedMarker isEqualToString:@"Supermarket.png"])
+    {
+        [[UIColor cyanColor]setFill];
+    }
     CGContextSetLineWidth(ctx, inset);
     
     // make circle rect 5 px from border
@@ -144,22 +142,22 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                        change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"categoryIcon"]) {
-        iconOfSelectedMarker = [object categoryIcon];
-    }
+//    if ([keyPath isEqualToString:@"categoryIcon"]) {
+//        iconOfSelectedMarker = [object categoryIcon];
+//    }
 }
 
 -(void)setObservingForMarkerIcon
 {
-    [dataModel.currentCategory addObserver:self
-                     forKeyPath:@"categoryIcon"
-                        options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    [dataModel.currentCategory addObserver:self
+//                                forKeyPath:@"categoryIcon"
+//                                   options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
 -(void) dealloc
 {
     [dataModel.currentCategory removeObserver:self
-                        forKeyPath:@"categoryIcon"];
+                                   forKeyPath:@"categoryIcon"];
 }
 
 

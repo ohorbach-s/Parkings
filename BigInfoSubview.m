@@ -8,7 +8,7 @@
 
 #import "BigInfoSubview.h"
 #import "PlaceCategories.h"
-#import "SlideMenuViewController.h"
+#import "SlideMenuControllerViewController.h"
 
 @interface BigInfoSubview ()
 {

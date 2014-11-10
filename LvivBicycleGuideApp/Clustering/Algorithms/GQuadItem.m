@@ -4,17 +4,15 @@
 @implementation GQuadItem{
     id <GClusterItem> _item;
     GQTPoint _point;
-//    CLLocationCoordinate2D _position;
-//    UIImage *icon;
+    CLLocationCoordinate2D _position;
 }
 
-- (id)initWithItem:(id <GClusterItem>)clusterItem{
+- (id)initWithItem:(id <GClusterItem>)clusterItem {
     if (self = [super init]) {
         SphericalMercatorProjection *projection = [[SphericalMercatorProjection alloc] initWithWorldWidth:1];
-
+        
         _position = clusterItem.position;
-        _icon = clusterItem.icon;
-        _point = [projection coordinateToPoint:self.position];
+        _point = [projection coordinateToPoint:_position];
         _item = clusterItem;
     }
     return self;
@@ -32,9 +30,9 @@
     return newGQuadItem;
 }
 
-//- (CLLocationCoordinate2D)position {
-//    return _position;
-//}
+- (CLLocationCoordinate2D)position {
+    return _position;
+}
 
 - (NSSet*)items {
     return [NSSet setWithObject:_item];
@@ -42,8 +40,8 @@
 
 - (BOOL)isEqualToQuadItem:(GQuadItem *)other {
     return [_item isEqual:other->_item]
-            && _point.x == other->_point.x
-            && _point.y == other->_point.y;
+    && _point.x == other->_point.x
+    && _point.y == other->_point.y;
 }
 
 #pragma mark - NSObject
@@ -53,7 +51,7 @@
         return YES;
     if (!other || ![[other class] isEqual:[self class]])
         return NO;
-
+    
     return [self isEqualToQuadItem:other];
 }
 

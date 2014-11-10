@@ -15,4 +15,5 @@
 @property (nonatomic,strong)NSString *categoryName;
 @property (nonatomic,strong)NSString *categoryIcon;
 
+
 @end

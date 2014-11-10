@@ -12,7 +12,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *womplaintAddressTextfield;
 @property (weak, nonatomic) IBOutlet UITextField *complaintSubjectTextfield;
 @property (weak, nonatomic) IBOutlet UITextView *complaintDescriptionTextview;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIButton *addPhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *postButton;
+@property (weak, nonatomic) IBOutlet UIImageView *myImage;
 
 @end
 
@@ -30,6 +33,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+      [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
+    
+    [self.addPhotoButton.layer setCornerRadius:8.0f];
+    [self.addPhotoButton.layer setShadowOpacity:50.0f];
+    [self.addPhotoButton.layer setShadowRadius:5.0f];
+    
+    [self.postButton.layer setCornerRadius:8.0f];
+    [self.postButton.layer setShadowOpacity:50.0f];
+    [self.postButton.layer setShadowRadius:5.0f];
+    
+    [self.complaintDescriptionTextview.layer setCornerRadius:10.0f];
+    [self.complaintDescriptionTextview.layer setShadowOpacity:35.0f];
+    [self.complaintDescriptionTextview.layer setShadowRadius:5.0f];
+    [self.complaintDescriptionTextview.layer setBackgroundColor:[[UIColor colorWithRed:204/255.0f green:245/255.0f blue:107/255.0f alpha:1.0f]CGColor]];
     // Do any additional setup after loading the view.
 }
 - (IBAction)tapOnGoButton:(id)sender {
@@ -42,7 +59,7 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    self.imageView.image = info[UIImagePickerControllerEditedImage];
+    self.myImage.image = info[UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 

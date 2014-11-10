@@ -9,10 +9,9 @@
 #import "TableViewController.h"
 #import "SWRevealViewController.h"
 #import "TableViewCell.h"
-#import "SlideMenuViewController.h"
+#import "SlideMenuControllerViewController.h"
 #import "RoutePoints.h"
 #import "BigInfoSubview.h"
-
 #import "DirectionAndDistance.h"
 #import "PlaceCategories.h"
 
@@ -20,9 +19,11 @@
 {
     PlaceCategories *placeCategories;
     DataModel *dataModel;
-    SlideMenuViewController *menuObject;
+    SlideMenuControllerViewController *menuObject;
     RoutePoints *routePoints;
     NSString *iconOfSelectedMarker;
+    NSMutableArray *cells;
+    NSMutableArray *distances;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *placesTable;
@@ -37,14 +38,15 @@
     [super viewDidLoad];
     dataModel = [DataModel sharedModel];
     placeCategories = [PlaceCategories sharedManager];
+    
     routePoints = [RoutePoints sharedManager];
-    menuObject = [[SlideMenuViewController alloc] init];
+    menuObject = [[SlideMenuControllerViewController alloc] init];
     [self setAppearance];
     if (!iconOfSelectedMarker) {
-        iconOfSelectedMarker = @"Parking.png";
-        self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
+        //iconOfSelectedMarker = @"Parking.png";
+        //self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
 }
 //passing data to detail subview
@@ -53,6 +55,25 @@
     [_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
 }
 
+-(void)reloadTableView: (NSNotification*)notification
+{
+    dataModel = [DataModel sharedModel];
+    cells = [[NSMutableArray alloc] init];
+    distances = [[NSMutableArray alloc] init];
+    [distances removeAllObjects];
+    [cells removeAllObjects];
+    for (NSString *tag in dataModel.onTags) {
+        for (PFObject *object in [dataModel.arrangedPlaces valueForKey:tag])
+        {
+        [cells addObject:object];
+        }
+        for (PFObject *object in [dataModel.arrangedDistances valueForKey:tag]){
+         [distances addObject:object];
+        }
+    }
+    [self.placesTable reloadData];
+
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -65,7 +86,8 @@
 {
     if (_bigDetailPanel.hidden) {
         [_bigDetailPanel setHidden:NO];
-        [dataModel findObjectForTappedRow:indexPath.row];
+        PFObject *object = [cells objectAtIndex:indexPath.row];
+        [dataModel findObjectForTappedRow:object];
         
     }else {
         [_bigDetailPanel setHidden:YES];
@@ -89,17 +111,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [dataModel.selectedPlaces count];
+    int countRows =0;
+    for (NSString *tag in dataModel.onTags){
+        countRows +=[[dataModel.arrangedPlaces valueForKey:tag] count];
+        }
+    return [cells count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
-    cell.placeType.image = [UIImage imageNamed:iconOfSelectedMarker];
-    cell.placeName.text = [dataModel.selectedPlaces objectAtIndex:indexPath.row][@"name"];
-    cell.routeToPlace.tag = indexPath.row;
-    cell.infoAboutPlace.tag = indexPath.row;
-    return cell;
+   
+            TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
+        cell.placeName.text = [cells objectAtIndex:indexPath.row][@"name"];
+        cell.routeToPlace.tag = indexPath.row;
+        cell.infoAboutPlace.tag = indexPath.row;
+        cell.distance.text = [NSString stringWithFormat:@"%@ km",[distances objectAtIndex:indexPath.row]];
+        cell.placeType.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [cells objectAtIndex:indexPath.row][@"type"]]];
+
+        [cells addObject:cell];
+        return cell;
 }
 //display menu
 - (IBAction)tapMenuButton:(id)sender
@@ -110,8 +140,8 @@
 //build and display  the route to selected destination
 - (IBAction)pressRouteButton:(UIButton *)sender
 {
-    float latitude = [[dataModel.selectedPlaces objectAtIndex:sender.tag][@"latitude"] floatValue];
-    float longitude = [[dataModel.selectedPlaces objectAtIndex:sender.tag][@"longitude"] floatValue];
+    float latitude = [[cells objectAtIndex:sender.tag][@"latitude"] floatValue];
+    float longitude = [[cells objectAtIndex:sender.tag][@"longitude"] floatValue];
     [self.delagate findDirectionForLatitude:latitude AndLongitude:longitude];
     [self.navigationController popToRootViewControllerAnimated:YES];
     self.tabBarController.selectedIndex = 0;
@@ -132,15 +162,15 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     
-    _bigDetailPanel.translucentAlpha = 0.9;
+    _bigDetailPanel.translucentAlpha = 0.7;
     _bigDetailPanel.translucentStyle = UIBarStyleBlack;
-    _bigDetailPanel.translucentTintColor = [UIColor clearColor];
+    _bigDetailPanel.translucentTintColor = [UIColor colorWithRed:218/255.0f green:255/255.0f blue:120/255.0f alpha:0.7f];
 }
 //displaying detail subview
 - (IBAction)pressInfoButton:(UIButton *)sender
 {
     [_bigDetailPanel setHidden:NO];
-    [dataModel findObjectForTappedRow:sender.tag];
+    [dataModel findObjectForTappedRow:[cells objectAtIndex:sender.tag]];
     self.bigDetailPanel.description.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor]};
 
 }

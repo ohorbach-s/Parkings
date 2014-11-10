@@ -2,7 +2,7 @@
 #import "GCluster.h"
 #import "GQuadItem.h"
 
-@interface GStaticCluster : NSObject <GCluster> 
+@interface GStaticCluster : NSObject <GCluster>
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 

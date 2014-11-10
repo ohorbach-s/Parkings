@@ -12,7 +12,7 @@
 
 @interface DataModel ()
 {
-    GMSMarker *infoMarker;
+    //GMSMarker *infoMarker;
     PlaceCategories *namesArray;
 }
 
@@ -24,17 +24,37 @@
 //retrieving information about all objects from the cloud
 -(void)firstLoad
 {
-    PFQuery *query = [PFQuery queryWithClassName:
-                      NSLocalizedString(@"PlaceEng", nil)];
-    _allRetrievedPlaces = [query findObjects];
-    _selectedPlaces = [[NSMutableArray alloc] init];
+
     _infoForMarker = [[PlaceDetailInfo alloc] init];
     namesArray = [PlaceCategories sharedManager];
-    self.currentCategory = [[PlaceCategory alloc] init];
-    for (PFObject* objectFromDataBase in _allRetrievedPlaces) {
-        if ([objectFromDataBase[@"type"]isEqualToString:@"Parking"])
-            [_selectedPlaces addObject:objectFromDataBase];
-    }
+    //self.currentCategory = [[PlaceCategory alloc] init];
+    self.arrangedPlaces = [[NSMutableDictionary alloc] init];
+    self.arrangedDistances = [[NSMutableDictionary alloc] init];
+    self.deselectedIcon = [[NSString alloc] init];
+    self.onTags = [[NSMutableArray alloc]init];
+    self.currentCategory = [[NSMutableArray alloc] init];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"type = 'Parking'"];
+    PFQuery *query = [PFQuery queryWithClassName:
+                                       NSLocalizedString(@"PlaceEng", nil) predicate:predicate];
+    
+    [self.arrangedPlaces setValue:[query findObjects] forKey:@"0"];
+    predicate = [NSPredicate predicateWithFormat:
+                 @"type = 'BicycleShop'"];
+    query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
+    
+    [self.arrangedPlaces setValue:[query findObjects] forKey:@"1"];
+    
+    predicate = [NSPredicate predicateWithFormat:
+                 @"type = 'Cafe'"];
+    query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
+    
+    [self.arrangedPlaces setValue:[query findObjects] forKey:@"2"];
+    predicate = [NSPredicate predicateWithFormat:
+                 @"type = 'Supermarket'"];
+    query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
+    
+    [self.arrangedPlaces setValue:[query findObjects] forKey:@"3"];
 }
 
 + (id)sharedModel
@@ -53,15 +73,17 @@
     if (self = [super init]) {
         _allRetrievedPlaces = [[NSArray alloc] init];
         _selectedPlaces = [[NSMutableArray alloc] init];
+        //self.buttonTag = @"0";
     }
     return self;
 }
 //retrieve information for particular object (for tapped marker)
 -(void)buildInfoForMarker: (GMSMarker*)marker
 {
-    infoMarker = marker;
-    for (PFObject *object in _selectedPlaces) {
-        if (([object[@"longitude"] floatValue] == infoMarker.position.longitude ) && ([object[@"latitude"] floatValue] == infoMarker.position.latitude)) {
+    //infoMarker = marker;
+    for(NSString *tag in self.onTags){
+    for (PFObject *object in [self.arrangedPlaces valueForKey:tag]) {
+        if (([object[@"longitude"] floatValue] == marker.position.longitude ) && ([object[@"latitude"] floatValue] == marker.position.latitude)) {
             _infoForMarker.name = object[@"name"];
             _infoForMarker.address = object[@"address"];
             _infoForMarker.longtitude = object[@"longitude"];
@@ -84,12 +106,13 @@
             _infoForMarker.type = object[@"type"];
         }
     }
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"fillSubviewOfMap" object:nil];
 }
 //etrieve information for particular object (for tapped row)
--(void)findObjectForTappedRow :(NSInteger)indexOfRow
+-(void)findObjectForTappedRow :(PFObject*)chosenPlace
 {
-    PFObject *chosenPlace = [_selectedPlaces objectAtIndex:indexOfRow];
+    //PFObject *chosenPlace = [_selectedPlaces objectAtIndex:indexOfRow];
     _infoForMarker.name = chosenPlace[@"name"];
     _infoForMarker.address = chosenPlace[@"address"];
     _infoForMarker.longtitude = chosenPlace[@"longitude"];
@@ -117,22 +140,41 @@
 //rebuild the selected objects array
 -(void) reactToCategorySelection :(NSString*)title
 {
-    [_selectedPlaces removeAllObjects];
-    for (PFObject* objectFromDataBase in _allRetrievedPlaces) {
-        
-        if ([objectFromDataBase[@"type"]isEqualToString:title])  {
-            [_selectedPlaces addObject:objectFromDataBase];
-        }
-    }
+//    [_selectedPlaces removeAllObjects];
+//    for (PFObject* objectFromDataBase in _allRetrievedPlaces) {
+//        
+//        if ([objectFromDataBase[@"type"]isEqualToString:title])  {
+//            [_selectedPlaces addObject:objectFromDataBase];
+//        }
+//    }
 }
 //accept new category value
 -(void)changeCategory :(NSInteger)index
 {
-    [self reactToCategorySelection:[namesArray.categoryNamesArray objectAtIndex:index]];
-    self.currentCategory.categoryName = [namesArray.categoryNamesArray objectAtIndex:index];
-    self.currentCategory.categoryIcon = [namesArray.markersImages objectAtIndex:index];
+    PlaceCategory *category = [[PlaceCategory alloc] init];
+    category.categoryName = [namesArray.categoryNamesArray objectAtIndex:index];
+    self.buttonTag = [@(index) stringValue];
+    [self.onTags addObject:self.buttonTag];
+    category.categoryIcon = [namesArray.markersImages objectAtIndex:index];
+    [self.currentCategory addObject:category];
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"showMarker" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
 }
 
+-(void)deselectCategory :(NSInteger)index
+{
+    PlaceCategory *category = [[PlaceCategory alloc] init];
+    category.categoryName = [namesArray.categoryNamesArray objectAtIndex:index];
+    category.categoryIcon = [namesArray.markersImages objectAtIndex:index];
 
+    [self.currentCategory removeObjectIdenticalTo:category];
+    
+    
+     self.buttonTag = [@(index) stringValue];
+    [self.onTags removeObject:self.buttonTag];
+     // [[NSNotificationCenter defaultCenter] postNotificationName:@"cleanMarkers" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showMarker" object:nil];
+}
 
 @end

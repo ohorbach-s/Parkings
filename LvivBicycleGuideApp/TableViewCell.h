@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeName;
 @property (weak, nonatomic) IBOutlet UIButton *routeToPlace;
 @property (weak, nonatomic) IBOutlet UIButton *infoAboutPlace;
+@property (weak, nonatomic) IBOutlet UILabel *distance;
 
 @end

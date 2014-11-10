@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StolenBicyclesCollectionViewController : UICollectionViewController
+@interface StolenBicyclesCollectionViewController : UICollectionViewController<UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @end

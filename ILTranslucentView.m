@@ -59,11 +59,11 @@
         
         [nonexistentSubview .layer setCornerRadius:30.0f];
         [nonexistentSubview .layer setBorderColor:[UIColor yellowColor].CGColor];
-        [nonexistentSubview .layer setBorderWidth:1.5f];
+        [nonexistentSubview .layer setBorderWidth:3.0f];
         [nonexistentSubview .layer setShadowColor:[UIColor yellowColor].CGColor];
 
         
-        nonexistentSubview.backgroundColor=[UIColor clearColor];
+        //nonexistentSubview.backgroundColor=[UIColor colorWithRed:118/255.0f green:209/255.0f blue:5/255.0f alpha:0.5f];
         nonexistentSubview.clipsToBounds=YES;
         nonexistentSubview.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
         [self insertSubview:nonexistentSubview atIndex:0];
@@ -72,7 +72,7 @@
         toolbarContainerClipView = [[UIView alloc] initWithFrame:self.bounds];
         
         [toolbarContainerClipView.layer setCornerRadius:30.0f];
-        [toolbarContainerClipView.layer setBorderColor:[UIColor yellowColor].CGColor];
+        [toolbarContainerClipView.layer setBorderColor:[UIColor colorWithRed:0/255.0f green:240/255.0f blue:129/255.0f alpha:0.7f].CGColor];
         [toolbarContainerClipView.layer setBorderWidth:1.5f];
         [toolbarContainerClipView.layer setShadowColor:[UIColor yellowColor].CGColor];
         
@@ -98,15 +98,14 @@
         overlayBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
         
         [overlayBackgroundView.layer setCornerRadius:30.0f];
-        [overlayBackgroundView.layer setBorderColor:[UIColor yellowColor].CGColor];
+        [overlayBackgroundView.layer setBorderColor:[[UIColor colorWithRed:0/255.0f green:240/255.0f blue:129/255.0f alpha:0.7f]CGColor]];
         [overlayBackgroundView.layer setBorderWidth:1.5f];
-        [overlayBackgroundView.layer setShadowColor:[UIColor yellowColor].CGColor];
+        [overlayBackgroundView.layer setShadowColor:[[UIColor colorWithRed:0/255.0f green:240/255.0f blue:129/255.0f alpha:1.0f]CGColor]];
 
         
         overlayBackgroundView.backgroundColor = self.backgroundColor;
         overlayBackgroundView.autoresizingMask= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [toolbarContainerClipView addSubview:overlayBackgroundView];
-        
         
         [self setBackgroundColor:[UIColor clearColor]]; //view must be transparent :)
         initComplete=YES;

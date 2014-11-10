@@ -11,7 +11,7 @@
 #import "GClusterRenderer.h"
 #import "DataModel.h"
 
-@interface GDefaultClusterRenderer : NSObject <GClusterRenderer> 
+@interface GDefaultClusterRenderer : NSObject <GClusterRenderer>
 
 - (id)initWithMapView:(GMSMapView*)googleMap;
 

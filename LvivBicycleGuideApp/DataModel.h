@@ -16,13 +16,20 @@
 
 @property (nonatomic, strong) NSMutableArray *selectedPlaces;
 @property (nonatomic, strong) PlaceDetailInfo *infoForMarker;
-@property (nonatomic, strong)PlaceCategory *currentCategory;
+@property (nonatomic, strong)NSMutableArray *currentCategory;
+@property (nonatomic, strong)NSString *deselectedIcon;
+@property (nonatomic)NSString *buttonTag;
+@property (nonatomic,strong)NSMutableArray *onTags;
+@property (nonatomic, strong)NSMutableDictionary *arrangedPlaces;
+@property (nonatomic, strong)NSMutableDictionary *arrangedDistances;
+
 
 + (id)sharedModel;
 - (id)init;
 -(void) reactToCategorySelection :(NSString*)title;
 -(void)buildInfoForMarker: (GMSMarker*)marker;
--(void)findObjectForTappedRow :(NSInteger)indexOfRow;
+-(void)findObjectForTappedRow :(PFObject*)chosenPlace;
 -(void)changeCategory :(NSInteger)index;
+-(void)deselectCategory :(NSInteger)index;
 
 @end

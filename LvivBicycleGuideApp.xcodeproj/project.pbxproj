@@ -43,7 +43,14 @@
 		8E4AEF5319FFB5330092139A /* GDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF4B19FFB5330092139A /* GDefaultClusterRenderer.m */; };
 		8E4AEF5619FFB5BB0092139A /* Spot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF5519FFB5BB0092139A /* Spot.m */; };
 		8E4AEF6319FFF7C00092139A /* PlaceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AEF6219FFF7C00092139A /* PlaceCategories.m */; };
+		8E5818351A0CFDD0002677B2 /* SlideMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5818341A0CFDD0002677B2 /* SlideMenuControllerViewController.m */; };
 		8E5D9E691A028D2000D00277 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E5D9E681A028D2000D00277 /* DataModel.m */; };
+		8E79BA731A0D6472005C938D /* oie_transparent_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E79BA721A0D6472005C938D /* oie_transparent_2.png */; };
+		8E79BA751A0E30AF005C938D /* cafe2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E79BA741A0E30AF005C938D /* cafe2.png */; };
+		8E79BA781A0E3F8C005C938D /* dislike.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E79BA761A0E3F8C005C938D /* dislike.png */; };
+		8E79BA791A0E3F8C005C938D /* smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E79BA771A0E3F8C005C938D /* smile.png */; };
+		8E79BA7B1A0E417D005C938D /* dislike_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E79BA7A1A0E417D005C938D /* dislike_button.png */; };
+		8E79BA7D1A0E6009005C938D /* stolen_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E79BA7C1A0E6009005C938D /* stolen_button.png */; };
 		8E7B02C41A0A515F00CB07A8 /* orangeback.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8E7B02C31A0A515F00CB07A8 /* orangeback.jpg */; };
 		8E7B02C61A0A52D300CB07A8 /* Orange-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E7B02C51A0A52D300CB07A8 /* Orange-2.png */; };
 		8E7B02C81A0A536D00CB07A8 /* 1111-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E7B02C71A0A536D00CB07A8 /* 1111-1.png */; };
@@ -69,10 +76,14 @@
 		8EB8A5F919FE81BB0090589C /* smallLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB8A5F819FE81BB0090589C /* smallLaunch.png */; };
 		8EB8A5FC19FE83810090589C /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB8A5FA19FE83800090589C /* facebook.png */; };
 		8EB8A5FD19FE83810090589C /* twitter-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EB8A5FB19FE83810090589C /* twitter-1.png */; };
+		8EC6AFC21A0D238200FEE68B /* parkingBu.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC6AFC11A0D238200FEE68B /* parkingBu.png */; };
+		8EC6AFC41A0D250000FEE68B /* parkingBut.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC6AFC31A0D250000FEE68B /* parkingBut.png */; };
+		8EC6AFC61A0D262A00FEE68B /* parking2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC6AFC51A0D262A00FEE68B /* parking2.png */; };
+		8EC6AFC91A0D3AA000FEE68B /* shop2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC6AFC71A0D3AA000FEE68B /* shop2.png */; };
+		8EC6AFCA1A0D3AA000FEE68B /* supermarket2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EC6AFC81A0D3AA000FEE68B /* supermarket2.png */; };
 		8EDE43CD19FBA5EC00F4773F /* rsz_2images_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDE43CC19FBA5EC00F4773F /* rsz_2images_2.png */; };
 		8EDE43EF19FBFD4D00F4773F /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EDE43EE19FBFD4D00F4773F /* clear.png */; };
 		8EEFF84519FA56000047039A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEFF84419FA56000047039A /* SWRevealViewController.m */; };
-		8EEFF84819FA61940047039A /* SlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEFF84719FA61940047039A /* SlideMenuViewController.m */; };
 		8EEFF84E19FA77430047039A /* Parking.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EEFF84D19FA77430047039A /* Parking.png */; };
 		8EEFF85019FA7BC30047039A /* Supermarket.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EEFF84F19FA7BC30047039A /* Supermarket.png */; };
 		8EEFF85219FA7BCB0047039A /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EEFF85119FA7BCB0047039A /* home.png */; };
@@ -80,6 +91,7 @@
 		8EEFF85619FA7C060047039A /* BicycleShop.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EEFF85519FA7C060047039A /* BicycleShop.png */; };
 		8EEFF85A19FA8F250047039A /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8EEFF85919FA8F250047039A /* background.jpg */; };
 		8EEFF8A119FAA3DC0047039A /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EEFF8A019FAA3DC0047039A /* TableViewCell.m */; };
+		A515C0381A0D135700A98974 /* DetailComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A515C0371A0D135700A98974 /* DetailComplaintViewController.m */; };
 		A5605EB519F11D890043C133 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5605EB419F11D890043C133 /* Foundation.framework */; };
 		A5605EB719F11D890043C133 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5605EB619F11D890043C133 /* CoreGraphics.framework */; };
 		A5605EB919F11D890043C133 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5605EB819F11D890043C133 /* UIKit.framework */; };
@@ -114,7 +126,6 @@
 		A5EBB4FF1A0BA49F00983EE0 /* WriteAboutStolenBiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EBB4FE1A0BA49F00983EE0 /* WriteAboutStolenBiceViewController.m */; };
 		A5EBB5021A0BBAA700983EE0 /* WriteComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EBB5011A0BBAA700983EE0 /* WriteComplaintViewController.m */; };
 		A5EBB5051A0BBC2800983EE0 /* ComplaintTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EBB5041A0BBC2800983EE0 /* ComplaintTableViewController.m */; };
-		A5EBB5081A0BBD0400983EE0 /* DetailComplaintTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EBB5071A0BBD0400983EE0 /* DetailComplaintTableViewController.m */; };
 		A5EBB50B1A0BBE6100983EE0 /* StolenBicyclesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EBB50A1A0BBE6100983EE0 /* StolenBicyclesCollectionViewController.m */; };
 		A5EBB50E1A0BBF9C00983EE0 /* DetailAboutStolenBicycleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EBB50D1A0BBF9C00983EE0 /* DetailAboutStolenBicycleViewController.m */; };
 /* End PBXBuildFile section */
@@ -196,8 +207,16 @@
 		8E4AEF5519FFB5BB0092139A /* Spot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Spot.m; sourceTree = "<group>"; };
 		8E4AEF6119FFF7C00092139A /* PlaceCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCategories.h; sourceTree = "<group>"; };
 		8E4AEF6219FFF7C00092139A /* PlaceCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceCategories.m; sourceTree = "<group>"; };
+		8E5818331A0CFDD0002677B2 /* SlideMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuControllerViewController.h; sourceTree = "<group>"; };
+		8E5818341A0CFDD0002677B2 /* SlideMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenuControllerViewController.m; sourceTree = "<group>"; };
 		8E5D9E671A028D2000D00277 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		8E5D9E681A028D2000D00277 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		8E79BA721A0D6472005C938D /* oie_transparent_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oie_transparent_2.png; sourceTree = "<group>"; };
+		8E79BA741A0E30AF005C938D /* cafe2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cafe2.png; sourceTree = "<group>"; };
+		8E79BA761A0E3F8C005C938D /* dislike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislike.png; sourceTree = "<group>"; };
+		8E79BA771A0E3F8C005C938D /* smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smile.png; sourceTree = "<group>"; };
+		8E79BA7A1A0E417D005C938D /* dislike_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislike_button.png; sourceTree = "<group>"; };
+		8E79BA7C1A0E6009005C938D /* stolen_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stolen_button.png; sourceTree = "<group>"; };
 		8E7B02C31A0A515F00CB07A8 /* orangeback.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = orangeback.jpg; sourceTree = "<group>"; };
 		8E7B02C51A0A52D300CB07A8 /* Orange-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Orange-2.png"; sourceTree = "<group>"; };
 		8E7B02C71A0A536D00CB07A8 /* 1111-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1111-1.png"; sourceTree = "<group>"; };
@@ -225,12 +244,15 @@
 		8EB8A5F819FE81BB0090589C /* smallLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallLaunch.png; sourceTree = "<group>"; };
 		8EB8A5FA19FE83800090589C /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		8EB8A5FB19FE83810090589C /* twitter-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-1.png"; sourceTree = "<group>"; };
+		8EC6AFC11A0D238200FEE68B /* parkingBu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parkingBu.png; sourceTree = "<group>"; };
+		8EC6AFC31A0D250000FEE68B /* parkingBut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parkingBut.png; sourceTree = "<group>"; };
+		8EC6AFC51A0D262A00FEE68B /* parking2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = parking2.png; sourceTree = "<group>"; };
+		8EC6AFC71A0D3AA000FEE68B /* shop2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop2.png; sourceTree = "<group>"; };
+		8EC6AFC81A0D3AA000FEE68B /* supermarket2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = supermarket2.png; sourceTree = "<group>"; };
 		8EDE43CC19FBA5EC00F4773F /* rsz_2images_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_2images_2.png; sourceTree = "<group>"; };
 		8EDE43EE19FBFD4D00F4773F /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
 		8EEFF84319FA56000047039A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		8EEFF84419FA56000047039A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		8EEFF84619FA61940047039A /* SlideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuViewController.h; sourceTree = "<group>"; };
-		8EEFF84719FA61940047039A /* SlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenuViewController.m; sourceTree = "<group>"; };
 		8EEFF84D19FA77430047039A /* Parking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Parking.png; sourceTree = "<group>"; };
 		8EEFF84F19FA7BC30047039A /* Supermarket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Supermarket.png; sourceTree = "<group>"; };
 		8EEFF85119FA7BCB0047039A /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
@@ -239,6 +261,8 @@
 		8EEFF85919FA8F250047039A /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		8EEFF89F19FAA3DC0047039A /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		8EEFF8A019FAA3DC0047039A /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		A515C0361A0D135700A98974 /* DetailComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailComplaintViewController.h; sourceTree = "<group>"; };
+		A515C0371A0D135700A98974 /* DetailComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailComplaintViewController.m; sourceTree = "<group>"; };
 		A5605EB119F11D890043C133 /* LvivBicycleGuideApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LvivBicycleGuideApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5605EB419F11D890043C133 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5605EB619F11D890043C133 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -284,8 +308,6 @@
 		A5EBB5011A0BBAA700983EE0 /* WriteComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteComplaintViewController.m; sourceTree = "<group>"; };
 		A5EBB5031A0BBC2800983EE0 /* ComplaintTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplaintTableViewController.h; sourceTree = "<group>"; };
 		A5EBB5041A0BBC2800983EE0 /* ComplaintTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplaintTableViewController.m; sourceTree = "<group>"; };
-		A5EBB5061A0BBD0400983EE0 /* DetailComplaintTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailComplaintTableViewController.h; sourceTree = "<group>"; };
-		A5EBB5071A0BBD0400983EE0 /* DetailComplaintTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailComplaintTableViewController.m; sourceTree = "<group>"; };
 		A5EBB5091A0BBE6100983EE0 /* StolenBicyclesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StolenBicyclesCollectionViewController.h; sourceTree = "<group>"; };
 		A5EBB50A1A0BBE6100983EE0 /* StolenBicyclesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StolenBicyclesCollectionViewController.m; sourceTree = "<group>"; };
 		A5EBB50C1A0BBF9C00983EE0 /* DetailAboutStolenBicycleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailAboutStolenBicycleViewController.h; path = Clustering/DetailAboutStolenBicycleViewController.h; sourceTree = "<group>"; };
@@ -521,13 +543,23 @@
 				8E7B02C91A0A540E00CB07A8 /* 1111-2.png */,
 				A5EBB4F81A0B9D7E00983EE0 /* stolen.jpg */,
 				8E998B411A0A9325004B10CA /* ROUTE-2.png */,
+				8EC6AFC31A0D250000FEE68B /* parkingBut.png */,
+				8E79BA7C1A0E6009005C938D /* stolen_button.png */,
 				8E998B451A0A9CEC004B10CA /* ROUTE2.png */,
+				8E79BA761A0E3F8C005C938D /* dislike.png */,
+				8E79BA771A0E3F8C005C938D /* smile.png */,
 				8E7B02D91A0A60C100CB07A8 /* beige.png */,
+				8E79BA7A1A0E417D005C938D /* dislike_button.png */,
 				8E4AEF2D19FFB2BA0092139A /* route6-1.png */,
+				8EC6AFC11A0D238200FEE68B /* parkingBu.png */,
 				8E8ACAA01A0BE7B800A84BD8 /* finish.png */,
+				8EC6AFC71A0D3AA000FEE68B /* shop2.png */,
+				8E79BA741A0E30AF005C938D /* cafe2.png */,
+				8EC6AFC81A0D3AA000FEE68B /* supermarket2.png */,
 				8E8ACAA11A0BE7B800A84BD8 /* start.png */,
 				8E7B02D11A0A5CFA00CB07A8 /* tabgreen.png */,
 				8EDE43CC19FBA5EC00F4773F /* rsz_2images_2.png */,
+				8EC6AFC51A0D262A00FEE68B /* parking2.png */,
 				8E7B02C71A0A536D00CB07A8 /* 1111-1.png */,
 				8E7B02C51A0A52D300CB07A8 /* Orange-2.png */,
 				8E998B431A0A98DF004B10CA /* INFO.png */,
@@ -562,6 +594,7 @@
 		A5605EB319F11D890043C133 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E79BA721A0D6472005C938D /* oie_transparent_2.png */,
 				8E13163D1A09110D001B3C69 /* CoreMotion.framework */,
 				8E13163B1A0910F9001B3C69 /* AssetsLibrary.framework */,
 				8E1316391A0910EA001B3C69 /* MediaPlayer.framework */,
@@ -612,16 +645,16 @@
 				8E4AEF6219FFF7C00092139A /* PlaceCategories.m */,
 				A598C6FD19F560C300551A0C /* DirectionAndDistance.h */,
 				A598C6FE19F560C300551A0C /* DirectionAndDistance.m */,
-				8EEFF84619FA61940047039A /* SlideMenuViewController.h */,
-				8EEFF84719FA61940047039A /* SlideMenuViewController.m */,
+				8E5818331A0CFDD0002677B2 /* SlideMenuControllerViewController.h */,
+				8E5818341A0CFDD0002677B2 /* SlideMenuControllerViewController.m */,
 				A5EBB4F51A0B869000983EE0 /* AdditionMenuViewController.h */,
 				A5EBB4F61A0B869000983EE0 /* AdditionMenuViewController.m */,
 				A5EBB5001A0BBAA700983EE0 /* WriteComplaintViewController.h */,
 				A5EBB5011A0BBAA700983EE0 /* WriteComplaintViewController.m */,
 				A5EBB5031A0BBC2800983EE0 /* ComplaintTableViewController.h */,
 				A5EBB5041A0BBC2800983EE0 /* ComplaintTableViewController.m */,
-				A5EBB5061A0BBD0400983EE0 /* DetailComplaintTableViewController.h */,
-				A5EBB5071A0BBD0400983EE0 /* DetailComplaintTableViewController.m */,
+				A515C0361A0D135700A98974 /* DetailComplaintViewController.h */,
+				A515C0371A0D135700A98974 /* DetailComplaintViewController.m */,
 				A5EBB4FD1A0BA49F00983EE0 /* WriteAboutStolenBiceViewController.h */,
 				A5EBB4FE1A0BA49F00983EE0 /* WriteAboutStolenBiceViewController.m */,
 				A5EBB5091A0BBE6100983EE0 /* StolenBicyclesCollectionViewController.h */,
@@ -781,18 +814,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5605ECD19F11D890043C133 /* Images.xcassets in Resources */,
+				8EC6AFC21A0D238200FEE68B /* parkingBu.png in Resources */,
 				8E7B02CC1A0A56F800CB07A8 /* greenbsck.png in Resources */,
 				8E7B02DA1A0A60C100CB07A8 /* beige.png in Resources */,
 				8E832E971A0113AF0062DF44 /* back.png in Resources */,
 				8E998B421A0A9325004B10CA /* ROUTE-2.png in Resources */,
 				8EEFF85419FA7BD10047039A /* Cafe.png in Resources */,
+				8E79BA791A0E3F8C005C938D /* smile.png in Resources */,
+				8E79BA781A0E3F8C005C938D /* dislike.png in Resources */,
 				8E835B8E1A065D4B00AA4475 /* tabletab.png in Resources */,
+				8EC6AFC91A0D3AA000FEE68B /* shop2.png in Resources */,
 				840DFB981A095022003B2CE9 /* Localizable.strings in Resources */,
 				8EEFF85019FA7BC30047039A /* Supermarket.png in Resources */,
 				8E7B02D21A0A5CFA00CB07A8 /* tabgreen.png in Resources */,
 				8E1316221A090F77001B3C69 /* AAShareBubbles.bundle in Resources */,
 				84A99A0419F2615A0014B3D3 /* earth-america-7.png in Resources */,
 				8E1316451A09194C001B3C69 /* sher.png in Resources */,
+				8EC6AFC61A0D262A00FEE68B /* parking2.png in Resources */,
 				8EDE43EF19FBFD4D00F4773F /* clear.png in Resources */,
 				8E832E991A0114EB0062DF44 /* Default@2x-568h@2x.png in Resources */,
 				8EEFF84E19FA77430047039A /* Parking.png in Resources */,
@@ -800,11 +838,13 @@
 				8EEFF85219FA7BCB0047039A /* home.png in Resources */,
 				8E7B02C41A0A515F00CB07A8 /* orangeback.jpg in Resources */,
 				8EB8A5FC19FE83810090589C /* facebook.png in Resources */,
+				8E79BA731A0D6472005C938D /* oie_transparent_2.png in Resources */,
 				8E7B02D51A0A5D3B00CB07A8 /* Supermarket.png in Resources */,
 				8E4AEF2E19FFB2BA0092139A /* route6-1.png in Resources */,
 				A5EBB4F41A0B74C800983EE0 /* navgreen.png in Resources */,
 				8EAFCFB61A07FC9D003008B5 /* blue1-1.png in Resources */,
 				8EDE43CD19FBA5EC00F4773F /* rsz_2images_2.png in Resources */,
+				8E79BA7D1A0E6009005C938D /* stolen_button.png in Resources */,
 				8E998B441A0A98DF004B10CA /* INFO.png in Resources */,
 				A5605EBF19F11D890043C133 /* InfoPlist.strings in Resources */,
 				84A99A0619F2621C0014B3D3 /* list-fat-7.png in Resources */,
@@ -817,9 +857,13 @@
 				8E8ACAA31A0BE7B800A84BD8 /* start.png in Resources */,
 				8EEFF85619FA7C060047039A /* BicycleShop.png in Resources */,
 				8E7B02CA1A0A540E00CB07A8 /* 1111-2.png in Resources */,
+				8EC6AFCA1A0D3AA000FEE68B /* supermarket2.png in Resources */,
+				8E79BA751A0E30AF005C938D /* cafe2.png in Resources */,
 				8EB8A5FD19FE83810090589C /* twitter-1.png in Resources */,
 				8E8ACAA21A0BE7B800A84BD8 /* finish.png in Resources */,
+				8EC6AFC41A0D250000FEE68B /* parkingBut.png in Resources */,
 				8E7B02C61A0A52D300CB07A8 /* Orange-2.png in Resources */,
+				8E79BA7B1A0E417D005C938D /* dislike_button.png in Resources */,
 				A5EBB4F91A0B9D7E00983EE0 /* stolen.jpg in Resources */,
 				84AC786019F24A3600EF4AD3 /* GoogleMaps.bundle in Resources */,
 			);
@@ -841,7 +885,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				840773D21A02805A00231C1F /* BigInfoSubview.m in Sources */,
-				A5EBB5081A0BBD0400983EE0 /* DetailComplaintTableViewController.m in Sources */,
 				8E4AEF5119FFB5330092139A /* GQTPointQuadTree.m in Sources */,
 				A5EBB5021A0BBAA700983EE0 /* WriteComplaintViewController.m in Sources */,
 				A5EBB4F71A0B869000983EE0 /* AdditionMenuViewController.m in Sources */,
@@ -851,7 +894,6 @@
 				8E4AEF6319FFF7C00092139A /* PlaceCategories.m in Sources */,
 				A5EBB50E1A0BBF9C00983EE0 /* DetailAboutStolenBicycleViewController.m in Sources */,
 				8E1316291A090FCF001B3C69 /* SNSTwitter.m in Sources */,
-				8EEFF84819FA61940047039A /* SlideMenuViewController.m in Sources */,
 				8EAFCFAF1A07A1C3003008B5 /* PlaceCategory.m in Sources */,
 				A5EBB5051A0BBC2800983EE0 /* ComplaintTableViewController.m in Sources */,
 				A5EBB50B1A0BBE6100983EE0 /* StolenBicyclesCollectionViewController.m in Sources */,
@@ -865,6 +907,7 @@
 				8E4AEF4C19FFB5330092139A /* GQuadItem.m in Sources */,
 				8EEFF8A119FAA3DC0047039A /* TableViewCell.m in Sources */,
 				8E1316361A091094001B3C69 /* SNSNetworkFactory.m in Sources */,
+				8E5818351A0CFDD0002677B2 /* SlideMenuControllerViewController.m in Sources */,
 				A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */,
 				840773D31A02805A00231C1F /* ILTranslucentView.m in Sources */,
 				8E4AEF5219FFB5330092139A /* GQTPointQuadTreeChild.m in Sources */,
@@ -873,6 +916,7 @@
 				8E1316261A090FA6001B3C69 /* SNSFacebook.m in Sources */,
 				8E4AEF4E19FFB5330092139A /* NonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				A5C6797E19F154DB00888C51 /* TableViewController.m in Sources */,
+				A515C0381A0D135700A98974 /* DetailComplaintViewController.m in Sources */,
 				8EEFF84519FA56000047039A /* SWRevealViewController.m in Sources */,
 				8E832E931A0103EC0062DF44 /* RoutePoints.m in Sources */,
 				A5EBB4FF1A0BA49F00983EE0 /* WriteAboutStolenBiceViewController.m in Sources */,
