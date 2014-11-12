@@ -13,12 +13,12 @@
 #import "TableViewController.h"
 #import "SlideMenuControllerViewController.h"
 
-//@class SlideMenuControllerViewController;
 @class BigInfoSubview;
 @class SmallInfoSubview;
 
 @interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate, TableRouteDelegate>
 @property (nonatomic)BOOL customRouteMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchObject;
+
 
 @end

@@ -15,8 +15,7 @@
 {
     if (self = [super init]) {
         _categoryName = @"Parking";
-        _categoryIcon = @"Parking.png";
-        
+        _categoryIcon = @"Parking.png";        
     }
     return self;
 }

@@ -156,8 +156,7 @@
 
 -(void) dealloc
 {
-    [dataModel.currentCategory removeObserver:self
-                                   forKeyPath:@"categoryIcon"];
+                           
 }
 
 

@@ -22,5 +22,7 @@
 @property (nonatomic, strong) NSString *homePage;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSMutableArray *complaints;
+
 
 @end

@@ -72,20 +72,17 @@
     switch(bubbleType)
     {
         case AAShareBubbleTypeFacebook: type=SNSSocialNetworkTypeFacebook; break;
-            // case AAShareBubbleTypeLinkedIn: type=SNSSocialNetworkTypeLinkedIn; break;
         case AAShareBubbleTypeTwitter: type=SNSSocialNetworkTypeTwitter; break;
         case AAShareBubbleTypeVk: type=SNSSocialNetworkTypeVkontakte;   break;
         case AAShareBubbleTypeGooglePlus: type=SNSSocialNetworkTypeGooglePlus; break;
     }
-    
     id socialNetwork= [networkFactory getNetwork:type];
     self.some=socialNetwork;
     [socialNetwork share];
-    
 }
+
 -(void)aaShareBubblesDidHide
 {
     
 }
-
 @end

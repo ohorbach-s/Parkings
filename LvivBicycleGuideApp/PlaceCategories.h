@@ -13,6 +13,10 @@
 
 @property(nonatomic, strong)NSArray *markersImages;
 @property(nonatomic, strong)NSArray *categoryNamesArray;
+@property (nonatomic, strong)NSArray *dotSmallImages;
+@property (nonatomic, strong)NSArray *dotMediumImages;
+@property (nonatomic, strong)NSArray *dotLargeImages;
+@property (nonatomic, strong)NSArray *markersSmallImages;
 
 + (id)sharedManager;
 

@@ -17,17 +17,14 @@
 
 @interface TableViewController ()
 {
-    PlaceCategories *placeCategories;
     DataModel *dataModel;
-    SlideMenuControllerViewController *menuObject;
     RoutePoints *routePoints;
-    NSString *iconOfSelectedMarker;
     NSMutableArray *cells;
     NSMutableArray *distances;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *placesTable;
-
+@property (weak, nonatomic) IBOutlet UIButton *complaintButton;
 
 @end
 
@@ -37,16 +34,8 @@
 {
     [super viewDidLoad];
     dataModel = [DataModel sharedModel];
-    placeCategories = [PlaceCategories sharedManager];
-    
     routePoints = [RoutePoints sharedManager];
-    menuObject = [[SlideMenuControllerViewController alloc] init];
     [self setAppearance];
-    if (!iconOfSelectedMarker) {
-        //iconOfSelectedMarker = @"Parking.png";
-        //self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
 }
 //passing data to detail subview
@@ -63,22 +52,40 @@
     [distances removeAllObjects];
     [cells removeAllObjects];
     for (NSString *tag in dataModel.onTags) {
-        for (PFObject *object in [dataModel.arrangedPlaces valueForKey:tag])
-        {
-        [cells addObject:object];
+        for (PFObject *object in [dataModel.arrangedPlaces valueForKey:tag]) {
+            [cells addObject:object];
         }
-        for (PFObject *object in [dataModel.arrangedDistances valueForKey:tag]){
-         [distances addObject:object];
+        for (NSString *object in [dataModel.arrangedDistances valueForKey:tag]) {
+            [distances addObject:object];
         }
     }
+    if (distances.count) {
+        id mySort = ^(PFObject * key1, PFObject * key2){
+            NSInteger index1 = [cells indexOfObject:key1];
+            NSInteger index2 = [cells indexOfObject:key2];
+            id distance1 = distances[index1];
+            id distance2 = distances[index2];
+            
+            if ([distance1 doubleValue] > [distance2 doubleValue]) {
+                return (NSComparisonResult)NSOrderedDescending;
+            }
+            
+            if ([distance1 doubleValue] < [distance2 doubleValue]) {
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            return (NSComparisonResult)NSOrderedSame;
+        };
+        cells = [[cells sortedArrayUsingComparator:mySort] mutableCopy];
+        distances = [[distances sortedArrayUsingDescriptors:
+                      @[[NSSortDescriptor sortDescriptorWithKey:@"doubleValue"
+                                                      ascending:YES]]] mutableCopy];
+    }
     [self.placesTable reloadData];
-
+    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tabBarController.tabBar setHidden:NO];
-    [self.navigationController.navigationBar setHidden:NO];
     [_bigDetailPanel setHidden:YES];
 }
 //display subview or hide it
@@ -88,7 +95,6 @@
         [_bigDetailPanel setHidden:NO];
         PFObject *object = [cells objectAtIndex:indexPath.row];
         [dataModel findObjectForTappedRow:object];
-        
     }else {
         [_bigDetailPanel setHidden:YES];
     }
@@ -111,25 +117,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int countRows =0;
-    for (NSString *tag in dataModel.onTags){
-        countRows +=[[dataModel.arrangedPlaces valueForKey:tag] count];
-        }
     return [cells count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-            TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
-        cell.placeName.text = [cells objectAtIndex:indexPath.row][@"name"];
-        cell.routeToPlace.tag = indexPath.row;
-        cell.infoAboutPlace.tag = indexPath.row;
-        cell.distance.text = [NSString stringWithFormat:@"%@ km",[distances objectAtIndex:indexPath.row]];
-        cell.placeType.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [cells objectAtIndex:indexPath.row][@"type"]]];
-
-        [cells addObject:cell];
-        return cell;
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell" forIndexPath:indexPath];
+    cell.placeName.text = [cells objectAtIndex:indexPath.row][@"name"];
+    cell.routeToPlace.tag = indexPath.row;
+    cell.infoAboutPlace.tag = indexPath.row;
+    if([distances count]){
+        cell.distance.text = [NSString stringWithFormat:@"%@ km",[distances objectAtIndex:indexPath.row]];}
+    else {
+    cell.distance.text = @"";
+    }
+    cell.placeType.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [cells objectAtIndex:indexPath.row][@"type"]]];
+    [cells addObject:cell];
+    return cell;
 }
 //display menu
 - (IBAction)tapMenuButton:(id)sender
@@ -160,11 +164,13 @@
     UIGraphicsEndImageContext();
     self.placesTable.backgroundColor = [UIColor colorWithPatternImage:image];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-    
-    _bigDetailPanel.translucentAlpha = 0.7;
-    _bigDetailPanel.translucentStyle = UIBarStyleBlack;
-    _bigDetailPanel.translucentTintColor = [UIColor colorWithRed:218/255.0f green:255/255.0f blue:120/255.0f alpha:0.7f];
+    _bigDetailPanel.backgroundColor = [UIColor clearColor];
+    _bigDetailPanel.translucentAlpha = 1.;
+    _bigDetailPanel.translucentStyle = UIBarStyleBlackTranslucent;
+    [_bigDetailPanel.layer setCornerRadius:15.0f];
+    _bigDetailPanel.translucentTintColor = [UIColor clearColor];
+    self.complaintButton.clipsToBounds = YES;
+    [self.complaintButton.layer setCornerRadius:15.0f];
 }
 //displaying detail subview
 - (IBAction)pressInfoButton:(UIButton *)sender
@@ -172,27 +178,7 @@
     [_bigDetailPanel setHidden:NO];
     [dataModel findObjectForTappedRow:[cells objectAtIndex:sender.tag]];
     self.bigDetailPanel.description.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor]};
-
 }
-//setting observance for values
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                       change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"categoryIcon"]) {
-
-        if ([[object categoryName] isEqualToString:@"Parking"]) {
-            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Parkings", nil);
-        } else if ([[object categoryName] isEqualToString:@"BicycleShop"]) {
-            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Services", nil);
-        } else if ([[object categoryName] isEqualToString:@"Cafe"]) {
-            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Cafes", nil);
-        } else if ([[object categoryName] isEqualToString:@"Supermarket"]) {
-            self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"Supermarkets", nil);
-        }
-//        self.navigationController.navigationBar.topItem.title = [object categoryName];
-        iconOfSelectedMarker = [object categoryIcon];
-        [_placesTable reloadData];
-    }
-    }
 
 -(void) dealloc
 {

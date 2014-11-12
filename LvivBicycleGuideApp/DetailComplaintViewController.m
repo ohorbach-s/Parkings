@@ -7,47 +7,42 @@
 //
 
 #import "DetailComplaintViewController.h"
+#import "DataModel.h"
 
 @interface DetailComplaintViewController ()
+{
+    DataModel *dataModel;
+}
+@property (weak, nonatomic) IBOutlet UILabel *complaintHeader;
 @property (weak, nonatomic) IBOutlet UILabel *addressDetailComplaintLabel;
-@property (weak, nonatomic) IBOutlet UILabel *subjectDetailComplaintLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionDetailComplaintLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *descriptionDetailComplaintImage;
 
 @end
 
 @implementation DetailComplaintViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-      [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
-    // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
+    dataModel = [DataModel sharedModel];
+    [self showDetailComplaintView];
+}
+
+-(void)showDetailComplaintView
+{
+    self.complaintHeader.text = self.complaint.complaintSubject;
+    self.descriptionDetailComplaintLabel.text = self.complaint.complaintDescription;
+    self.addressDetailComplaintLabel.text = dataModel.infoForMarker.address;
+    self.descriptionDetailComplaintImage.image = self.complaint.likeDislike == YES  ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

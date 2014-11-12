@@ -12,9 +12,7 @@
 
 @property (nonatomic,strong) NSMutableArray *waypoints_;
 @property (nonatomic,strong) NSMutableArray *waypointStrings_;
-//@property (nonatomic,strong) NSArray *_waypoints;
 @property (nonatomic,strong) NSString *positionString;
-
 @property (nonatomic,strong)NSMutableArray *customWayPoints;
 @property (nonatomic, strong)NSMutableArray *customWaypointStrings;
 

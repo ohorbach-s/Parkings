@@ -7,8 +7,15 @@
 //
 
 #import "ComplaintTableViewController.h"
+#import "CurrentComplaint.h"
+#import "ComplaintCell.h"
+#import "DetailComplaintViewController.h"
 
 @interface ComplaintTableViewController ()
+{
+    NSMutableArray *testArray;
+}
+@property (strong, nonatomic) IBOutlet UITableView *complaintTable;
 
 
 @end
@@ -27,12 +34,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [[UIImage imageNamed:@"greenbsck.png"] drawInRect:self.view.bounds];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.complaintTable.backgroundColor = [UIColor colorWithPatternImage:image];
+    [self testComplaintCreate];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:6/255.0f green:118/255.0f blue:0/255.0f alpha:1.0f];
+}
+
+-(void)testComplaintCreate
+{
+    CurrentComplaint *complaint1 = [[CurrentComplaint alloc]init];
+    CurrentComplaint *complaint2 = [[CurrentComplaint alloc]init];
+    CurrentComplaint *complaint3 = [[CurrentComplaint alloc]init];
+    CurrentComplaint *complaint4 = [[CurrentComplaint alloc]init];
+    CurrentComplaint *complaint5 = [[CurrentComplaint alloc]init];
+    complaint1.complaintSubject = @"Пошкоджена парковка";
+    complaint2.complaintSubject = @"Пошкоджена велодоріжка";
+    complaint3.complaintSubject = @"Класне кафе";
+    complaint4.complaintSubject = @"Небезпечний район";
+    complaint5.complaintSubject = @"Гопніки!!!";
+    complaint1.likeDislike = NO;
+    complaint2.likeDislike = NO;
+    complaint3.likeDislike = YES;
+    complaint4.likeDislike = NO;
+    complaint5.likeDislike = NO;
+    complaint1.complaintDescription = @"На парковці виламані два паркомісця. Не ризикнув там паркуватись";
+    complaint2.complaintDescription = @"На велодоріжці робітники не закопали яму";
+    complaint3.complaintDescription = @"Дуже класне велокафе на Дудаєва,7. Всім рекомендую!";
+    complaint4.complaintDescription = @"Парковка в темному місці. Навколо крутяться небезпечні тіпи!!!";
+    complaint5.complaintDescription = @"Біля парковки тусуються гопніки і просять покататись %(";
+    testArray = [[NSMutableArray alloc]init];
+    [testArray addObject:complaint1];
+    [testArray addObject:complaint2];
+    [testArray addObject:complaint3];
+    [testArray addObject:complaint4];
+    [testArray addObject:complaint5];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,67 +93,27 @@
     return 5;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Complaint" forIndexPath:indexPath];
-    
-       
+    ComplaintCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Complaint" forIndexPath:indexPath];
+    CurrentComplaint *temp = testArray[indexPath.row];
+    cell.likeImage.image = temp.likeDislike == YES  ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
+    cell.complainSubject.text = temp.complaintSubject;
     return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"GoToDetailComplaint"])
+    {
+        DetailComplaintViewController *vc = [segue destinationViewController];
+        vc.complaint = testArray[[self.tableView indexPathForCell:sender].row];
+    }
 }
 
 - (IBAction)backButtonPressed:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

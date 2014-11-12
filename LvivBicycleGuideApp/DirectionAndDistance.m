@@ -42,7 +42,7 @@
 }
 //creating the query
 -(void)buildTheRouteAndSetTheDistanceForLongitude:(float)tappedMarkerLongtitude
-                                       AndLatitude:(float)tappedMarkerLatitude
+                                      AndLatitude:(float)tappedMarkerLatitude
                             WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion
 {
     routePoints = [RoutePoints sharedManager];
@@ -107,8 +107,8 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
 
 -(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion
 {
-
-routePoints = [RoutePoints sharedManager];
+    
+    routePoints = [RoutePoints sharedManager];
     NSString *sensor = @"true";
     NSArray *parameters = [NSArray arrayWithObjects:sensor, routePoints.customWaypointStrings,
                            nil];
@@ -118,7 +118,7 @@ routePoints = [RoutePoints sharedManager];
     [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock){
         completion (nil, polylineInBlock);
     }];
-
+    
     
 }
 

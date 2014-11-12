@@ -13,11 +13,19 @@
 {
     PlaceCategories *storage;
     RoutePoints *routePoints;
-    //PlaceCategory *currentCategory;
     DataModel *dataModel;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *parkingButton;
+@property (weak, nonatomic) IBOutlet UIButton *supermarketsButton;
+@property (weak, nonatomic) IBOutlet UIButton *cafeButton;
+@property (weak, nonatomic) IBOutlet UIButton *shopsButton;
+@property (weak, nonatomic) IBOutlet UIButton *stolenButton;
+@property (weak, nonatomic) IBOutlet UIButton *rentalButton;
+@property (weak, nonatomic) IBOutlet UIButton *complaintButton;
+
 @end
+
 @implementation SlideMenuControllerViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,8 +42,6 @@
     [super viewDidLoad];
     storage = [PlaceCategories sharedManager];
     routePoints = [RoutePoints sharedManager];
-    self.markerIcon = @"Parking.png";
-    self.category = @"Parking";
     [self setAppearance];
     dataModel = [DataModel sharedModel];}
 
@@ -52,8 +58,6 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-    
-    
     [self.parkingButton.layer setCornerRadius:15.0f];
     [self.parkingButton.layer setShadowOpacity:50.0f];
     [self.parkingButton.layer setShadowRadius:5.0f];
@@ -66,15 +70,16 @@
     [self.shopsButton.layer setCornerRadius:15.0f];
     [self.shopsButton.layer setShadowOpacity:20.0f];
     [self.shopsButton.layer setShadowRadius:5.0f];
-    [self.complaintButton.layer setCornerRadius:15.0f];
-    [self.complaintButton.layer setShadowOpacity:20.0f];
-    [self.complaintButton.layer setShadowRadius:5.0f];
     [self.stolenButton.layer setCornerRadius:15.0f];
     [self.stolenButton.layer setShadowOpacity:20.0f];
     [self.stolenButton.layer setShadowRadius:5.0f];
     [self.rentalButton.layer setCornerRadius:15.0f];
     [self.rentalButton.layer setShadowOpacity:20.0f];
     [self.rentalButton.layer setShadowRadius:5.0f];
+    [self.complaintButton.layer setCornerRadius:15.0f];
+    [self.complaintButton.layer setShadowOpacity:20.0f];
+    [self.complaintButton.layer setShadowRadius:5.0f];
+    
 }
 
 - (IBAction)supermarketsButtonPressed:(id)sender {
@@ -83,21 +88,17 @@
     if (!isActive) {
         [self.supermarketsButton setAlpha:0.7f];
         [self.supermarketsButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];
+        [self.supermarketsButton setBounds:CGRectMake(self.supermarketsButton.layer.position.x, self.supermarketsButton.layer.position.y, 105.0, 105.0)];
         isActive = YES;
-        
-         [dataModel changeCategory:[sender tag]];
-        //[dataModel.onTags addObject:dataModel.buttonTag];
+        [dataModel changeCategory:[sender tag]];
     } else {
         [self.supermarketsButton setAlpha:1.0f];
-         [self.supermarketsButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+        [self.supermarketsButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
         isActive = NO;
-      
-        
+        [self.supermarketsButton setBounds:CGRectMake(self.supermarketsButton.layer.position.x, self.supermarketsButton.layer.position.y, 119.0, 119.0)];
         [dataModel deselectCategory:[sender tag]];
-          [dataModel.onTags removeObject:dataModel.buttonTag];
-       // [self.cleanPolylineDelegate cleanDeselectedCategory:[NSString stringWithFormat:@"%d", [sender tag]]];
+        [dataModel.onTags removeObject:dataModel.buttonTag];
     }
-    
 }
 
 - (IBAction)parkingButtonPressed:(id)sender {
@@ -105,18 +106,16 @@
     if (!isActive) {
         [self.parkingButton setAlpha:0.7f];
         [self.parkingButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];
+        [self.parkingButton setBounds:CGRectMake(self.parkingButton.layer.position.x, self.parkingButton.layer.position.y, 105.0, 105.0)];
         isActive = YES;
-        
         [dataModel changeCategory:[sender tag]];
-        //[dataModel.onTags addObject:dataModel.buttonTag];
     } else {
         [self.parkingButton setAlpha:1.0f];
         [self.parkingButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
         isActive = NO;
+        [self.parkingButton setBounds:CGRectMake(self.parkingButton.layer.position.x, self.parkingButton.layer.position.y, 119.0, 119.0)];
         [dataModel.onTags removeObject:dataModel.buttonTag];
         [dataModel deselectCategory:[sender tag]];
-        
-       // [self.cleanPolylineDelegate cleanDeselectedCategory:[NSString stringWithFormat:@"%d", [sender tag]]];
     }
 }
 
@@ -125,17 +124,16 @@
     if (!isActive) {
         [self.cafeButton setAlpha:0.7f];
         [self.cafeButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];
+        [self.cafeButton setBounds:CGRectMake(self.cafeButton.layer.position.x, self.cafeButton.layer.position.y, 105.0, 105.0)];
         isActive = YES;
-        
         [dataModel changeCategory:[sender tag]];
-        //[dataModel.onTags addObject:dataModel.buttonTag];
     } else {
         [self.cafeButton setAlpha:1.0f];
         [self.cafeButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+        [self.cafeButton setBounds:CGRectMake(self.cafeButton.layer.position.x, self.cafeButton.layer.position.y, 119.0, 119.0)];
         isActive = NO;
         [dataModel deselectCategory:[sender tag]];
         [dataModel.onTags removeObject:dataModel.buttonTag];
-        //[self.cleanPolylineDelegate cleanDeselectedCategory:[NSString stringWithFormat:@"%d", [sender tag]]];
     }}
 
 - (IBAction)shopsButtonPressed:(id)sender {
@@ -144,30 +142,16 @@
     if (!isActive) {
         [self.shopsButton setAlpha:0.7f];
         [self.shopsButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];
+        [self.shopsButton setBounds:CGRectMake(self.shopsButton.layer.position.x, self.shopsButton.layer.position.y, 105.0, 105.0)];
         isActive = YES;
-        
-         [dataModel changeCategory:[sender tag]];
-        //[dataModel.onTags addObject:dataModel.buttonTag];
+        [dataModel changeCategory:[sender tag]];
     } else {
         [self.shopsButton setAlpha:1.0f];
         [self.shopsButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+        [self.shopsButton setBounds:CGRectMake(self.shopsButton.layer.position.x, self.shopsButton.layer.position.y, 119.0, 119.0)];
         isActive = NO;
         [dataModel deselectCategory:[sender tag]];
         [dataModel.onTags removeObject:dataModel.buttonTag];
-        //[self.cleanPolylineDelegate cleanDeselectedCategory:[NSString stringWithFormat:@"%d", [sender tag]]];
     }}
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

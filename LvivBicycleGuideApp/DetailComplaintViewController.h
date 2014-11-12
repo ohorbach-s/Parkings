@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CurrentComplaint.h"
 
 @interface DetailComplaintViewController : UIViewController
+
+@property (nonatomic, strong) CurrentComplaint *complaint;
 
 @end
