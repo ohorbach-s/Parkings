@@ -12,11 +12,12 @@
 #import <Parse/Parse.h>
 #import "TableViewController.h"
 #import "SlideMenuControllerViewController.h"
+#import "CMPopTipView.h"
 
 @class BigInfoSubview;
 @class SmallInfoSubview;
 
-@interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate, TableRouteDelegate>
+@interface MapViewController : UIViewController<GMSMapViewDelegate, CLLocationManagerDelegate, TableRouteDelegate, CMPopTipViewDelegate>
 @property (nonatomic)BOOL customRouteMode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchObject;
 

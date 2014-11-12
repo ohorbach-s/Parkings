@@ -150,6 +150,7 @@
 		A5605F0419F133160043C133 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5605F0319F133160043C133 /* SystemConfiguration.framework */; };
 		A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = A598C6FE19F560C300551A0C /* DirectionAndDistance.m */; };
 		A5B5FAD11A122E90005FFC85 /* CurrentComplaint.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B5FAD01A122E90005FFC85 /* CurrentComplaint.m */; };
+		A5C0554E1A139A7800AAD1FA /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C0554D1A139A7800AAD1FA /* CMPopTipView.m */; };
 		A5C6797E19F154DB00888C51 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C6797D19F154DB00888C51 /* TableViewController.m */; };
 		A5EBB4F41A0B74C800983EE0 /* navgreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A5EBB4F31A0B74C800983EE0 /* navgreen.png */; };
 		A5EBB4F91A0B9D7E00983EE0 /* stolen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A5EBB4F81A0B9D7E00983EE0 /* stolen.jpg */; };
@@ -361,6 +362,8 @@
 		A598C6FE19F560C300551A0C /* DirectionAndDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionAndDistance.m; sourceTree = "<group>"; };
 		A5B5FACF1A122E90005FFC85 /* CurrentComplaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentComplaint.h; sourceTree = SOURCE_ROOT; };
 		A5B5FAD01A122E90005FFC85 /* CurrentComplaint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentComplaint.m; sourceTree = SOURCE_ROOT; };
+		A5C0554C1A139A7800AAD1FA /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = SOURCE_ROOT; };
+		A5C0554D1A139A7800AAD1FA /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = SOURCE_ROOT; };
 		A5C6797C19F154DB00888C51 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		A5C6797D19F154DB00888C51 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		A5EBB4F31A0B74C800983EE0 /* navgreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navgreen.png; sourceTree = "<group>"; };
@@ -750,6 +753,8 @@
 				8E8302521A124E7900D24C48 /* StolenBicycleDetailVC.m */,
 				8E8302531A124E7A00D24C48 /* StolenBicyclesTVC.h */,
 				8E8302541A124E7A00D24C48 /* StolenBicyclesTVC.m */,
+				A5C0554C1A139A7800AAD1FA /* CMPopTipView.h */,
+				A5C0554D1A139A7800AAD1FA /* CMPopTipView.m */,
 				A5605ECC19F11D890043C133 /* Images.xcassets */,
 				A5605EBB19F11D890043C133 /* Supporting Files */,
 				8E832E911A0103EC0062DF44 /* RoutePoints.h */,
@@ -1021,6 +1026,7 @@
 				8EEFF8A119FAA3DC0047039A /* TableViewCell.m in Sources */,
 				8E1316361A091094001B3C69 /* SNSNetworkFactory.m in Sources */,
 				8E83024A1A122C2A00D24C48 /* ComplaintCell.m in Sources */,
+				A5C0554E1A139A7800AAD1FA /* CMPopTipView.m in Sources */,
 				8E5818351A0CFDD0002677B2 /* SlideMenuControllerViewController.m in Sources */,
 				A598C6FF19F560C300551A0C /* DirectionAndDistance.m in Sources */,
 				8E4AEF5219FFB5330092139A /* GQTPointQuadTreeChild.m in Sources */,

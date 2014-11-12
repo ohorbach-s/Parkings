@@ -43,6 +43,7 @@
     GMSMarker *endPoint;
     NSMutableDictionary *markersToPutOnMap;
     DisplayBicycleLines *displayBicycleLines;
+    NSInteger topTipViewCounter;
 }
 
 @property (weak, nonatomic) IBOutlet BigInfoSubview *bigInfoSubview;
@@ -52,6 +53,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet SmallInfoSubview *smallInfoSubview;
 @property (weak, nonatomic) IBOutlet UIButton *complaintButton;
+@property (strong, nonatomic) CMPopTipView* roundRectButtonPopTipView;
 
 @end
 
@@ -101,8 +103,27 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         customPolyline = nil;
         [routePoints.customWayPoints removeAllObjects];
         [routePoints.customWaypointStrings removeAllObjects];
+    }else{
+        if (!self.roundRectButtonPopTipView && topTipViewCounter == 0) {
+            self.roundRectButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"You have switched ON opportunity to make your own route"];
+            self.roundRectButtonPopTipView.delegate = self;
+            self.roundRectButtonPopTipView.backgroundColor = [UIColor colorWithRed:255/255.0f green:178/255.0f blue:18/255.0f alpha:0.6f];;
+            self.roundRectButtonPopTipView.textColor = [UIColor darkTextColor];
+            self.roundRectButtonPopTipView.has3DStyle = YES;
+            UISwitch *customPolylineOpportunity = (UISwitch *)sender;
+            [self.roundRectButtonPopTipView presentPointingAtView:customPolylineOpportunity inView:self.view animated:YES];
+            [self.roundRectButtonPopTipView autoDismissAnimated:YES atTimeInterval:3.0];
+            topTipViewCounter = 1;
+        }
+        
     }
 }
+
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView {
+    // User can tap CMPopTipView to dismiss it
+    self.roundRectButtonPopTipView = nil;
+}
+
 //disclose clustered markers
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition
 {
@@ -343,6 +364,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     self.switchObject.on = NO;
     self.complaintButton.clipsToBounds = YES;
     [self.complaintButton.layer setCornerRadius:15.0f];
+    topTipViewCounter = 0;
 }
 
 -(void)displaySizedImages :(NSArray*)necessaryArrayOfImages {
