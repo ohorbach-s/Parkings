@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *addressTextField;
 @property (weak, nonatomic) IBOutlet UITextField *modelTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIButton *selectPhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *postButton;
 
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)hideKeyboardButton:(id)sender;

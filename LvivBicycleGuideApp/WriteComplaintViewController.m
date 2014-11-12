@@ -47,6 +47,7 @@
     [self.complaintDescriptionTextview.layer setBackgroundColor:[[UIColor colorWithRed:204/255.0f green:245/255.0f blue:107/255.0f alpha:1.0f]CGColor]];
 }
 
+
 - (IBAction)tapOnDislikeButton:(id)sender
 {
     self.complaint.likeDislike = NO;
@@ -70,15 +71,23 @@
         [dataModel.arrangedPlaces enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
                                                           usingBlock:^(id key, id object, BOOL *stop) {
                                                               for(PFObject *arrayElement in object){
-                                                                  if (arrayElement[@"comment"]) {
-                                                                  }
+                                                                
                                                                 if  ([arrayElement[@"address"] isEqualToString:dataModel.infoForMarker.address]){
                                                                       if(!arrayElement[@"comment"]) {
                                                                           arrayElement[@"comment"] = [[NSMutableArray alloc] init];
                                                                       }
-                                                                      [arrayElement[@"comment"] addObject:self.complaint];
+                                                                          NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+                                                                          [dictionary setValue:self.complaint.complaintSubject forKey:@"subject"];
+                                                                          [dictionary setValue:self.complaint.complaintDescription forKey:@"description"];
+                                                                          [dictionary setValue:self.complaint.address forKey:@"address"];
+                                                                          [dictionary setValue:@(self.complaint.likeDislike) forKey:@"likeDislike"];
+                                                                          [arrayElement[@"comment"] addObject:dictionary];
+                                                                      
+                                                                    
                                                                       [arrayElement saveInBackground];
+                                                                    
                                                                   }
+                                                                  
                                                                 }
                                                           }];
     } else {
@@ -90,6 +99,7 @@
                                 otherButtonTitles:nil];
         [message show];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

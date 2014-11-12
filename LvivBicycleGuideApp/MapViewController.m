@@ -88,7 +88,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     controller.delagate =self;
     
     [[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
-    
+    [dataModel changeCategory:0];
     [_smallInfoSubview setHidden:YES];
     [_bigInfoSubview setHidden:YES];
 }
@@ -155,7 +155,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         polyline.map = nil;
         polyline = nil;
         return YES;
-    } else if (marker.icon == nil ) {
+    } else if (([marker isEqual:startPoint])||([marker isEqual:endPoint]) ) {
         return YES;
     } else {
         alreadyTappedMarker = marker;
@@ -176,6 +176,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
 //polyline is built
 -(void)findDirectionForLatitude:(float)markerLatitude  AndLongitude:(float)markerLongitude
 {
+    if (currentLocation){
     [findTheDirection buildTheRouteAndSetTheDistanceForLongitude:markerLongitude
                                                      AndLatitude:markerLatitude
                                            WithCompletionHandler: ^(NSString* theDistance,
@@ -184,7 +185,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                                                polyline.map = nil;
                                                polyline = nil;
                                                polyline = polylineFromBlock;
-                                               polyline.strokeColor = [UIColor colorWithRed:48/255.0f green:254/255.0f blue:13/255.0f alpha:1.0f];
+                                               polyline.strokeColor = [UIColor colorWithRed:0/255.0f green:133/255.0f blue:0/255.0f alpha:1.0f];
                                                polyline.strokeWidth = 3.0f;
                                                polyline.map = _mapView;
                                                [routePoints.waypoints_ removeObject:[routePoints.waypoints_ lastObject]];
@@ -195,6 +196,11 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                                                bounds = [bounds includingCoordinate:boundLocation];
                                                [_mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
                                            }];
+    } else {
+    
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to build the route"message:@"Location service is turned off" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (IBAction)pressRouteButton:(id)sender
@@ -246,6 +252,8 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     NSString *positionString;
     [_smallInfoSubview setHidden:YES];
     [_bigInfoSubview setHidden:YES];
+    NSLog(@"%f %f %f", coordinate.latitude, coordinate.longitude, self.mapView.camera.zoom);
+    
     if (self.switchObject.on) {
         static int countTapps = 0;
         if (!endPoint.map) {
@@ -335,8 +343,9 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.delegate = self;
     [_locationManager startUpdatingLocation];
-    _position = CLLocationCoordinate2DMake(49.8327176,23.9970189);
-    [_mapView animateToZoom:13];
+    _position = CLLocationCoordinate2DMake(49.837120,24.026780 );
+    [self.mapView animateToLocation:_position];
+    [_mapView animateToZoom:13.384848];
     _mapView.delegate = self;
     _mapView.myLocationEnabled= YES;
     _mapView.settings.myLocationButton = YES;

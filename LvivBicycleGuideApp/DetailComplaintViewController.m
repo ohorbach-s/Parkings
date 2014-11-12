@@ -7,11 +7,11 @@
 //
 
 #import "DetailComplaintViewController.h"
-#import "DataModel.h"
+//#import "DataModel.h"
 
 @interface DetailComplaintViewController ()
 {
-    DataModel *dataModel;
+    //DataModel *dataModel;
 }
 @property (weak, nonatomic) IBOutlet UILabel *complaintHeader;
 @property (weak, nonatomic) IBOutlet UILabel *addressDetailComplaintLabel;
@@ -26,16 +26,16 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
-    dataModel = [DataModel sharedModel];
+    //dataModel = [DataModel sharedModel];
     [self showDetailComplaintView];
 }
 
 -(void)showDetailComplaintView
 {
-    self.complaintHeader.text = self.complaint.complaintSubject;
-    self.descriptionDetailComplaintLabel.text = self.complaint.complaintDescription;
-    self.addressDetailComplaintLabel.text = dataModel.infoForMarker.address;
-    self.descriptionDetailComplaintImage.image = self.complaint.likeDislike == YES  ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
+    self.complaintHeader.text = [self.complaint valueForKey:@"subject"];
+    self.descriptionDetailComplaintLabel.text = [self.complaint valueForKey:@"description"];
+    self.addressDetailComplaintLabel.text = [self.complaint valueForKey: @"address" ] ;
+    self.descriptionDetailComplaintImage.image = [[self.complaint valueForKey:@"likeDislike"] isEqual:@1] ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
     
 }
 
