@@ -30,6 +30,8 @@ addressTextField, modelTextField;
     [[self.imageView layer] setBorderColor:[[UIColor blackColor] CGColor]];
     [[self.imageView layer] setBorderWidth:1];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
+    [self.selectPhotoButton.layer setCornerRadius:10.0f];
+    [self.postButton.layer setCornerRadius:10.0f];
 }
 
 #pragma mark - autoscrolling

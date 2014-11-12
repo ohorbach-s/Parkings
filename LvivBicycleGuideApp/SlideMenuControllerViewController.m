@@ -43,7 +43,15 @@
     storage = [PlaceCategories sharedManager];
     routePoints = [RoutePoints sharedManager];
     [self setAppearance];
-    dataModel = [DataModel sharedModel];}
+    dataModel = [DataModel sharedModel];
+    
+    [self.parkingButton setAlpha:0.7f];
+    [self.parkingButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];
+    [self.parkingButton setBounds:CGRectMake(self.parkingButton.layer.position.x, self.parkingButton.layer.position.y, 105.0, 105.0)];
+    //isActive = YES;
+
+
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -102,7 +110,7 @@
 }
 
 - (IBAction)parkingButtonPressed:(id)sender {
-    static BOOL isActive = NO;
+    static BOOL isActive = YES;
     if (!isActive) {
         [self.parkingButton setAlpha:0.7f];
         [self.parkingButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];

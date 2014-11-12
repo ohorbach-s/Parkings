@@ -43,6 +43,7 @@
     predicate = [NSPredicate predicateWithFormat:
                  @"type = 'Cafe'"];
     query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.arrangedPlaces setValue:objects forKey:@"2"];
     }];

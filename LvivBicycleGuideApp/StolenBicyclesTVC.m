@@ -44,11 +44,12 @@
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
+     [self.tableView reloadData];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [self.tableView reloadData];
-}
+//-(void)viewDidAppear:(BOOL)animated{
+//    [self.tableView reloadData];
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -94,7 +95,7 @@
         StolenBicycleDetailVC *detailsForSegue = [[StolenBicycleDetailVC alloc] init];
         detailsForSegue = [segue destinationViewController];
         NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-        detailsForSegue.detailToDisplay = allStollenBicycles[path.row];
+        detailsForSegue.detailToDisplay = allStollenBicyclesSorted[path.row];
     }
 }
 
