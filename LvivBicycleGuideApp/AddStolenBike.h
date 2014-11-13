@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface AddStolenBike : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -16,17 +17,18 @@
 @property (weak, nonatomic) IBOutlet UITextField *addressTextField;
 @property (weak, nonatomic) IBOutlet UITextField *modelTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIButton *selectPhotoButton;
-@property (weak, nonatomic) IBOutlet UIButton *postButton;
 
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)hideKeyboardButton:(id)sender;
 - (IBAction)addPhoto:(id)sender;
 - (IBAction)post:(id)sender;
+- (IBAction)save:(id)sender;
 
+- (IBAction)cancelButton:(id)sender;
 
+@property (strong, nonatomic) PFObject *detailsToEdit;
 
-
-
+@property (weak, nonatomic) IBOutlet UIButton *postButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @end

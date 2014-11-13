@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface StolenBicycleDetailVC : UIViewController
+@interface StolenBicycleDetailVC : UIViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *stolenBicyclePhoto;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (strong, nonatomic) PFObject *detailToDisplay;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *showPhotoInFullScreen;
 
 - (IBAction)showPhotoInFullScreen:(id)sender;
 - (IBAction)editButtonAction:(id)sender;
