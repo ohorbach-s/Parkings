@@ -24,6 +24,7 @@ addressTextField, modelTextField, detailsToEdit;
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
+    self.viewAboveScrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
     
     if (detailsToEdit) {
         self.title = NSLocalizedString(@"Edit post", nil);
