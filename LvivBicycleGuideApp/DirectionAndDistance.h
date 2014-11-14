@@ -13,10 +13,13 @@
 
 @interface DirectionAndDistance : NSObject
 
--(void)buildTheRouteAndSetTheDistanceForLongitude :(float)tappedMarkerLongtitude AndLatitude:(float)tappedMarkerLatitude WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion;
-- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion2;
+-(void)buildTheRouteAndSetTheDistanceForLongitude:(float)tappedMarkerLongtitude
+                                      AndLatitude:(float)tappedMarkerLatitude
+                            WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion;
+- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*, NSString*))completion2;
 - (void)retrieveDirectionsWithCompletionHandler :(void(^)(NSDictionary* ))completionHandler;
--(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion;
+-(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*, NSString*))completion;
+
 + (id)sharedManager;
 
 @end

@@ -32,6 +32,13 @@ addressTextField, modelTextField;
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
     [self.selectPhotoButton.layer setCornerRadius:10.0f];
     [self.postButton.layer setCornerRadius:10.0f];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *currentDate = [NSDate date];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setYear:-2];
+    NSDate *minDate = [gregorian dateByAddingComponents:comps toDate:currentDate options:0];
+    self.datePicker.maximumDate = currentDate;
+    self.datePicker.minimumDate = minDate;
 }
 
 #pragma mark - autoscrolling
@@ -178,6 +185,8 @@ addressTextField, modelTextField;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 @end
 
 

@@ -43,7 +43,6 @@
     GMSMarker *endPoint;
     NSMutableDictionary *markersToPutOnMap;
     DisplayBicycleLines *displayBicycleLines;
-    NSInteger topTipViewCounter;
 }
 
 @property (weak, nonatomic) IBOutlet BigInfoSubview *bigInfoSubview;
@@ -53,7 +52,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet GMSMapView *mapView;
 @property (weak, nonatomic) IBOutlet SmallInfoSubview *smallInfoSubview;
 @property (weak, nonatomic) IBOutlet UIButton *complaintButton;
-@property (strong, nonatomic) CMPopTipView* roundRectButtonPopTipView;
+@property (weak, nonatomic) IBOutlet UIView *markLabel;
 
 @end
 
@@ -64,16 +63,19 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    dataModel = [DataModel sharedModel];
     displayBicycleLines = [[DisplayBicycleLines alloc] init];
     placeCategories = [PlaceCategories sharedManager];
     routePoints = [RoutePoints sharedManager];
     markersToPutOnMap = [[NSMutableDictionary alloc] init];
-    dataModel = [DataModel sharedModel];
+    
     findTheDirection = [DirectionAndDistance sharedManager];
     [self firstMapLaunch];
     [self setAppearance];
     [self displayLines];
+    [self.markLabel setHidden:YES];
     [_locationManager startUpdatingLocation];
+    [dataModel changeCategory:0];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fillSubview:)
                                                  name:@"fillSubviewOfMap" object:nil];
@@ -85,10 +87,14 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                                                  name:@"cleanMarkers" object:nil];
     TableViewController *controller = [[[self.tabBarController.viewControllers objectAtIndex:1]
                                         childViewControllers ]objectAtIndex:0];
+    [[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
     controller.delagate =self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
     [dataModel changeCategory:0];
+    
+  // [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
+
+    [self showOrHideNavPrompt];
     [_smallInfoSubview setHidden:YES];
     [_bigInfoSubview setHidden:YES];
 }
@@ -103,27 +109,8 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         customPolyline = nil;
         [routePoints.customWayPoints removeAllObjects];
         [routePoints.customWaypointStrings removeAllObjects];
-    }else{
-        if (!self.roundRectButtonPopTipView && topTipViewCounter == 0) {
-            self.roundRectButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"You have switched ON opportunity to make your own route"];
-            self.roundRectButtonPopTipView.delegate = self;
-            self.roundRectButtonPopTipView.backgroundColor = [UIColor colorWithRed:255/255.0f green:178/255.0f blue:18/255.0f alpha:0.6f];;
-            self.roundRectButtonPopTipView.textColor = [UIColor darkTextColor];
-            self.roundRectButtonPopTipView.has3DStyle = YES;
-            UISwitch *customPolylineOpportunity = (UISwitch *)sender;
-            [self.roundRectButtonPopTipView presentPointingAtView:customPolylineOpportunity inView:self.view animated:YES];
-            [self.roundRectButtonPopTipView autoDismissAnimated:YES atTimeInterval:3.0];
-            topTipViewCounter = 1;
-        }
-        
     }
 }
-
-- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView {
-    // User can tap CMPopTipView to dismiss it
-    self.roundRectButtonPopTipView = nil;
-}
-
 //disclose clustered markers
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)cameraPosition
 {
@@ -203,6 +190,33 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     }
 }
 
+- (void)showOrHideNavPrompt
+{
+    double delayInSeconds = 7.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC)); // 1
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ // 2
+        
+        
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        
+        [self.markLabel setHidden:NO];
+        [UIView animateWithDuration:4.2 animations:^(void){
+            self.markLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity,1.3f, 1.3f);
+        }
+                         completion:^(BOOL finished){
+                             [self bounceOutAnimationStoped];
+                         }];
+
+        
+    });
+    delayInSeconds = 13.0;
+     popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ // 2
+        [self.markLabel setHidden:YES];
+    });
+}
+
+
 - (IBAction)pressRouteButton:(id)sender
 {
     [self findDirectionForLatitude:[dataModel.infoForMarker.latitude floatValue]AndLongitude:[dataModel.infoForMarker.longtitude floatValue]];
@@ -275,7 +289,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
                 endPoint.icon = [UIImage imageNamed:@"finish.png"];
                 endPoint.map = _mapView;
                 countTapps = 0;
-                [findTheDirection findCustomRouteWithCompletionHandler:^(NSString *distance, GMSPolyline *polylineFromBlock){
+                [findTheDirection findCustomRouteWithCompletionHandler:^(NSString *distance, GMSPolyline *polylineFromBlock, NSString *pathFromBlock){
                     customPolyline = polylineFromBlock;
                     customPolyline.strokeColor =[UIColor colorWithRed:255/255.0f green:161/255.0f blue:4/255.0f alpha:1.0f];
                     customPolyline.strokeWidth = 2.0f;
@@ -330,6 +344,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     [routePoints.waypointStrings_ addObject:updatedPosition];
     [_locationManager stopUpdatingLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
+   // NSLog(@"%f", currentLocation.speed);
 }
 
 - (void)didReceiveMemoryWarning
@@ -373,7 +388,10 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     self.switchObject.on = NO;
     self.complaintButton.clipsToBounds = YES;
     [self.complaintButton.layer setCornerRadius:15.0f];
-    topTipViewCounter = 0;
+    [self.markLabel.layer setCornerRadius:3.0f];
+    [self.markLabel setBackgroundColor:[[UIColor grayColor] colorWithAlphaComponent:0.5]];
+    [self.markLabel.layer setBorderColor:[[UIColor blackColor]CGColor]];
+    [self.markLabel.layer setBorderWidth:1.0f];
 }
 
 -(void)displaySizedImages :(NSArray*)necessaryArrayOfImages {

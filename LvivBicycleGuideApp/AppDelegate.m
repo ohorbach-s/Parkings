@@ -34,6 +34,14 @@
                                                [NSValue valueWithUIOffset:UIOffsetMake(-1, 0)], NSForegroundColorAttributeName, nil];
     
     [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
+    
+//    UILocalNotification *locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+//    if (locationNotification) {
+//        // Set icon badge number to zero
+//        application.applicationIconBadgeNumber = 0;
+//    }
+
+    
     return YES;
 }
 
@@ -69,7 +77,7 @@
          annotation: (id)annotation
 {
     
-    [VKSdk processOpenURL:url fromApplication:sourceApplication];
+    
     
     return [GPPURLHandler handleURL:url
                   sourceApplication:sourceApplication

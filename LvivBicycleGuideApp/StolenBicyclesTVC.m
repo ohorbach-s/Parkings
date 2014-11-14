@@ -38,13 +38,26 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    PFQuery *queryForStolenBicycles = [PFQuery queryWithClassName:@"stolenBicycles"];
-    allStollenBicycles = [queryForStolenBicycles findObjects];
-    NSSortDescriptor *sortDescriptor;
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
-     [self.tableView reloadData];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 1
+        PFQuery *queryForStolenBicycles = [PFQuery queryWithClassName:@"stolenBicycles"];
+        allStollenBicycles = [queryForStolenBicycles findObjects];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{ // 2
+            NSSortDescriptor *sortDescriptor;
+            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+            NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+            allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
+            [self.tableView reloadData];
+        });
+    });
+//    PFQuery *queryForStolenBicycles = [PFQuery queryWithClassName:@"stolenBicycles"];
+//    allStollenBicycles = [queryForStolenBicycles findObjects];
+//    NSSortDescriptor *sortDescriptor;
+//    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+//    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+//    allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
+//     [self.tableView reloadData];
 }
 
 //-(void)viewDidAppear:(BOOL)animated{

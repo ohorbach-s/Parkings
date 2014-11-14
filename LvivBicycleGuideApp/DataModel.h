@@ -22,6 +22,8 @@
 @property (nonatomic,strong)NSMutableArray *onTags;
 @property (nonatomic, strong)NSMutableDictionary *arrangedPlaces;
 @property (nonatomic, strong)NSMutableDictionary *arrangedDistances;
+@property (nonatomic, strong) dispatch_queue_t concurrentPhotoQueue;
+@property (nonatomic,strong) NSMutableArray *races;
 
 + (id)sharedModel;
 - (id)init;

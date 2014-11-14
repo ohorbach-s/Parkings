@@ -36,31 +36,6 @@
 //share
 -(IBAction)Share:(id)sender
 {
-    
-  /*  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        VKShareDialogController* shareDialog = [VKShareDialogController new];
-        // shareDialog.text = detailInfoForObject.name;
-        shareDialog.uploadImages = @[[VKUploadImage uploadImageWithImage:[UIImage imageNamed:@"google.png"]  andParams:[VKImageParameters jpegImageWithQuality:0.9]]];
-        
-        
-        [shareDialog presentIn:self];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            
-            NSArray* SCOPE = @[VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL, VK_PER_MESSAGES];
-            [VKSdk initializeWithDelegate:self andAppId:@"4601008"];
-            [VKSdk authorize:SCOPE revokeAccess:YES];
-            
-        });
-        
-    });
-
-
-*/
-    
-
     bubles=[[AAShareBubbles alloc]initWithPoint:self.center radius:80 inView:self];
     bubles.delegate=self;
     bubles.radius=80;
@@ -69,7 +44,7 @@
     bubles.showGooglePlusBubble=YES;
     bubles.showFacebookBubble=YES;
     [bubles show];
-  
+    
 }
 
 //fill fields with relevant information

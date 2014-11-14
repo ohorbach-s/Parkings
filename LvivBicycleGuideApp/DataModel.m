@@ -27,13 +27,19 @@
     self.arrangedDistances = [[NSMutableDictionary alloc] init];
     self.deselectedIcon = [[NSString alloc] init];
     self.onTags = [[NSMutableArray alloc]init];
+    self.races = [[NSMutableArray alloc] init];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
                               @"type = 'Parking'"];
     PFQuery *query = [PFQuery queryWithClassName:
                       NSLocalizedString(@"PlaceEng", nil) predicate:predicate];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.arrangedPlaces setValue:objects forKey:@"0"];
-    }];
+    [self.arrangedPlaces setValue:[query findObjects]forKey:@"0"];
+    
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        [self.arrangedPlaces setValue:objects forKey:@"0"];
+//    }];
+//    dispatch_sync(self.concurrentPhotoQueue, ^{ // 2
+//       [self.arrangedPlaces setValue:[query findObjects]forKey:@"0"];
+//    });
     predicate = [NSPredicate predicateWithFormat:
                  @"type = 'BicycleShop'"];
     query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
@@ -53,6 +59,38 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.arrangedPlaces setValue:objects forKey:@"3"];
     }];
+    __block NSArray *allRaces = [[NSArray alloc] init];
+    PFQuery *queryForRaces = [PFQuery queryWithClassName:@"BikePool"];
+    allRaces = [queryForRaces findObjects];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"dd.MM.YY"];
+    
+    for (PFObject *object in allRaces) {
+        
+        //NSString *dateString = [dateFormatter stringFromDate:object[@"date"]];
+        NSDate *dateObject1 = object[@"date"];
+        //NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+        NSDate *dateObject2 = [NSDate date];
+        NSTimeInterval distanceBetweenDates = [dateObject1 timeIntervalSinceDate:dateObject2];
+
+//        if (distanceBetweenDates != 0)
+//             [object deleteEventually];
+        
+        if([dateObject1 compare:dateObject2] == NSOrderedAscending){
+            [object deleteEventually];
+        }
+        
+        //NSString *dateString = [dateFormatter stringFromDate:object[@"date"]];
+       // NSDate *dateObject1 = [dateFormatter dateFromString:dateString];
+        //NSNumber *dateNumber = (NSNumber*)dateString;
+       // NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+       // NSDate *dateObject2 = [dateFormatter dateFromString:currentDateString];
+       // NSNumber *currentDateNumber = (NSNumber*)currentDateString ;
+        //if([dateString compare: currentDateString] == NSOrderedAscending){
+        //if (object [@"date"] < [NSDate date]) {
+        //    [object deleteEventually];
+        //}
+    }
 }
 
 + (id)sharedModel

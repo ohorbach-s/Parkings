@@ -59,18 +59,19 @@
         NSArray *keys = [NSArray arrayWithObjects:@"sensor", @"waypoints", nil];
         query = [NSDictionary dictionaryWithObjects:parameters
                                             forKeys:keys];
-        [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock){
+        [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock, NSString *path){
             completion (completion2, polylineInBlock);
         }];
     }
 }
 //passing the query to api and processing the response
 static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/directions/json?";
-- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion2
+- (void)setDirectionsQuery:(NSDictionary *)queryForObtainingTheDirection WithCompletionHandler:(void(^)(NSString* ,GMSPolyline*, NSString*))completion2
 {
     NSArray *waypoints = [queryForObtainingTheDirection objectForKey:@"waypoints"];
     NSString *origin = [waypoints objectAtIndex:0];
-    NSString *destination = [waypoints objectAtIndex:1];
+   // NSString *destination = [waypoints objectAtIndex:1];
+    NSString *destination = [waypoints lastObject];
     NSString *sensor = [query objectForKey:@"sensor"];
     NSMutableString *url =
     [NSMutableString stringWithFormat:@"%@&origin=%@&destination=%@&sensor=%@",
@@ -88,7 +89,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
         NSString *overview_route = [route objectForKey:@"points"];
         GMSPath *path = [GMSPath pathFromEncodedPath:overview_route];
         GMSPolyline *polyline2 = [GMSPolyline polylineWithPath:path];
-        completion2 (distanceToTappedMarkerToPass, polyline2);
+        completion2 (distanceToTappedMarkerToPass, polyline2, overview_route);
     }];
 }
 //getting the response
@@ -105,7 +106,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     });
 }
 
--(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*))completion
+-(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*, NSString*))completion
 {
     
     routePoints = [RoutePoints sharedManager];
@@ -115,8 +116,8 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     NSArray *keys = [NSArray arrayWithObjects:@"sensor", @"waypoints", nil];
     query = [NSDictionary dictionaryWithObjects:parameters
                                         forKeys:keys];
-    [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock){
-        completion (nil, polylineInBlock);
+    [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock, NSString *pathFromBlock){
+        completion (nil, polylineInBlock, pathFromBlock);
     }];
     
     
