@@ -69,7 +69,7 @@
          annotation: (id)annotation
 {
     
-    
+    [VKSdk processOpenURL:url fromApplication:sourceApplication];
     
     return [GPPURLHandler handleURL:url
                   sourceApplication:sourceApplication
