@@ -34,6 +34,13 @@
     [super viewDidLoad];
     path = [[NSMutableDictionary alloc] init];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
+    self.datePicker.minimumDate = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *currentDate = [NSDate date];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setYear:+2];
+    NSDate *maxDate = [gregorian dateByAddingComponents:comps toDate:currentDate options:0];
+    self.datePicker.maximumDate = maxDate;
     //RaceMap *raceMap = [self.navigationController.viewControllers objectAtIndex:1];
     // Do any additional setup after loading the view.
 }
@@ -50,9 +57,10 @@
     } else {
     
         if (self.datePicker.date < [NSDate date]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect date set" message:@"The event must be set for future" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect date set" message:@"The event must be set for future" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
-        } else {PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];
+        } else {
+            PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];
             newRace [@"place"] = self.placeTextField.text;
             newRace[@"date"]= self.datePicker.date;
             newRace[@"path"] = path;

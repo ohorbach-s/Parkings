@@ -59,6 +59,38 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.arrangedPlaces setValue:objects forKey:@"3"];
     }];
+    __block NSArray *allRaces = [[NSArray alloc] init];
+    PFQuery *queryForRaces = [PFQuery queryWithClassName:@"BikePool"];
+    allRaces = [queryForRaces findObjects];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"dd.MM.YY"];
+    
+    for (PFObject *object in allRaces) {
+        
+        //NSString *dateString = [dateFormatter stringFromDate:object[@"date"]];
+        NSDate *dateObject1 = object[@"date"];
+        //NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+        NSDate *dateObject2 = [NSDate date];
+        NSTimeInterval distanceBetweenDates = [dateObject1 timeIntervalSinceDate:dateObject2];
+
+//        if (distanceBetweenDates != 0)
+//             [object deleteEventually];
+        
+        if([dateObject1 compare:dateObject2] == NSOrderedAscending){
+            [object deleteEventually];
+        }
+        
+        //NSString *dateString = [dateFormatter stringFromDate:object[@"date"]];
+       // NSDate *dateObject1 = [dateFormatter dateFromString:dateString];
+        //NSNumber *dateNumber = (NSNumber*)dateString;
+       // NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+       // NSDate *dateObject2 = [dateFormatter dateFromString:currentDateString];
+       // NSNumber *currentDateNumber = (NSNumber*)currentDateString ;
+        //if([dateString compare: currentDateString] == NSOrderedAscending){
+        //if (object [@"date"] < [NSDate date]) {
+        //    [object deleteEventually];
+        //}
+    }
 }
 
 + (id)sharedModel
