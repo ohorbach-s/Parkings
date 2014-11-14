@@ -37,6 +37,7 @@
     routePoints = [RoutePoints sharedManager];
     [self setAppearance];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
 }
 //passing data to detail subview
 -(void)fillSubview:(NSNotification *)notification
@@ -55,8 +56,10 @@
         for (PFObject *object in [dataModel.arrangedPlaces valueForKey:tag]) {
             [cells addObject:object];
         }
-        for (NSString *object in [dataModel.arrangedDistances valueForKey:tag]) {
-            [distances addObject:object];
+        if ([dataModel.arrangedDistances count]) {
+            for (NSString *object in [dataModel.arrangedDistances valueForKey:tag]) {
+                [distances addObject:object];
+            }
         }
     }
     if (distances.count) {
