@@ -44,12 +44,23 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)saveButtonPressed:(id)sender {
-    PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];
-    newRace [@"place"] = self.placeTextField.text;
-    newRace[@"date"]= self.datePicker.date;
-    newRace[@"path"] = path;
-    [newRace saveInBackground];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([self.placeTextField.text isEqualToString: @""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complete filling the view" message:@"place is not filled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    } else {
+    
+        if (self.datePicker.date < [NSDate date]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect date set" message:@"The event must be set for future" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+        } else {PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];
+            newRace [@"place"] = self.placeTextField.text;
+            newRace[@"date"]= self.datePicker.date;
+            newRace[@"path"] = path;
+            [newRace saveInBackground];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -87,15 +98,6 @@
      //[path setValue:endPosition forKey:@"endPosition"];
     
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
