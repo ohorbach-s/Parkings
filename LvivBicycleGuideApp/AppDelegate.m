@@ -35,14 +35,21 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes:navbarTitleTextAttributes];
     
-//    UILocalNotification *locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-//    if (locationNotification) {
-//        // Set icon badge number to zero
-//        application.applicationIconBadgeNumber = 0;
-//    }
+    UILocalNotification *locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (locationNotification) {
+        // Set icon badge number to zero
+        application.applicationIconBadgeNumber = 0;
+          
+    }
 
     
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notif {
+    // Handle the notificaton when the app is running
+    NSLog(@"Recieved Notification %@",notif);
+     application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -76,12 +83,12 @@
   sourceApplication: (NSString *)sourceApplication
          annotation: (id)annotation
 {
+    [VKSdk processOpenURL:url fromApplication:sourceApplication];
     
-    
-    
-    return [GPPURLHandler handleURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
+    return YES;
+//    return [GPPURLHandler handleURL:url
+//                  sourceApplication:sourceApplication
+//                         annotation:annotation];
 }
 
 

@@ -12,7 +12,7 @@
 @protocol SNSSocialNetwork <NSObject>
 
 @optional
--(void)share;
+-(void)share:(id)sender;
 -(void)settingDataSource:(id<SNSSocialNetworkDataSource>)data;
 @property(weak,nonatomic)id<SNSSocialNetwork>delegate;
 @end

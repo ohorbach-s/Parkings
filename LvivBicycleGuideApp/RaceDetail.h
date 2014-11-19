@@ -17,4 +17,5 @@
 @property (nonatomic)float startLongitude;
 @property (nonatomic)float endLatitude;
 @property (nonatomic)float endLongitude;
+@property (nonatomic)BOOL selectedToParticipate;
 @end

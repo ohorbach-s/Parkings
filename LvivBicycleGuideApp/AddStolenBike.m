@@ -7,42 +7,47 @@
 //
 
 #import "AddStolenBike.h"
-#import <Parse/Parse.h>
 
-@interface AddStolenBike (){
+@interface AddStolenBike ()
+{
     UITextField *activeField;
+    UIImage *resizedImage;
 }
 @property (nonatomic) UIImagePickerController *imagePickerController;
 
 @end
 
 @implementation AddStolenBike
+
 @synthesize scrollView, descriptionTextView, imageView, datePicker,
-addressTextField, modelTextField;
+addressTextField, modelTextField, detailsToEdit;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
+    self.viewAboveScrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
+    
+    if (detailsToEdit) {
+        self.title = NSLocalizedString(@"Edit post", nil);
+        self.datePicker.date = detailsToEdit[@"date"];
+        self.modelTextField.text = detailsToEdit[@"model"];
+        self.addressTextField.text = detailsToEdit[@"address"];
+        self.descriptionTextView.text = detailsToEdit[@"description"];
+        self.imageView.image = [UIImage imageWithData:detailsToEdit[@"photo"]];
+        self.postButton.hidden = YES;
+        self.saveButton.hidden = NO;
+    } else {
+        self.title = NSLocalizedString(@"Add post", nil);
+    }
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self registerForKeyboardNotifications];
     [[self.descriptionTextView layer] setBorderColor:[[UIColor blackColor] CGColor]];
     [[self.descriptionTextView layer] setBorderWidth:1];
     [[self.imageView layer] setBorderColor:[[UIColor blackColor] CGColor]];
     [[self.imageView layer] setBorderWidth:1];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]];
-    [self.selectPhotoButton.layer setCornerRadius:10.0f];
-    [self.postButton.layer setCornerRadius:10.0f];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate *currentDate = [NSDate date];
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    [comps setYear:-2];
-    NSDate *minDate = [gregorian dateByAddingComponents:comps toDate:currentDate options:0];
-    self.datePicker.maximumDate = currentDate;
-    self.datePicker.minimumDate = minDate;
 }
 
-#pragma mark - autoscrolling
-//Call this method somewhere in your view controller setup code.
 - (void)registerForKeyboardNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -53,7 +58,6 @@ addressTextField, modelTextField;
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
 
-//Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
@@ -78,7 +82,6 @@ addressTextField, modelTextField;
     scrollView.scrollIndicatorInsets = contentInsets;
 }
 
-#pragma mark - adding photo
 - (IBAction)addPhoto:(id)sender {
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
@@ -102,8 +105,7 @@ addressTextField, modelTextField;
     NSLog(@"%.0f X %.0f", imageView.image.size.width, imageView.image.size.height);
 }
 
-- (IBAction)post:(id)sender {
-    UIImage *resizedImage;
+- (void)resizeImage{
     CGSize newImageSize;
     CGFloat ratio = imageView.image.size.width/imageView.image.size.height;
     if (imageView.image.size.width > imageView.image.size.height) {
@@ -112,6 +114,14 @@ addressTextField, modelTextField;
     } else {
         newImageSize = CGSizeMake(1000.f*ratio, 1000.f);
         resizedImage = [self imageWithImage:imageView.image scaledToSize:newImageSize];
+    }
+}
+
+- (IBAction)post:(id)sender {
+    if (imageView.image.size.width > 1000 ||imageView.image.size.height > 1000) {
+        [self resizeImage];
+    } else {
+        resizedImage = imageView.image;
     }
     //convert image to NSData & get it's size
     NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.1);
@@ -150,6 +160,47 @@ addressTextField, modelTextField;
     }
 }
 
+- (IBAction)save:(id)sender {
+    if (imageView.image.size.width > 1000 ||imageView.image.size.height > 1000) {
+        [self resizeImage];
+    } else {
+        resizedImage = imageView.image;
+    }
+    //convert image to NSData & get it's size
+    NSData *imageData = UIImageJPEGRepresentation(resizedImage, 0.1);
+    if ([imageData length] > 127000) {
+        UIAlertView *tooLargeAllert = [[UIAlertView alloc]
+                                       initWithTitle:nil
+                                       message:NSLocalizedString(@"The image's size is too large. Please select another image", nil)
+                                       delegate:nil
+                                       cancelButtonTitle:@"OK"
+                                       otherButtonTitles:nil];
+        [tooLargeAllert show];
+    } else {
+        detailsToEdit[@"date"] = datePicker.date;
+        detailsToEdit[@"address"] = addressTextField.text;
+        detailsToEdit[@"model"] = modelTextField.text;
+        detailsToEdit[@"description"] = descriptionTextView.text;
+        if (imageData != nil) {
+            detailsToEdit[@"photo"] = imageData;
+        }
+        if ([addressTextField.text isEqualToString:@""] ||
+            [modelTextField.text isEqualToString:@""] ||
+            [descriptionTextView.text isEqualToString:@""]) {
+            UIAlertView *fillingIsNotComplete = [[UIAlertView alloc]
+                                                 initWithTitle:nil
+                                                 message:NSLocalizedString(@"Please fill in all the fields", nil)
+                                                 delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+            [fillingIsNotComplete show];
+        } else {
+            [detailsToEdit saveInBackground];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
 //change image's size
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
 {
@@ -183,7 +234,10 @@ addressTextField, modelTextField;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)cancelButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -192,3 +246,4 @@ addressTextField, modelTextField;
 
 
 
+;

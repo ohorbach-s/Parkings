@@ -13,7 +13,7 @@
 
 @protocol RaceDetailDelegate <NSObject>
 
--(void)passRaceDetail:(RaceDetail*)raceDetail;
+-(void)passRaceDetail:(RaceDetail*)raceDetail :(NSDate*)dateOfevent :(PFObject*)object;
 
 @end
 

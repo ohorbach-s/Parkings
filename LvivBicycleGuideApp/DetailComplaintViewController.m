@@ -14,7 +14,6 @@
     //DataModel *dataModel;
 }
 @property (weak, nonatomic) IBOutlet UILabel *complaintHeader;
-@property (weak, nonatomic) IBOutlet UILabel *addressDetailComplaintLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionDetailComplaintLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *descriptionDetailComplaintImage;
 
@@ -26,23 +25,19 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
-    //dataModel = [DataModel sharedModel];
     [self showDetailComplaintView];
 }
 
 -(void)showDetailComplaintView
 {
     self.complaintHeader.text = [self.complaint valueForKey:@"subject"];
-    self.descriptionDetailComplaintLabel.text = [self.complaint valueForKey:@"description"];
-    self.addressDetailComplaintLabel.text = [self.complaint valueForKey: @"address" ] ;
-    self.descriptionDetailComplaintImage.image = [[self.complaint valueForKey:@"likeDislike"] isEqual:@1] ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
-    
+    self.descriptionDetailComplaintLabel.text = [self.complaint valueForKey:@"content"];
+    self.descriptionDetailComplaintImage.image = [[self.complaint valueForKey:@"likeDislike"] isEqualToString:@"like"/*:@1*/] ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
-
 
 @end

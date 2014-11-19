@@ -13,7 +13,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *placeTextField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-
-
 -(void)setPath:(NSMutableArray *)encodedPathWithStartPosition :(GMSMarker*)startPosition andEndPosition:(GMSMarker*)endPosition;
 @end

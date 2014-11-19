@@ -11,7 +11,8 @@
 #import <Parse/Parse.h>
 #import "StolenBicycleDetailVC.h"
 
-@interface StolenBicyclesTVC (){
+@interface StolenBicyclesTVC ()
+{
     NSArray *allStollenBicycles;
     NSArray *allStollenBicyclesSorted;
 }
@@ -19,15 +20,6 @@
 @end
 
 @implementation StolenBicyclesTVC
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -38,52 +30,34 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 1
-        PFQuery *queryForStolenBicycles = [PFQuery queryWithClassName:@"stolenBicycles"];
-        allStollenBicycles = [queryForStolenBicycles findObjects];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{ // 2
-            NSSortDescriptor *sortDescriptor;
-            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-            NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-            allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
-            [self.tableView reloadData];
-        });
-    });
-//    PFQuery *queryForStolenBicycles = [PFQuery queryWithClassName:@"stolenBicycles"];
-//    allStollenBicycles = [queryForStolenBicycles findObjects];
-//    NSSortDescriptor *sortDescriptor;
-//    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-//    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-//    allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
-//     [self.tableView reloadData];
+    [super viewWillAppear:YES];
+    [self.tableView reloadData];
 }
 
-//-(void)viewDidAppear:(BOOL)animated{
-//    [self.tableView reloadData];
-//}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self performSelectorInBackground:@selector(getAndSortData) withObject:nil];
 }
 
-#pragma mark - Table view data source
+- (void)getAndSortData{
+    PFQuery *queryForStolenBicycles = [PFQuery queryWithClassName:@"stolenBicycles"];
+    allStollenBicycles = [queryForStolenBicycles findObjects];
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    allStollenBicyclesSorted = [allStollenBicycles sortedArrayUsingDescriptors:sortDescriptors];
+    [self.tableView reloadData];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return allStollenBicycles.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -102,7 +76,7 @@
     cell.dateOfCrime.text = dateString;
     return cell;
 }
-#pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([[segue identifier] isEqualToString:@"seeDetails"]){
         StolenBicycleDetailVC *detailsForSegue = [[StolenBicycleDetailVC alloc] init];
@@ -115,6 +89,22 @@
 - (IBAction)close:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 @end
 
 

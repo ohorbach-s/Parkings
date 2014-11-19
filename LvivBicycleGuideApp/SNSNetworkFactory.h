@@ -23,6 +23,6 @@
 
 
 //Methods that should be realized by subclass
-- (void)share;
+- (void)share:(id)sender;
 
 @end

@@ -14,9 +14,7 @@
 
 @interface DataModel : NSObject
 
-//@property (nonatomic, strong) NSMutableArray *selectedPlaces;
 @property (nonatomic, strong) PlaceDetailInfo *infoForMarker;
-//@property (nonatomic, strong)NSMutableArray *currentCategory;
 @property (nonatomic, strong)NSString *deselectedIcon;
 @property (nonatomic)NSString *buttonTag;
 @property (nonatomic,strong)NSMutableArray *onTags;
@@ -27,7 +25,6 @@
 
 + (id)sharedModel;
 - (id)init;
-//-(void) reactToCategorySelection :(NSString*)title;
 -(void)buildInfoForMarker: (GMSMarker*)marker;
 -(void)findObjectForTappedRow :(PFObject*)chosenPlace;
 -(void)changeCategory :(NSInteger)index;

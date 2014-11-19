@@ -12,5 +12,6 @@
 @interface DetailComplaintViewController : UIViewController
 
 @property (nonatomic, strong) NSDictionary *complaint;
+@property (nonatomic,strong)NSString *address;
 
 @end

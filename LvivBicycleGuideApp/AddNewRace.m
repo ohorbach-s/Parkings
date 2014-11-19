@@ -13,7 +13,7 @@
 
 @interface AddNewRace (){
     NSMutableDictionary *path;
-
+    
 }
 
 @end
@@ -41,33 +41,23 @@
     [comps setYear:+2];
     NSDate *maxDate = [gregorian dateByAddingComponents:comps toDate:currentDate options:0];
     self.datePicker.maximumDate = maxDate;
-    //RaceMap *raceMap = [self.navigationController.viewControllers objectAtIndex:1];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (IBAction)saveButtonPressed:(id)sender {
     if ([self.placeTextField.text isEqualToString: @""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complete filling the view" message:@"place is not filled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     } else {
-    
-        if (self.datePicker.date < [NSDate date]) {
-           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Incorrect date set" message:@"The event must be set for future" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-        } else {
-            PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];
-            newRace [@"place"] = self.placeTextField.text;
-            newRace[@"date"]= self.datePicker.date;
-            newRace[@"path"] = path;
-            [newRace saveInBackground];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    
+        PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];
+        newRace [@"place"] = self.placeTextField.text;
+        newRace[@"date"]= self.datePicker.date;
+        newRace[@"path"] = path;
+        [newRace saveInBackground];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -78,7 +68,6 @@
         RaceMap* raceMap = [[controller viewControllers] objectAtIndex:0];
         raceMap.pathDelegate =self;
     }
-
 }
 - (IBAction)cancelButtonPressed:(id)sender {
     
@@ -103,9 +92,6 @@
     [path setValue:[NSNumber numberWithFloat:startPosition.position.longitude] forKey:@"startPosition2"];
     [path setValue:[NSNumber numberWithFloat:endPosition.position.latitude] forKey:@"endPosition1"];
     [path setValue:[NSNumber numberWithFloat:endPosition.position.longitude] forKey:@"endPosition2"];
-     //[path setValue:endPosition forKey:@"endPosition"];
-    
 }
-
 
 @end

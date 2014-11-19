@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<array>
+		<string>  Press Menu button to see what you can do and use</string>
+		<string> Here you can select categories of objects which will be displayed on the map or in the table</string>
+		<string>  To switch the table view mode press the right button on the tab bar</string>
+		<string>Here it is possible to build the route to selected place, which will be immediately displayed on the map</string>
+		<string>  Also, you can find out more about separate place by pressing the Info button</string>
+		<string>  Then the additional view will appear and here you can perform something interesting</string>
+		<string>  By tapping on any place marker you will see small detail view in the upper part of screen</string>
+		<string>  Here you can also build the route , as in the table, after this you can clean that route by pressing on the small red button in the right down corner</string>
+		<string>  Also, here you can see additional information on the selected place</string>
+		<string>  On the following view you can share information to the social networks like VK, Facebook, Twiter and Google+</string>
+		<string></string>
+		<string>  Also, you can write a comment on particular place or see comments of others</string>
+		<string>  Here is the table of all comments on selected place. To add comment press POST button</string>
+		<string>  Then you will see the filling form</string>
+		<string>  Let&apos;s go back to the menu. Press this button to enable Custom Route/Direction function. Put the initial position on the map</string>
+		<string>  Put the finish position. To clean the route, tap on it or press the red button</string>
+		<string>Now your route is absent</string>
+		<string>  Going back to menu, you can check the database of stolen bicycles </string>
+		<string> Here you see the table of all stolen bicycles sorted according to the date of occurence</string>
+		<string>  You can tap on the row ans see the detail view about stolen bicycle</string>
+		<string>  To place your own theft notification press the post button</string>
+		<string>  Here you will see the following form to fill in</string>
+		<string>  Here is another interesting function for a user. You can check the program of all pending cyclist races</string>
+		<string>  You can create an event by pressing this button</string>
+		<string> To show the route of the race press this button and proceed to the map view</string>
+		<string>  Here you can put on the map the necessary amount of pins. To clear the last piece of route press Clear button. By pressing it once more you will clear all the route</string>
+		<string>  You can deside to participate in particular race by pressing Participate button</string>
+		<string>  By doing like this you are to be notified a day before the set date of the event</string>
+		<string>  On that day you will be able to start your race by pressing this button</string>
+		<string>  And finally start monitoring the  race. Currently you are not supposed to exit the view during the observed race because all the data will be lost</string>
+		<string>  At the finishing moment of the race press Stop button</string>
+		<string>  Here are the race results: Calories burnt, average speed, time and date</string>
+	</array>
+	<key>Image</key>
+	<array>
+		<string>111.png</string>
+		<string>112.png</string>
+		<string>113.png</string>
+		<string>114.png</string>
+		<string>115-1.png</string>
+		<string>115.png</string>
+		<string>116.png</string>
+		<string>117.png</string>
+		<string>118.png</string>
+		<string>119.png</string>
+		<string>221.png</string>
+		<string>222.png</string>
+		<string>223.png</string>
+		<string>224.png</string>
+		<string>225.png</string>
+		<string>226.png</string>
+		<string>227.png</string>
+		<string>228.png</string>
+		<string>229.png</string>
+		<string>331.png</string>
+		<string>332.png</string>
+		<string>333.png</string>
+		<string>334.png</string>
+		<string>335.png</string>
+		<string>336.png</string>
+		<string>337.png</string>
+		<string>338.png</string>
+		<string>4433.png</string>
+		<string>441.png</string>
+		<string>441-1.png</string>
+		<string>442.png</string>
+		<string>443.png</string>
+	</array>
+</dict>
+</plist>

@@ -7,13 +7,10 @@
 //
 
 #import "SNSNetworkFactory.h"
-//#import "SNSNetworksViewController.h"
 #import "SNSFacebook.h"
 #import "SNSTwitter.h"
-//#import "SLVLinkedInApi.h"
-
 #import "SNSGooglePlus.h"
-//#import "SNSLinkedInShare.h"
+#import "SNSVkontakte.h"
 
 @implementation SNSNetworkFactory
 
@@ -25,11 +22,11 @@
         case SNSSocialNetworkTypeFacebook:
             return [[SNSFacebook alloc]  init];
             break;
-               case SNSSocialNetworkTypeTwitter:
+        case SNSSocialNetworkTypeTwitter:
             return [[SNSTwitter alloc]init];
             break;
         case SNSSocialNetworkTypeVkontakte:
-       //     return [[SNSVkontakteApi alloc]init];
+            return [[SNSVkontakte alloc]init];
             break;
         case SNSSocialNetworkTypeGooglePlus:
             return [[SNSGooglePlus alloc] init];
@@ -38,7 +35,7 @@
     return nil;
 } 
 
--(void) share
+-(void) share:(id)sender
 {
 }
 

@@ -11,9 +11,17 @@
 #import <CoreLocation/CoreLocation.h>
 #import "RaceTableView.h"
 
-@interface RaceViewController : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, RaceDetailDelegate>
+@protocol PassMapDelegate <NSObject>
 
+-(void)passMapp: (NSArray*)polylines :(CLLocationCoordinate2D)boundLocation :(CLLocationCoordinate2D)position;
+
+@end
+
+@interface RaceViewController : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, RaceDetailDelegate>
+@property(nonatomic, weak)id<PassMapDelegate>passMapDelegate;
 @property (nonatomic,strong)RaceDetail *raceDeteailInView;
--(void)passRaceDetail:(RaceDetail*)raceDetail;
+@property (nonatomic, strong)PFObject *raceObject;
+
+-(void)passRaceDetail:(RaceDetail*)raceDetail :(NSDate*)dateOfevent;
 
 @end

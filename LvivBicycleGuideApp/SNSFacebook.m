@@ -13,7 +13,7 @@
 
 @implementation SNSFacebook
 
--(void)share
+-(void)share:(id)sender
 {
         DataModel*model=[DataModel sharedModel];
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
@@ -25,14 +25,15 @@
         if(url)
             [composeController addURL:url];
       
-        [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:composeController animated:YES completion:nil];
+      //  [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:composeController animated:YES completion:nil];
+        [sender presentViewController:composeController animated:YES completion:nil];
     }else
     {
         UIAlertView* allertView=[[UIAlertView alloc] initWithTitle:@"Error login accaunt"
                                                            message:@"Please log in"
                                                           delegate:nil
                                                  cancelButtonTitle:@"OK"
-                                                 otherButtonTitles:@"Create new", nil];
+                                                 otherButtonTitles:nil, nil];
         [allertView show];
     }
 }

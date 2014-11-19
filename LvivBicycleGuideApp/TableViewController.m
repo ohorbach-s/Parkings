@@ -11,7 +11,6 @@
 #import "TableViewCell.h"
 #import "SlideMenuControllerViewController.h"
 #import "RoutePoints.h"
-#import "BigInfoSubview.h"
 #import "DirectionAndDistance.h"
 #import "PlaceCategories.h"
 
@@ -24,7 +23,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *placesTable;
-@property (weak, nonatomic) IBOutlet UIButton *complaintButton;
 
 @end
 
@@ -36,14 +34,8 @@
     dataModel = [DataModel sharedModel];
     routePoints = [RoutePoints sharedManager];
     [self setAppearance];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fillSubview:) name:@"fillSubviewOfMap" object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
 }
 //passing data to detail subview
--(void)fillSubview:(NSNotification *)notification
-{
-    [_bigDetailPanel setDataOfWindow:dataModel.infoForMarker];
-}
 
 -(void)reloadTableView: (NSNotification*)notification
 {
@@ -89,23 +81,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_bigDetailPanel setHidden:YES];
+    
+    
 }
 //display subview or hide it
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_bigDetailPanel.hidden) {
-        [_bigDetailPanel setHidden:NO];
-        PFObject *object = [cells objectAtIndex:indexPath.row];
-        [dataModel findObjectForTappedRow:object];
-    }else {
-        [_bigDetailPanel setHidden:YES];
-    }
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [_bigDetailPanel setHidden:YES];
+    PFObject *object = [cells objectAtIndex:indexPath.row];
+    [dataModel findObjectForTappedRow:object];
 }
 
 - (void)didReceiveMemoryWarning
@@ -132,7 +115,7 @@
     if([distances count]){
         cell.distance.text = [NSString stringWithFormat:@"%@ km",[distances objectAtIndex:indexPath.row]];}
     else {
-    cell.distance.text = @"";
+        cell.distance.text = @"";
     }
     cell.placeType.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [cells objectAtIndex:indexPath.row][@"type"]]];
     [cells addObject:cell];
@@ -142,7 +125,6 @@
 - (IBAction)tapMenuButton:(id)sender
 {
     [self.revealViewController revealToggle:sender];
-    self.bigDetailPanel.hidden = YES;
 }
 //build and display  the route to selected destination
 - (IBAction)pressRouteButton:(UIButton *)sender
@@ -167,20 +149,13 @@
     UIGraphicsEndImageContext();
     self.placesTable.backgroundColor = [UIColor colorWithPatternImage:image];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    _bigDetailPanel.backgroundColor = [UIColor clearColor];
-    _bigDetailPanel.translucentAlpha = 1.;
-    _bigDetailPanel.translucentStyle = UIBarStyleBlackTranslucent;
-    [_bigDetailPanel.layer setCornerRadius:15.0f];
-    _bigDetailPanel.translucentTintColor = [UIColor clearColor];
-    self.complaintButton.clipsToBounds = YES;
-    [self.complaintButton.layer setCornerRadius:15.0f];
+    
 }
 //displaying detail subview
 - (IBAction)pressInfoButton:(UIButton *)sender
 {
-    [_bigDetailPanel setHidden:NO];
-    [dataModel findObjectForTappedRow:[cells objectAtIndex:sender.tag]];
-    self.bigDetailPanel.description.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor blueColor]};
+    PFObject *object = [cells objectAtIndex:sender.tag];
+    [dataModel findObjectForTappedRow:object];
 }
 
 -(void) dealloc

@@ -24,5 +24,4 @@
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSMutableArray *complaints;
 
-
 @end

@@ -47,7 +47,6 @@
     [self.complaintDescriptionTextview.layer setBackgroundColor:[[UIColor colorWithRed:204/255.0f green:245/255.0f blue:107/255.0f alpha:1.0f]CGColor]];
 }
 
-
 - (IBAction)tapOnDislikeButton:(id)sender
 {
     self.complaint.likeDislike = NO;
@@ -68,27 +67,18 @@
         self.complaint.complaintDescription = self.complaintDescriptionTextview.text;
         self.complaint.likeDislike = self.likeDislikeLabel.text == like  ? YES : NO;
         self.complaint.address = dataModel.infoForMarker.address;
+        PFObject *myComment = [PFObject objectWithClassName:@"Comments"];
+        myComment[@"content"] = self.complaintDescriptionTextview.text;
+        myComment[@"subject"] = self.complaintSubjectTextfield.text;
+        myComment[@"likeDislike"] = self.likeDislikeLabel.text;
         [dataModel.arrangedPlaces enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
                                                           usingBlock:^(id key, id object, BOOL *stop) {
                                                               for(PFObject *arrayElement in object){
-                                                                
-                                                                if  ([arrayElement[@"address"] isEqualToString:dataModel.infoForMarker.address]){
-                                                                      if(!arrayElement[@"comment"]) {
-                                                                          arrayElement[@"comment"] = [[NSMutableArray alloc] init];
-                                                                      }
-                                                                          NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-                                                                          [dictionary setValue:self.complaint.complaintSubject forKey:@"subject"];
-                                                                          [dictionary setValue:self.complaint.complaintDescription forKey:@"description"];
-                                                                          [dictionary setValue:self.complaint.address forKey:@"address"];
-                                                                          [dictionary setValue:@(self.complaint.likeDislike) forKey:@"likeDislike"];
-                                                                          [arrayElement[@"comment"] addObject:dictionary];
-                                                                      
-                                                                    
-                                                                      [arrayElement saveInBackground];
-                                                                    
+                                                                  if  ([arrayElement[@"address"] isEqualToString:dataModel.infoForMarker.address]) {
+                                                                      myComment[@"parent"] = arrayElement;
+                                                                      [myComment saveInBackground];
                                                                   }
-                                                                  
-                                                                }
+                                                              }
                                                           }];
     } else {
         UIAlertView *message = [[UIAlertView alloc]
@@ -121,10 +111,8 @@
     }
 }
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 @end

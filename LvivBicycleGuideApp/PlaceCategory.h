@@ -7,13 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
 //particular category class
 @interface PlaceCategory : NSObject
 
 @property (nonatomic,strong)NSString *categoryName;
 @property (nonatomic,strong)NSString *categoryIcon;
-
 
 @end

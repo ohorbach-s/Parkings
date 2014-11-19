@@ -29,12 +29,10 @@
     int count;
     GMSMarker *mark;
     NSString *str;
-    
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet GMSMapView *mapView;
 @end
-
 
 @implementation RaceMap
 
@@ -66,13 +64,11 @@
     _mapView.delegate = self;
     _mapView.myLocationEnabled= YES;
     _mapView.settings.myLocationButton = YES;
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -80,7 +76,6 @@
     [routePoints.customWaypointStrings removeAllObjects];
     [arrayOfPolylines removeAllObjects];
     [self.mapView clear];
-
 }
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender {
@@ -105,14 +100,11 @@
         if (![arrayOfMarkers count]) {
             count = 0;
         }
-        
-        
         [routePoints.customWayPoints removeAllObjects];
         [routePoints.customWaypointStrings removeAllObjects];
         [routePoints.customWayPoints addObject:mark];
         [routePoints.customWaypointStrings addObject:str];
-    }
-    else {
+    } else {
     [routePoints.customWayPoints removeAllObjects];
         [routePoints.customWaypointStrings removeAllObjects];
         [arrayOfMarkers removeAllObjects];
@@ -123,15 +115,8 @@
         countClear = 0;
     }
 }
-
-
-
 -(void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    //GMSMarker *marker = [GMSMarker markerWithPosition:coordinate];
-    //marker.map = self.mapView;
-  
-    
         if (count == 0) {
              startPoint = [GMSMarker markerWithPosition:coordinate];
             [routePoints.customWayPoints addObject:startPoint];
@@ -141,12 +126,6 @@
             [arrayOfMarkers addObject:startPoint];
               startPoint.map = _mapView;
         }
-        
-        
-        
-            //startPoint.icon = [UIImage imageNamed:@"start.png"];
-        
-        
         if (count > 0) {
             endPoint = [GMSMarker markerWithPosition:coordinate];
             [arrayOfMarkers addObject:endPoint];
@@ -167,28 +146,12 @@
              startPoint = endPoint;
         }
         count++;
-            //endPoint.icon = [UIImage imageNamed:@"finish.png"];
-        
-        
         if (count > 1) {
             mark = [routePoints.customWayPoints objectAtIndex:0];
             str  = [routePoints.customWaypointStrings objectAtIndex:0];
             [routePoints.customWayPoints removeObjectAtIndex:0];
             [routePoints.customWaypointStrings removeObjectAtIndex:0];
-
         }
-        
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

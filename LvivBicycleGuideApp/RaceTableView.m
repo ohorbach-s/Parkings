@@ -14,6 +14,7 @@
 {
     NSArray *allRaces;
     RaceDetail *raceDetail;
+    PFObject *raceObject;
 }
 @end
 
@@ -45,17 +46,10 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 1
         PFQuery *queryForRaces = [PFQuery queryWithClassName:@"BikePool"];
         allRaces = [queryForRaces findObjects];
-         [self.tableView reloadData];
         dispatch_async(dispatch_get_main_queue(), ^{ // 2
-//            NSSortDescriptor *sortDescriptor;
-//            sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-//            NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-//            allRaces = [allRaces sortedArrayUsingDescriptors:sortDescriptors];
             [self.tableView reloadData];
         });
     });
- 
-
 }
 - (void)didReceiveMemoryWarning
 {
@@ -67,15 +61,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    // Return the number of rows in the section.
     return [allRaces count];
 }
 
@@ -89,11 +79,17 @@
     cell.detailTextLabel.text = [allRaces objectAtIndex:indexPath.row][@"date"];
     return cell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     raceDetail.place = [allRaces objectAtIndex:indexPath.row][@"place"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"dd.MM.YY"];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:-1];
+    NSDate *dateofEvent = [allRaces objectAtIndex:indexPath.row][@"date"];
+    NSDate *dateToNotify = [gregorian dateByAddingComponents:comps toDate:dateofEvent options:0];
     NSString *dateString = [dateFormatter stringFromDate:[allRaces objectAtIndex:indexPath.row][@"date"]];
     raceDetail.date = dateString;
     dateFormatter = [[NSDateFormatter alloc]init];
@@ -107,7 +103,9 @@
     raceDetail.startLongitude = [[[allRaces objectAtIndex:indexPath.row][@"path"] valueForKey:@"startPosition2"] floatValue];
     raceDetail.endLatitude = [[[allRaces objectAtIndex:indexPath.row][@"path"] valueForKey:@"endPosition1"] floatValue];
     raceDetail.endLongitude = [[[allRaces objectAtIndex:indexPath.row][@"path"] valueForKey:@"endPosition2"] floatValue];
-    [self.raceDelegate passRaceDetail:raceDetail];
+    raceDetail.selectedToParticipate = [[allRaces objectAtIndex:indexPath.row][@"selectedToParticipate"] boolValue];
+    raceObject = [allRaces objectAtIndex:indexPath.row];
+    [self.raceDelegate passRaceDetail:raceDetail :dateToNotify :raceObject];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -116,7 +114,6 @@
         RaceViewController *destController = segue.destinationViewController;
         self.raceDelegate = destController;
     }
-    
 }
 - (IBAction)backButtonPressed:(UIBarButtonItem *)sender {
     
@@ -124,53 +121,5 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

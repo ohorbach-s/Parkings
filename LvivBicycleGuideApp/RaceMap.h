@@ -14,7 +14,6 @@
 
 @end
 
-
 @interface RaceMap : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic,weak)id<PathDelegate>pathDelegate;

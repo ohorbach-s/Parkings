@@ -87,6 +87,12 @@
         overlayBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
         overlayBackgroundView.backgroundColor = self.backgroundColor;
         [overlayBackgroundView.layer setCornerRadius:15.0f];
+        
+        
+        
+        [overlayBackgroundView.layer setBorderColor:[[UIColor colorWithRed:18/255.0f green:97/255.0f blue:95/255.0f alpha:1.0f]CGColor]];
+        [overlayBackgroundView.layer setBorderWidth:2.0f];
+        
         overlayBackgroundView.autoresizingMask= UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [toolbarContainerClipView addSubview:overlayBackgroundView];
         

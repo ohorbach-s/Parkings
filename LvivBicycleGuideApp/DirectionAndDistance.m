@@ -70,7 +70,6 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
 {
     NSArray *waypoints = [queryForObtainingTheDirection objectForKey:@"waypoints"];
     NSString *origin = [waypoints objectAtIndex:0];
-   // NSString *destination = [waypoints objectAtIndex:1];
     NSString *destination = [waypoints lastObject];
     NSString *sensor = [query objectForKey:@"sensor"];
     NSMutableString *url =
@@ -108,7 +107,6 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
 
 -(void)findCustomRouteWithCompletionHandler:(void(^)(NSString* ,GMSPolyline*, NSString*))completion
 {
-    
     routePoints = [RoutePoints sharedManager];
     NSString *sensor = @"true";
     NSArray *parameters = [NSArray arrayWithObjects:sensor, routePoints.customWaypointStrings,
@@ -119,8 +117,6 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     [self setDirectionsQuery:query WithCompletionHandler:^(NSString *completion2, GMSPolyline *polylineInBlock, NSString *pathFromBlock){
         completion (nil, polylineInBlock, pathFromBlock);
     }];
-    
-    
 }
 
 @end
