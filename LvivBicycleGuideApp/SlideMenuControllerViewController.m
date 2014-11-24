@@ -11,8 +11,6 @@
 
 @interface SlideMenuControllerViewController ()
 {
-    PlaceCategories *storage;
-    RoutePoints *routePoints;
     DataModel *dataModel;
     NSMutableArray *buttons;
     BOOL isParkingActive;
@@ -44,8 +42,6 @@
     [super viewDidLoad];
     isParkingActive = NO;
     buttons = [[NSMutableArray alloc] init];
-    storage = [PlaceCategories sharedManager];
-    routePoints = [RoutePoints sharedManager];
     [self setAppearance];
     dataModel = [DataModel sharedModel];
     [self createButtons];
@@ -104,6 +100,7 @@
     [customRouteButton.layer setShadowOpacity:50.0f];
     [customRouteButton.layer setShadowRadius:5.0f];
     [customRouteButton.layer setFrame:CGRectMake( 10.0, 442.0, 119.0, 119.0)];
+    [customRouteButton setBackgroundImage:[UIImage imageNamed:@"custom_route.png"] forState:UIControlStateNormal];
     [customRouteButton addTarget:self action:@selector(customRouteAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:customRouteButton];
 }

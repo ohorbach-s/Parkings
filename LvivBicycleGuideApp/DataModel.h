@@ -18,7 +18,8 @@
 @property (nonatomic, strong)NSString *deselectedIcon;
 @property (nonatomic)NSString *buttonTag;
 @property (nonatomic,strong)NSMutableArray *onTags;
-@property (nonatomic, strong)NSMutableDictionary *arrangedPlaces;
+@property (nonatomic, strong)NSMutableDictionary *arrangedEnglishPlaces;
+@property (nonatomic, strong)NSMutableDictionary *arrangedUkrainianPlaces;
 @property (nonatomic, strong)NSMutableDictionary *arrangedDistances;
 @property (nonatomic, strong) dispatch_queue_t concurrentPhotoQueue;
 @property (nonatomic,strong) NSMutableArray *races;

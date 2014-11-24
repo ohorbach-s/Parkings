@@ -11,5 +11,6 @@
 @interface ComplaintCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *likeImage;
 @property (weak, nonatomic) IBOutlet UILabel *complainSubject;
+@property (weak, nonatomic) IBOutlet UILabel *dateOfComplaint;
 
 @end

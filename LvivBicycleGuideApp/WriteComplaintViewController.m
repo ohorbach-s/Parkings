@@ -7,13 +7,11 @@
 //
 
 #import "WriteComplaintViewController.h"
-#import "CurrentComplaint.h"
+#import "PlaceDetailInfo.h"
 #import "DataModel.h"
 
 @interface WriteComplaintViewController ()
 {
-    NSString *like;
-    NSString *dislike;
     DataModel *dataModel;
 }
 
@@ -23,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *postButton;
 @property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
-@property (strong, nonatomic) CurrentComplaint *complaint;
+
 
 @end
 
@@ -33,10 +31,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    dataModel = [DataModel sharedModel];
+    [self setSettingsOfApplication];
+}
+
+-(void)setSettingsOfApplication
+{
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"greenbsck.png"]]];
-    like = @"Like";
-    dislike = @"Dislike";
-    self.likeDislikeLabel.text = dislike;
+    self.likeDislikeLabel.text = @"Dislike";
     dataModel = [DataModel sharedModel];
     [self.postButton.layer setCornerRadius:8.0f];
     [self.postButton.layer setShadowOpacity:50.0f];
@@ -49,29 +51,24 @@
 
 - (IBAction)tapOnDislikeButton:(id)sender
 {
-    self.complaint.likeDislike = NO;
-    self.likeDislikeLabel.text = dislike;
+    self.likeDislikeLabel.text = @"Dislike";
 }
 
 - (IBAction)tapOnLikeButton:(id)sender
 {
-    self.complaint.likeDislike = YES;
-    self.likeDislikeLabel.text = like;
+   self.likeDislikeLabel.text = @"Like";
 }
 
 - (IBAction)tapOnPostButton:(id)sender
 {
     if(!([self.complaintSubjectTextfield.text isEqual: @""]) && ![self.complaintDescriptionTextview.text isEqual: @""]){
-        self.complaint = [[CurrentComplaint alloc] init];
-        self.complaint.complaintSubject = self.complaintSubjectTextfield.text;
-        self.complaint.complaintDescription = self.complaintDescriptionTextview.text;
-        self.complaint.likeDislike = self.likeDislikeLabel.text == like  ? YES : NO;
-        self.complaint.address = dataModel.infoForMarker.address;
+        NSDate *dateOfComment = [NSDate date];
         PFObject *myComment = [PFObject objectWithClassName:@"Comments"];
         myComment[@"content"] = self.complaintDescriptionTextview.text;
         myComment[@"subject"] = self.complaintSubjectTextfield.text;
         myComment[@"likeDislike"] = self.likeDislikeLabel.text;
-        [dataModel.arrangedPlaces enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
+        myComment[@"Date"] = dateOfComment;
+        [dataModel.arrangedEnglishPlaces enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
                                                           usingBlock:^(id key, id object, BOOL *stop) {
                                                               for(PFObject *arrayElement in object){
                                                                   if  ([arrayElement[@"address"] isEqualToString:dataModel.infoForMarker.address]) {
@@ -80,10 +77,19 @@
                                                                   }
                                                               }
                                                           }];
+        [dataModel.arrangedUkrainianPlaces enumerateKeysAndObjectsWithOptions:NSEnumerationConcurrent
+                                                                 usingBlock:^(id key, id object, BOOL *stop) {
+                                                                     for(PFObject *arrayElement in object){
+                                                                         if  ([arrayElement[@"address"] isEqualToString:dataModel.infoForMarker.address]) {
+                                                                             myComment[@"parent"] = arrayElement;
+                                                                             [myComment saveInBackground];
+                                                                         }
+                                                                     }
+                                                                 }];
     } else {
         UIAlertView *message = [[UIAlertView alloc]
-                                initWithTitle:@"Incomplete Data"
-                                message:@"Fill in all fields"
+                                initWithTitle:NSLocalizedString(@"Incomplete Data", nil)
+                                message:NSLocalizedString(@"Fill in all fields", nil)
                                 delegate:nil
                                 cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                 otherButtonTitles:nil];

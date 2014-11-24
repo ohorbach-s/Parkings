@@ -21,7 +21,7 @@
 @property (strong, nonatomic) id<TableRouteDelegate> delagate;
 
 - (IBAction)pressRouteButton:(UIButton *)sender;
-- (IBAction)pressInfoButton:(UIButton *)sender;
+//- (IBAction)pressInfoButton:(UIButton *)sender;
 -(void)reloadTableView: (NSNotification*)notification;
 
 @end

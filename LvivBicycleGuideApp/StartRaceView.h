@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RaceViewController.h"
+#import "RNGridMenu.h"
 
-@interface StartRaceView : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, PassMapDelegate>
+@interface StartRaceView : UIViewController <GMSMapViewDelegate, CLLocationManagerDelegate, PassMapDelegate,RNGridMenuDelegate>
 -(void)passMapp: (NSArray*)polylines :(CLLocationCoordinate2D)boundLocation :(CLLocationCoordinate2D)position;
 @end

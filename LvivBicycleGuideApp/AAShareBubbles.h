@@ -16,8 +16,8 @@ typedef enum AAShareBubbleType : int {
     AAShareBubbleTypeTwitter = 2,
     AAShareBubbleTypeGooglePlus = 3,
     AAShareBubbleTypeVk = 4, // Vkontakte (vk.com)
-    AAShareBubbleTypeLinkedIn = 5,
-    AAShareBubbleTypeInstagram = 6,
+//    AAShareBubbleTypeLinkedIn = 5,
+//    AAShareBubbleTypeInstagram = 6,
 
     
 } AAShareBubbleType;

@@ -7,7 +7,7 @@
 //
 
 #import "StartRaceView.h"
-#import "RNGridMenu.h"
+
 
 @interface StartRaceView ()
 {
@@ -61,7 +61,7 @@
         [sender setTitle:@"GO" forState:UIControlStateNormal];
         [self.pauseButton setHidden:YES];
         running = NO;
-        self.stopWatch.text = @"00:00:00";
+        
         averageSpeed = speedSum / [speeds count];
         [speeds removeAllObjects];
         [locationManager stopUpdatingLocation];
@@ -72,11 +72,11 @@
         NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
         NSArray *items = @[
                            [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"stopwatch2.png"] title:[NSString stringWithFormat:@" %@", self.stopWatch.text]],
-                           [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"bc.png"] title:[NSString stringWithFormat:@"%.2f kcal", caloriesBurnt]],
+                           [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"bc2.png"] title:[NSString stringWithFormat:@"%.2f kcal", caloriesBurnt]],
                            [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"speedometer2.png"] title:[NSString stringWithFormat:@"%.2f mps", averageSpeed]],
                            [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"calendar2.png"] title:dateString]
                            ];
-        
+        self.stopWatch.text = @"00:00:00";
         RNGridMenu *av = [[RNGridMenu alloc] initWithItems:[items subarrayWithRange:NSMakeRange(0, numberOfOptions)]];
         av.delegate = self;
         [av showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
@@ -141,8 +141,10 @@
     [self.raceMap animateToLocation:currentLocation.coordinate];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.speedLabel.text = [NSString stringWithFormat:@"   %.2f  km/h      %.2f  m/s", currentLocation.speed* 3.6, currentLocation.speed];
-    });
+        if ((currentLocation.speed)&&(currentLocation.speed > 0) ) {
+            self.speedLabel.text = [NSString stringWithFormat:@"   %.2f  km/h      %.2f  m/s", currentLocation.speed* 3.6, currentLocation.speed];
+        }
+            });
     [speeds addObject:@(currentLocation.speed)];
     speedSum +=currentLocation.speed;
     NSLog(@"%.2f", currentLocation.speed * 3.6);

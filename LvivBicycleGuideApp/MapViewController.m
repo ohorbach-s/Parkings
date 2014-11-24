@@ -20,6 +20,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DisplayBicycleLines.h"
 #import "TutorialView.h"
+#import "DetailTVC.h"
 
 @interface MapViewController ()
 {
@@ -67,7 +68,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     placeCategories = [PlaceCategories sharedManager];
     routePoints = [RoutePoints sharedManager];
     markersToPutOnMap = [[NSMutableDictionary alloc] init];
-    int countTapps = 0;
+    countTapps = 0;
     [self firstMapLaunch];
     [self setAppearance];
     [self displayLines];
@@ -85,7 +86,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
                                                  name:@"cleanMarkers" object:nil];
     TableViewController *controller = [[[self.tabBarController.viewControllers objectAtIndex:1]
                                         childViewControllers ]objectAtIndex:0];
-    [[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(reloadTableView:) name:@"performMapAndTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:controller selector:@selector(reloadTableView:) name:@"performTableRenew" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapForCustomRoute:) name:@"mapForCustomRoute" object:nil];
     controller.delagate =self;
     [dataModel changeCategory:0];
@@ -100,7 +101,6 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
 
 -(void)mapForCustomRoute :(NSNotification*)notification
 {
-    static int count = 0;
     customRouteOn = YES;
     [self.mapView clear];
     self.cleanPolylineButton.hidden = NO;
@@ -168,18 +168,27 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
                                                    polyline.map = _mapView;
                                                    [routePoints.waypoints_ removeObject:[routePoints.waypoints_ lastObject]];
                                                    [routePoints.waypointStrings_ removeObject:[routePoints.waypointStrings_ lastObject]];
-                                                   CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(markerLatitude,markerLongitude);
-                                                   GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
-                                                   bounds = [bounds includingCoordinate:userPositionMarker.position];
-                                                   bounds = [bounds includingCoordinate:boundLocation];
-                                                   [_mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
+                                                   GMSMarker *marker = [GMSMarker markerWithPosition:CLLocationCoordinate2DMake(markerLatitude,markerLongitude)];
+                                                   [self zoomAndAnimate:marker :userPositionMarker];
                                                    [self.cleanPolylineButton setHidden:NO];
                                                }];
     } else {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to build the route"message:@"Location service is turned off" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to build the route", nil)
+                                                        message:NSLocalizedString(@"Location service is turned off", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
         [alert show];
     }
+}
+-(void)zoomAndAnimate :(GMSMarker*)firstMarker :(GMSMarker*)secondMarker
+{
+    CLLocationCoordinate2D boundLocation = CLLocationCoordinate2DMake(firstMarker.position.latitude,firstMarker.position.longitude);
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
+    bounds = [bounds includingCoordinate:secondMarker.position];
+    bounds = [bounds includingCoordinate:boundLocation];
+    [_mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
 }
 
 - (IBAction)pressRouteButton:(id)sender
@@ -192,7 +201,6 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     NSString *positionString;
     [_smallInfoSubview setHidden:YES];
     if (customRouteOn) {
-        
         if (!endPoint.map) {
             countTapps++;
             if (countTapps == 1) {
@@ -218,6 +226,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
                     customPolyline.strokeWidth = 2.0f;
                     customPolyline.map = _mapView;
                     customPolyline.tappable = YES;
+                    [self zoomAndAnimate:startPoint :endPoint];
                 }];
                 [self.cleanPolylineButton setHidden:NO];
             }
@@ -225,18 +234,23 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     }
 }
 
+-(void)cleanCustomPolyline
+{
+    customPolyline.map = nil;
+    customPolyline = nil;
+    startPoint.map = nil;
+    startPoint = nil;
+    endPoint.map = nil;
+    endPoint = nil;
+    [routePoints.customWayPoints removeAllObjects];
+    [routePoints.customWaypointStrings removeAllObjects];
+}
+
 -(void)mapView:(GMSMapView *)mapView didTapOverlay:(GMSOverlay *)overlay
 {
     if ([overlay isKindOfClass:[GMSPolyline class]])
     {
-        customPolyline.map = nil;
-        customPolyline = nil;
-        startPoint.map = nil;
-        startPoint = nil;
-        endPoint.map = nil;
-        endPoint = nil;
-        [routePoints.customWayPoints removeAllObjects];
-        [routePoints.customWaypointStrings removeAllObjects];
+        [self cleanCustomPolyline];
         [self.cleanPolylineButton setHidden:YES];
     }
 }
@@ -251,7 +265,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     NSArray *tags = [NSArray arrayWithObjects:@"0", @"1", @"2", @"3", nil];
     for (NSString *temp in tags) {
         [dataModel.arrangedDistances removeObjectForKey:temp];
-        for (PFObject *object in [dataModel.arrangedPlaces valueForKey:temp]) {
+        for (PFObject *object in [dataModel.arrangedEnglishPlaces valueForKey:temp]) {
             CLLocation *second=[[CLLocation alloc]initWithLatitude:[object[@"latitude"]floatValue] longitude:[object[@"longitude"]floatValue]];
             CLLocationDistance distance = [currentLocation distanceFromLocation:second];
             [distancesToPassToDictionary addObject:[NSString stringWithFormat:@"%.2f", distance/1000]];
@@ -270,7 +284,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     [routePoints.waypointStrings_ removeAllObjects];
     [routePoints.waypointStrings_ addObject:updatedPosition];
     [_locationManager stopUpdatingLocation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performTableRenew" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -319,6 +333,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     [self displayLines];
     if(polyline) {
         polyline.map = self.mapView;
+        [self.cleanPolylineButton setHidden:NO];
     }
     if(customPolyline) {
         customPolyline.map = self.mapView;
@@ -332,7 +347,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     NSMutableArray *tempMarkers = [[NSMutableArray alloc] init];
     for (NSString *tag in dataModel.onTags) {
         [markersToPutOnMap setValue:[[NSMutableArray alloc] init] forKey:tag];
-        for (PFObject* object in [dataModel.arrangedPlaces valueForKey:tag]) {
+        for (PFObject* object in [dataModel.arrangedEnglishPlaces valueForKey:tag]) {
             _position = CLLocationCoordinate2DMake([object [@"latitude"] floatValue], [object [@"longitude"] floatValue]);
             GMSMarker *marker = [GMSMarker markerWithPosition:_position];
             [[markersToPutOnMap valueForKey:tag] addObject:marker];
@@ -345,8 +360,24 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
             marker.map = self.mapView;
         }
     }
-    [self.cleanPolylineButton setHidden:YES];
+    if (!self.cleanPolylineButton.hidden) {
+        [self.cleanPolylineButton setHidden:NO];
+    }
+    
 }
+
+//go to Complaints
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"GoToDetaisFromMap"])
+    {
+        UINavigationController *navigationController =segue.destinationViewController;
+        
+        DetailTVC *datail =[[navigationController viewControllers] objectAtIndex:0];
+        datail.sentDetails = dataModel.infoForMarker;
+    }
+}
+
 
 -(void)displayMarkers
 {
@@ -365,14 +396,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
 -(void)displayCategoryMarkers: (NSNotification*) notification
 {
     if (customPolyline) {
-        customPolyline.map = nil;
-        customPolyline = nil;
-        startPoint.map = nil;
-        startPoint = nil;
-        endPoint.map = nil;
-        endPoint = nil;
-        [routePoints.customWayPoints removeAllObjects];
-        [routePoints.customWaypointStrings removeAllObjects];
+         [self cleanCustomPolyline];
     }
     if (startPoint) {
         startPoint.map = nil;
@@ -382,6 +406,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
         countTapps = 0;
     }
     customRouteOn = NO;
+    [self.cleanPolylineButton setHidden:YES];
     [self displayMarkers];
 }
 
@@ -418,14 +443,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
         polyline = nil;
     }
     if (customPolyline) {
-        customPolyline.map = nil;
-        customPolyline = nil;
-        startPoint.map = nil;
-        startPoint = nil;
-        endPoint.map = nil;
-        endPoint = nil;
-        [routePoints.customWayPoints removeAllObjects];
-        [routePoints.customWaypointStrings removeAllObjects];
+         [self cleanCustomPolyline];
     }
     [sender setHidden:YES];
 }

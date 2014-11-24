@@ -7,19 +7,16 @@
 //
 
 #import "ComplaintTableViewController.h"
-#import "CurrentComplaint.h"
 #import "ComplaintCell.h"
 #import "DetailComplaintViewController.h"
-#import "DataModel.h"
+#import <Parse/Parse.h>
+
 
 @interface ComplaintTableViewController ()
 {
     NSMutableArray *testArray;
-    DataModel *dataModel;
 }
 @property (strong, nonatomic) IBOutlet UITableView *complaintTable;
-
-
 @end
 
 @implementation ComplaintTableViewController
@@ -28,7 +25,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -36,7 +33,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dataModel = [DataModel sharedModel];
+    [self setSettingsOfView];
+}
+
+//visual settings
+-(void)setSettingsOfView
+{
     UIGraphicsBeginImageContext(self.view.frame.size);
     [[UIImage imageNamed:@"greenbsck.png"] drawInRect:self.view.bounds];
     UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
@@ -45,10 +47,11 @@
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:6/255.0f green:118/255.0f blue:0/255.0f alpha:1.0f];
 }
 
+//Get info from Parse DB
 -(void)viewWillAppear:(BOOL)animated
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"address = %@", dataModel.infoForMarker.address];
+                              @"address = %@", self.complaintAddress];
     PFQuery *query = [PFQuery queryWithClassName:
                       NSLocalizedString(@"PlaceEng", nil) predicate:predicate];
     NSArray *foundObjects = [query findObjects];
@@ -60,11 +63,6 @@
     NSArray *all = [query findObjects];
     testArray = [all mutableCopy];
     [self.tableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - Table view data source
@@ -83,11 +81,15 @@
 {
     ComplaintCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Complaint" forIndexPath:indexPath];
     NSDictionary *temp = testArray[indexPath.row];
-    cell.likeImage.image = [[temp valueForKey:@"likeDislike"] isEqual:@1 ] ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
+    cell.likeImage.image = [[temp valueForKey:@"likeDislike"] isEqualToString:@"Like" ] ? [UIImage imageNamed:@"like.png"] : [UIImage imageNamed:@"dislike.png"];
     cell.complainSubject.text = [temp valueForKey:@"subject"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"dd.MM.YY"];
+    cell.dateOfComplaint.text = [dateFormatter stringFromDate:[temp valueForKey:@"Date"]];
     return cell;
 }
 
+//Passing info to dedail complaint controller
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"GoToDetailComplaint"])
@@ -97,9 +99,14 @@
     }
 }
 
-- (IBAction)backButtonPressed:(id)sender {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+//Go back button press
+- (IBAction)backButtonPressed:(id)sender
+{
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
 @end

@@ -49,7 +49,11 @@
 }
 - (IBAction)saveButtonPressed:(id)sender {
     if ([self.placeTextField.text isEqualToString: @""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complete filling the view" message:@"place is not filled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Complete filling the view", nil)
+                                                        message:NSLocalizedString(@"place is not filled", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
         [alert show];
     } else {
         PFObject *newRace = [PFObject objectWithClassName:@"BikePool"];

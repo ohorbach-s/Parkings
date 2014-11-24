@@ -72,7 +72,7 @@ static NSString *kMDDirectionsURL = @"http://maps.googleapis.com/maps/api/direct
     NSString *origin = [waypoints objectAtIndex:0];
     NSString *destination = [waypoints lastObject];
     NSString *sensor = [query objectForKey:@"sensor"];
-    NSMutableString *url =
+    NSString *url =
     [NSMutableString stringWithFormat:@"%@&origin=%@&destination=%@&sensor=%@",
      kMDDirectionsURL,origin,destination, sensor];
     url = [url

@@ -23,7 +23,8 @@
 {
     _infoForMarker = [[PlaceDetailInfo alloc] init];
     namesArray = [PlaceCategories sharedManager];
-    self.arrangedPlaces = [[NSMutableDictionary alloc] init];
+    self.arrangedEnglishPlaces = [[NSMutableDictionary alloc] init];
+    self.arrangedUkrainianPlaces = [[NSMutableDictionary alloc] init];
     self.arrangedDistances = [[NSMutableDictionary alloc] init];
     self.deselectedIcon = [[NSString alloc] init];
     self.onTags = [[NSMutableArray alloc]init];
@@ -32,25 +33,29 @@
                               @"type = 'Parking'"];
     PFQuery *query = [PFQuery queryWithClassName:
                       NSLocalizedString(@"PlaceEng", nil) predicate:predicate];
-    [self.arrangedPlaces setValue:[query findObjects]forKey:@"0"];
+    [self.arrangedEnglishPlaces setValue:[query findObjects]forKey:@"0"];
+    [self.arrangedUkrainianPlaces setValue:[query findObjects]forKey:@"0"];
     predicate = [NSPredicate predicateWithFormat:
                  @"type = 'BicycleShop'"];
     query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.arrangedPlaces setValue:objects forKey:@"1"];
+        [self.arrangedEnglishPlaces setValue:objects forKey:@"1"];
+       [self.arrangedUkrainianPlaces setValue:objects forKey:@"1"];
     }];
     predicate = [NSPredicate predicateWithFormat:
                  @"type = 'Cafe'"];
     query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.arrangedPlaces setValue:objects forKey:@"2"];
+        [self.arrangedEnglishPlaces setValue:objects forKey:@"2"];
+        [self.arrangedUkrainianPlaces setValue:objects forKey:@"2"];
     }];
     predicate = [NSPredicate predicateWithFormat:
                  @"type = 'Supermarket'"];
     query = [PFQuery queryWithClassName:@"PlaceEng" predicate:predicate];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.arrangedPlaces setValue:objects forKey:@"3"];
+        [self.arrangedEnglishPlaces setValue:objects forKey:@"3"];
+        [self.arrangedUkrainianPlaces setValue:objects forKey:@"3"];
     }];
     __block NSArray *allRaces = [[NSArray alloc] init];
     PFQuery *queryForRaces = [PFQuery queryWithClassName:@"BikePool"];
@@ -94,7 +99,7 @@
 -(void)buildInfoForMarker: (GMSMarker*)marker
 {
     for(NSString *tag in self.onTags){
-        for (PFObject *object in [self.arrangedPlaces valueForKey:tag]) {
+        for (PFObject *object in [self.arrangedEnglishPlaces valueForKey:tag]) {
             if (([object[@"longitude"] floatValue] == marker.position.longitude ) && ([object[@"latitude"] floatValue] == marker.position.latitude)) {
                 _infoForMarker.name = object[@"name"];
                 _infoForMarker.address = object[@"address"];
@@ -157,7 +162,7 @@
     [self.onTags addObject:self.buttonTag];
     category.categoryIcon = [namesArray.markersImages objectAtIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showMarker" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performTableRenew" object:nil];
 }
 
 -(void)deselectCategory :(NSInteger)index
@@ -167,7 +172,7 @@
     category.categoryIcon = [namesArray.markersImages objectAtIndex:index];
     self.buttonTag = [@(index) stringValue];
     [self.onTags removeObject:self.buttonTag];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"performMapAndTableRenew" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"performTableRenew" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showMarker" object:nil];
 }
 

@@ -14,8 +14,8 @@
 }
 @property (weak, nonatomic) IBOutlet UILabel *tutorialText;
 @property (weak, nonatomic) IBOutlet UIImageView *tutorialImage;
-@property (weak, nonatomic) IBOutlet UIView *startView;
 @property (weak, nonatomic) IBOutlet UIImageView *innerImage;
+@property (weak, nonatomic) IBOutlet UIView *backgroundTextView;
 
 @end
 
@@ -32,28 +32,19 @@
 - (IBAction)swipeAction:(UISwipeGestureRecognizer *)sender {
     static int count = 0;
     count ++;
-    if (count == 0) {
-        [self.startView setHidden:YES];
-    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.startView setHidden:YES];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"TutorialData" ofType:@"plist"];
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:path];
     self.tutorialTexts = [dict objectForKey:@"Description"];
     self.tutorialImages = [dict objectForKey:@"Image"];
     [self.tutorialText.layer setCornerRadius:15.0f];
-    [self.tutorialText.layer setBorderColor:[[UIColor colorWithRed:255/255.0f green:225/255.0f blue:2/255.0f alpha:1.0f]CGColor]];
-    [self.tutorialText.layer setBorderWidth:2.0f];
-    [self.tutorialImage.layer setCornerRadius:15.0f];
-    [self.innerImage.layer setCornerRadius:15.0f];
-    [self.tutorialImage.layer setBorderColor:[[UIColor colorWithRed:255/255.0f green:225/255.0f blue:2/255.0f alpha:1.0f]CGColor]];
-    [self.tutorialImage.layer setBorderWidth:2.0f];
+    [self.backgroundTextView.layer setCornerRadius:15.0f];
     self.tutorialImage.image = [UIImage imageNamed: @"111.png"];
-    self.tutorialText.text = [_tutorialTexts objectAtIndex:0];
+    self.tutorialText.text = NSLocalizedString([_tutorialTexts objectAtIndex:0], nil);
     UISwipeGestureRecognizer *gestureRecognizerToLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(proceed:)];
     [gestureRecognizerToLeft setDirection:(UISwipeGestureRecognizerDirectionLeft)];
     [self.view addGestureRecognizer:gestureRecognizerToLeft];
@@ -67,7 +58,7 @@
     if (countGestures > [_tutorialImages count]) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
-    self.tutorialText.text =[_tutorialTexts objectAtIndex:countGestures];
+    self.tutorialText.text = NSLocalizedString([_tutorialTexts objectAtIndex:countGestures], nil);
     }
 }
 
@@ -79,7 +70,7 @@
     } else {
         countGestures++;
         [self swipeEffect:[UIImage imageNamed:[_tutorialImages objectAtIndex:countGestures]] :kCATransitionFromRight];
-        self.tutorialText.text =[_tutorialTexts objectAtIndex:countGestures];
+        self.tutorialText.text = NSLocalizedString([_tutorialTexts objectAtIndex:countGestures], nil);
     }
 }
 
@@ -91,7 +82,7 @@
   } else {
       countGestures--;
       [self swipeEffect:[UIImage imageNamed:[_tutorialImages objectAtIndex:countGestures]] :kCATransitionFromLeft];
-      self.tutorialText.text = [_tutorialTexts objectAtIndex:countGestures];
+      self.tutorialText.text = NSLocalizedString([_tutorialTexts objectAtIndex:countGestures], nil);
   }
 
 }

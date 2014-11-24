@@ -125,7 +125,7 @@
 - (IBAction)cancelButtonPressed:(id)sender {
     self.raceObject [@"selectedToParticipate"] = @NO;
     [self.raceObject saveInBackground];
-    [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
+    //[[UIApplication sharedApplication] cancelLocalNotification:localNotification];
     [self.participateButton setHidden:NO];
 }
 

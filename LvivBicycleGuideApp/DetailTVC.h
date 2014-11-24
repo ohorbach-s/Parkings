@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "AAShareBubbles.h"
 #import "SNSNetworkFactory.h"
+#import "PlaceDetailInfo.h"
 
 @interface DetailTVC : UITableViewController<GMSMapViewDelegate, AAShareBubblesDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) id<SNSSocialNetwork,VKSdkDelegate> some;
+@property (strong, nonatomic) PlaceDetailInfo *sentDetails;
 
 @end

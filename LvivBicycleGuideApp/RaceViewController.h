@@ -22,6 +22,6 @@
 @property (nonatomic,strong)RaceDetail *raceDeteailInView;
 @property (nonatomic, strong)PFObject *raceObject;
 
--(void)passRaceDetail:(RaceDetail*)raceDetail :(NSDate*)dateOfevent;
+//-(void)passRaceDetail:(RaceDetail*)raceDetail :(NSDate*)dateOfevent;
 
 @end

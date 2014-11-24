@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SWRevealViewController.h"
-#import "PlaceCategories.h"
-#import "RoutePoints.h"
-#import "PlaceCategory.h"
 #import "DataModel.h"
 
 @interface SlideMenuControllerViewController : UIViewController

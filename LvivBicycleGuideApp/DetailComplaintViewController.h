@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CurrentComplaint.h"
+
 
 @interface DetailComplaintViewController : UIViewController
 

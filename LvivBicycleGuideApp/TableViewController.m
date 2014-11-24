@@ -10,14 +10,13 @@
 #import "SWRevealViewController.h"
 #import "TableViewCell.h"
 #import "SlideMenuControllerViewController.h"
-#import "RoutePoints.h"
 #import "DirectionAndDistance.h"
 #import "PlaceCategories.h"
+#import "DetailTVC.h"
 
 @interface TableViewController ()
 {
     DataModel *dataModel;
-    RoutePoints *routePoints;
     NSMutableArray *cells;
     NSMutableArray *distances;
 }
@@ -32,7 +31,6 @@
 {
     [super viewDidLoad];
     dataModel = [DataModel sharedModel];
-    routePoints = [RoutePoints sharedManager];
     [self setAppearance];
 }
 //passing data to detail subview
@@ -42,10 +40,8 @@
     dataModel = [DataModel sharedModel];
     cells = [[NSMutableArray alloc] init];
     distances = [[NSMutableArray alloc] init];
-    [distances removeAllObjects];
-    [cells removeAllObjects];
-    for (NSString *tag in dataModel.onTags) {
-        for (PFObject *object in [dataModel.arrangedPlaces valueForKey:tag]) {
+        for (NSString *tag in dataModel.onTags) {
+        for (PFObject *object in [dataModel.arrangedEnglishPlaces valueForKey:tag]) {
             [cells addObject:object];
         }
         if ([dataModel.arrangedDistances count]) {
@@ -89,6 +85,7 @@
 {
     PFObject *object = [cells objectAtIndex:indexPath.row];
     [dataModel findObjectForTappedRow:object];
+    //[self performSegueWithIdentifier:@"GoToDetaisFromTable" sender:c];
 }
 
 - (void)didReceiveMemoryWarning
@@ -151,12 +148,20 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
 }
-//displaying detail subview
-- (IBAction)pressInfoButton:(UIButton *)sender
+
+
+//go to Complaints
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    PFObject *object = [cells objectAtIndex:sender.tag];
-    [dataModel findObjectForTappedRow:object];
+    if ([segue.identifier isEqualToString:@"GoToDetaisFromTable"])
+    {
+        UINavigationController *navigationController =segue.destinationViewController;
+        
+        DetailTVC *datail =[[navigationController viewControllers] objectAtIndex:0];
+        datail.sentDetails = dataModel.infoForMarker;
+    }
 }
+
 
 -(void) dealloc
 {

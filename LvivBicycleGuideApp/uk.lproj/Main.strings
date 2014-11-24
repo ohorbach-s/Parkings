@@ -1,84 +1,204 @@
 
-/* Class = "IBUILabel"; text = "Supermarkets with bicycle parkings"; ObjectID = "0Ck-C2-uRB"; */
-"0Ck-C2-uRB.text" = "Супермаркети з велопарковкою";
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "17n-gF-7NF"; */
+"17n-gF-7NF.text" = "Label";
 
-/* Class = "IBUILabel"; text = "Address:"; ObjectID = "13b-rc-Gls"; */
-"13b-rc-Gls.text" = "Адреса:";
+/* Class = "IBUILabel"; text = "Address"; ObjectID = "1B5-wc-Pbr"; */
+"1B5-wc-Pbr.text" = "Адреса";
 
-/* Class = "IBUILabel"; text = "Find me"; ObjectID = "5hl-lY-A0w"; */
-"5hl-lY-A0w.text" = "Find me";
+/* Class = "IBUILabel"; text = "Date"; ObjectID = "1a6-7o-xVF"; */
+"1a6-7o-xVF.text" = "Дата";
 
-/* Class = "IBUILabel"; text = "Name:"; ObjectID = "Ccm-xz-Qlw"; */
-"Ccm-xz-Qlw.text" = "Назва:";
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "2CZ-XG-039"; */
+"2CZ-XG-039.normalTitle" = "Button";
 
-/* Class = "IBUILabel"; text = "Велокафе"; ObjectID = "DUw-A7-CuG"; */
-"DUw-A7-CuG.text" = "Велокафе";
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "2Gt-bg-Yx5"; */
+"2Gt-bg-Yx5.title" = "Меню";
 
-/* Class = "IBUITabBarItem"; title = "Table"; ObjectID = "Eug-6w-U0M"; */
-"Eug-6w-U0M.title" = "Таблиця";
+/* Class = "IBUILabel"; text = "Model"; ObjectID = "3Jf-55-dC1"; */
+"3Jf-55-dC1.text" = "Model";
 
-/* Class = "IBUILabel"; text = "Address:"; ObjectID = "HDT-Fh-U4X"; */
-"HDT-Fh-U4X.text" = "Адреса:";
+/* Class = "IBUIButton"; normalTitle = "Post"; ObjectID = "4ar-5A-AmI"; */
+"4ar-5A-AmI.normalTitle" = "";
 
-/* Class = "IBUITabBarItem"; title = "Map"; ObjectID = "J1P-PE-lzM"; */
-"J1P-PE-lzM.title" = "Карта";
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "52T-TZ-lpy"; */
+"52T-TZ-lpy.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 
-/* Class = "IBUILabel"; text = "Велокафе"; ObjectID = "JYo-HK-NRZ"; */
-"JYo-HK-NRZ.text" = "Велокафе";
+/* Class = "IBUIBarButtonItem"; title = "Post"; ObjectID = "5N3-TR-Gwb"; */
+"5N3-TR-Gwb.title" = "";
 
-/* Class = "IBUILabel"; text = "Supermarkets"; ObjectID = "Knq-3c-Q4H"; */
-"Knq-3c-Q4H.text" = "Супермаркети";
+/* Class = "IBUILabel"; text = "Complaint text"; ObjectID = "5bo-TM-mhX"; */
+"5bo-TM-mhX.text" = "Complaint text";
 
-/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "Kyz-Bx-YLy"; */
-"Kyz-Bx-YLy.title" = "Меню";
+/* Class = "IBUILabel"; text = "Speed"; ObjectID = "5ea-us-zbO"; */
+"5ea-us-zbO.text" = "Speed";
 
-/* Class = "IBUILabel"; text = "Name:"; ObjectID = "NGl-fI-4no"; */
-"NGl-fI-4no.text" = "Назва:";
+/* Class = "IBUIButton"; normalTitle = "Post"; ObjectID = "5kH-GQ-k7E"; */
+"5kH-GQ-k7E.normalTitle" = "";
 
-/* Class = "IBUILabel"; text = "Parkings"; ObjectID = "Nha-ch-Cvs"; */
-"Nha-ch-Cvs.text" = "Паркінги";
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "67C-nJ-MzK"; */
+"67C-nJ-MzK.text" = "Description";
 
-/* Class = "IBUILabel"; text = "Cafes with bicycle parking"; ObjectID = "O5S-xY-PsT"; */
-"O5S-xY-PsT.text" = "Кафе з велопарковкою";
+/* Class = "IBUIButton"; normalTitle = "Save"; ObjectID = "6EJ-cy-6gZ"; */
+"6EJ-cy-6gZ.normalTitle" = "Зберегти";
 
-/* Class = "IBUILabel"; text = "Name"; ObjectID = "RdI-qk-CqY"; */
-"RdI-qk-CqY.text" = "Name";
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "7Pv-rN-uQL"; */
+"7Pv-rN-uQL.normalTitle" = "Button";
 
-/* Class = "IBUILabel"; text = "Services"; ObjectID = "Sf3-pc-fTE"; */
-"Sf3-pc-fTE.text" = "Сервіси";
+/* Class = "IBUILabel"; text = "Place Address"; ObjectID = "7te-Qt-eUC"; */
+"7te-Qt-eUC.text" = "Place Address";
 
-/* Class = "IBUILabel"; text = "Name"; ObjectID = "UIg-AM-yTG"; */
-"UIg-AM-yTG.text" = "Name";
+/* Class = "IBUITabBarItem"; title = "Map"; ObjectID = "86M-bp-bOg"; */
+"86M-bp-bOg.title" = "Карта";
 
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "WTb-p1-ycm"; */
-"WTb-p1-ycm.normalTitle" = "Button";
+/* Class = "IBUILabel"; text = "Place"; ObjectID = "A4G-oU-AH1"; */
+"A4G-oU-AH1.text" = "Місце";
 
-/* Class = "IBUILabel"; text = "Bicycle shops, rental, repair and other services"; ObjectID = "Xcs-CA-TnS"; */
-"Xcs-CA-TnS.text" = "Веломагазини, прокат, ремонт та інші послуги";
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "AHJ-Y2-OgV"; */
+"AHJ-Y2-OgV.text" = "Description";
 
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "aQI-5K-saF"; */
-"aQI-5K-saF.text" = "Label";
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "DQX-xy-CGL"; */
+"DQX-xy-CGL.title" = "Меню";
 
-/* Class = "IBUILabel"; text = "Дудаєва, 7"; ObjectID = "lko-9g-q5N"; */
-"lko-9g-q5N.text" = "Дудаєва, 7";
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Di1-Uo-pub"; */
+"Di1-Uo-pub.text" = "Label";
 
-/* Class = "IBUILabel"; text = "Places, where you can park your bicycle"; ObjectID = "mIr-Yp-Awn"; */
-"mIr-Yp-Awn.text" = "Місця, де можна припаркувати велосипед";
+/* Class = "IBUIButton"; normalTitle = "Set Route"; ObjectID = "FKV-Mr-fKa"; */
+"FKV-Mr-fKa.normalTitle" = "Встановити маршрут";
 
-/* Class = "IBUITextView"; text = "Here will be deskription text"; ObjectID = "mXb-vX-hqr"; */
-"mXb-vX-hqr.text" = "Here will be deskription text";
+/* Class = "IBUILabel"; text = " - Displaying bicycle lines"; ObjectID = "FRn-0u-qYw"; */
+"FRn-0u-qYw.text" = " - Displaying bicycle lines";
 
-/* Class = "IBUILabel"; text = "Дудаєва, 7"; ObjectID = "pH6-jF-4UL"; */
-"pH6-jF-4UL.text" = "Дудаєва, 7";
+/* Class = "IBUIButton"; normalTitle = "GO"; ObjectID = "HL3-3V-IMR"; */
+"HL3-3V-IMR.normalTitle" = "GO";
 
-/* Class = "IBUITextView"; text = "Here will be deskription text"; ObjectID = "qg9-zG-Yye"; */
-"qg9-zG-Yye.text" = "Here will be deskription text";
+/* Class = "IBUITabBarItem"; title = "Table"; ObjectID = "JC8-qh-O48"; */
+"JC8-qh-O48.title" = "Таблиця";
 
-/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "vxO-SF-o9n"; */
-"vxO-SF-o9n.title" = "Меню";
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "KEr-5m-Wmi"; */
+"KEr-5m-Wmi.text" = "Назва";
 
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "xlc-at-9ke"; */
-"xlc-at-9ke.normalTitle" = "Button";
+/* Class = "IBUILabel"; text = "The venue"; ObjectID = "KOB-yn-y3Z"; */
+"KOB-yn-y3Z.text" = "Місце збору";
 
-/* Class = "IBUILabel"; text = "Cafes"; ObjectID = "yA4-eF-LjQ"; */
-"yA4-eF-LjQ.text" = "Кафе";
+/* Class = "IBUILabel"; text = "Date"; ObjectID = "LaG-G8-t6J"; */
+"LaG-G8-t6J.text" = "Дата";
+
+/* Class = "IBUILabel"; text = "Write a complaint"; ObjectID = "Lea-vT-3KT"; */
+"Lea-vT-3KT.text" = "Write a complaint";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "Lfb-nu-clN"; */
+"Lfb-nu-clN.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "N4B-BH-7Id"; */
+"N4B-BH-7Id.text" = "Label";
+
+/* Class = "IBUIBarButtonItem"; title = "Save"; ObjectID = "NGx-7F-a9l"; */
+"NGx-7F-a9l.title" = "Зберегти";
+
+/* Class = "IBUILabel"; text = "Date"; ObjectID = "P3s-XR-LOf"; */
+"P3s-XR-LOf.text" = "Дата";
+
+/* Class = "IBUIBarButtonItem"; title = "Clear"; ObjectID = "Pji-GP-qvv"; */
+"Pji-GP-qvv.title" = "Забрати";
+
+/* Class = "IBUILabel"; text = "Model"; ObjectID = "PpY-zv-TpT"; */
+"PpY-zv-TpT.text" = "Model";
+
+/* Class = "IBUILabel"; text = "Name:"; ObjectID = "RdW-c6-JDg"; */
+"RdW-c6-JDg.text" = "Назва:";
+
+/* Class = "IBUIButton"; normalTitle = "Edit"; ObjectID = "RpD-hJ-nFt"; */
+"RpD-hJ-nFt.normalTitle" = "Edit";
+
+/* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "TXm-gS-yeR"; */
+"TXm-gS-yeR.normalTitle" = "Delete";
+
+/* Class = "IBUIButton"; normalTitle = "Select photo"; ObjectID = "Tg6-iC-TWi"; */
+"Tg6-iC-TWi.normalTitle" = "Select photo";
+
+/* Class = "IBUILabel"; text = "Address"; ObjectID = "UfX-ft-mhQ"; */
+"UfX-ft-mhQ.text" = "Адреса";
+
+/* Class = "IBUIBarButtonItem"; title = "Save"; ObjectID = "Ulq-h6-Wrz"; */
+"Ulq-h6-Wrz.title" = "Зберегти";
+
+/* Class = "IBUILabel"; text = "Than fill in uor stolen bikes data base"; ObjectID = "VXR-mf-Ise"; */
+"VXR-mf-Ise.text" = "Than fill in uor stolen bikes data base";
+
+/* Class = "IBUIBarButtonItem"; title = "Item"; ObjectID = "Wmb-kk-Ida"; */
+"Wmb-kk-Ida.title" = "Item";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "af9-pQ-Itl"; */
+"af9-pQ-Itl.normalTitle" = "Відмінити";
+
+/* Class = "IBUIBarButtonItem"; title = "Cancel"; ObjectID = "agQ-NC-sTC"; */
+"agQ-NC-sTC.title" = "Відмінити";
+
+/* Class = "IBUILabel"; text = "Subject"; ObjectID = "alJ-6l-2Rg"; */
+"alJ-6l-2Rg.text" = "Subject";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "bc2-34-34X"; */
+"bc2-34-34X.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Address:"; ObjectID = "chI-YP-Ofd"; */
+"chI-YP-Ofd.text" = "Адреса:";
+
+/* Class = "IBUIViewController"; title = "TutorialView"; ObjectID = "dDv-lc-0uT"; */
+"dDv-lc-0uT.title" = "TutorialView";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "e2P-qm-8ay"; */
+"e2P-qm-8ay.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "fSa-L0-j5X"; */
+"fSa-L0-j5X.text" = "Label";
+
+/* Class = "IBUILabel"; text = "00.00.2014"; ObjectID = "g9M-pg-2ri"; */
+"g9M-pg-2ri.text" = "00.00.2014";
+
+/* Class = "IBUITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "hkB-WO-27D"; */
+"hkB-WO-27D.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "IBUILabel"; text = "Time"; ObjectID = "iHx-U5-bS8"; */
+"iHx-U5-bS8.text" = "Час";
+
+/* Class = "IBUILabel"; text = "First of all CALL THE POLICE - 102"; ObjectID = "im1-EO-3ba"; */
+"im1-EO-3ba.text" = "First of all CALL THE POLICE - 102";
+
+/* Class = "IBUIButton"; normalTitle = "X"; ObjectID = "jk9-Tk-uIX"; */
+"jk9-Tk-uIX.normalTitle" = "X";
+
+/* Class = "IBUIButton"; normalTitle = "Start"; ObjectID = "jqp-C6-b1o"; */
+"jqp-C6-b1o.normalTitle" = "Старт";
+
+/* Class = "IBUIBarButtonItem"; title = "Post"; ObjectID = "lU5-Xx-VRG"; */
+"lU5-Xx-VRG.title" = "";
+
+/* Class = "IBUIButton"; normalTitle = "Participate"; ObjectID = "n7Y-A0-oc3"; */
+"n7Y-A0-oc3.normalTitle" = "Participate";
+
+/* Class = "IBUILabel"; text = "Place Name"; ObjectID = "pEX-5S-eor"; */
+"pEX-5S-eor.text" = "Назва місця";
+
+/* Class = "IBUILabel"; text = "Model"; ObjectID = "q8D-u9-fhj"; */
+"q8D-u9-fhj.text" = "Model";
+
+/* Class = "IBUILabel"; text = "The route"; ObjectID = "rBK-vM-dLg"; */
+"rBK-vM-dLg.text" = "Маршрут";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "vKY-th-g4z"; */
+"vKY-th-g4z.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Name
+ 
+ 
+ "; ObjectID = "vNC-3m-Nio"; */
+"vNC-3m-Nio.text" = "Назва";
+
+/* Class = "IBUIButton"; normalTitle = "Pause"; ObjectID = "vat-aP-HeL"; */
+"vat-aP-HeL.normalTitle" = "Pause";
+
+/* Class = "IBUILabel"; text = "So, Your bike is stolen... What to do?"; ObjectID = "yBo-5Z-toX"; */
+"yBo-5Z-toX.text" = "So, Your bike is stolen... What to do?";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "yHw-fV-DsW"; */
+"yHw-fV-DsW.text" = "Title";

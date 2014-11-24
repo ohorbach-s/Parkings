@@ -23,8 +23,8 @@
 //        [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:composeController animated:YES completion:nil];
     }else
     {
-        UIAlertView* allertView=[[UIAlertView alloc] initWithTitle:@"Error login accaunt"
-                                                           message:@"Please log in"
+        UIAlertView* allertView=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error login accaunt", nil)
+                                                           message:NSLocalizedString(@"Please log in", nil)
                                                           delegate:nil
                                                  cancelButtonTitle:@"OK"
                                                  otherButtonTitles:nil, nil];

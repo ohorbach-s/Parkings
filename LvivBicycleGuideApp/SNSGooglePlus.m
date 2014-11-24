@@ -7,8 +7,6 @@
 //
 
 #import "SNSGooglePlus.h"
-//#import "SNSPostData.h"
-//#import "SNSAppDelegate.h"
 #import "AppDelegate.h"
 #import <GoogleOpenSource/GoogleOpenSource.h>
 #import <GooglePlus/GooglePlus.h>
@@ -59,12 +57,8 @@ static NSString * const kClientId = @"597787714490-5ja44i80t83qaut0cop24ur15a3q8
     }
 }
 
-// Share Code
-
-
-
-- (void) share {
-       // NSLog(@"in share %@",self);
+- (void) share:(id)sender {
+    
     if(!self.authorised)
     {
         NSLog(@"before call SignInButtonSimulated %@",self);
