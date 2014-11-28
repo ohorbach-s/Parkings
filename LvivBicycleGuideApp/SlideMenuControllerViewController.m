@@ -45,7 +45,7 @@
     [self setAppearance];
     dataModel = [DataModel sharedModel];
     [self createButtons];
-    [self parkAction];
+        //[self parkAction];
 }
 
 -(void)createButtons
@@ -60,6 +60,11 @@
     [parkButton setBackgroundImage:[UIImage imageNamed:@"parking2.png"] forState:UIControlStateNormal];
     [parkButton addTarget:self action:@selector(parkAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:parkButton];
+    [parkButton setAlpha:0.7f];
+    [parkButton.layer setShadowColor:[[UIColor whiteColor] CGColor]];
+    [parkButton.layer setBounds:CGRectMake(parkButton.layer.position.x, parkButton.layer.position.y, 105.0, 105.0)];
+    [buttons addObject:parkButton];
+    isParkingActive = YES;
     
     shopButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     shopButton.backgroundColor = [UIColor colorWithRed:11/255.0f green:147/255.0f blue:29/255.0f alpha:1.0f];

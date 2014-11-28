@@ -74,7 +74,7 @@ static NSString *appLauchKey = @"HasLaunchedOnce";
     [self displayLines];
     [self.markLabel setHidden:YES];
     [_locationManager startUpdatingLocation];
-    [dataModel changeCategory:0];
+    //[dataModel changeCategory:0];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fillSubview:)
                                                  name:@"fillSubviewOfMap" object:nil];
